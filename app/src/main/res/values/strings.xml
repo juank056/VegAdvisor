@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">VegAdvisor</string>
+    <string name="action_settings">Configuración</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="saltar_inicio">Saltar Inicio de Sesión</string>
+    <string name="title_activity_inicio_sesion">InicioSesionActivity</string>
+    <string name="title_activity_registro">RegistroActivity</string>
+    <string name="title_activity_menu_principal">MenuPrincipalActivity</string>
+</resources>
