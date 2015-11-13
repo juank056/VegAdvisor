@@ -46,6 +46,18 @@ public class SessionData {
      */
     private String userPasswd;
 
+
+    /**
+     * Pais del usuario
+     */
+
+    private String userCountry;
+
+    /**
+     * Ciudad del usuario
+     */
+    private String userCity;
+
     /**
      * Conector para ejecutar métodos en el servidor
      */
@@ -167,6 +179,42 @@ public class SessionData {
      */
     public void setUserPasswd(String userPasswd) {
         this.userPasswd = userPasswd;
+    }
+
+    /**
+     * Asigna el pais del usuario
+     *
+     * @return Pais del usuario
+     */
+    public String getUserCountry() {
+        return userCountry;
+    }
+
+    /**
+     * Asigna Pais del usuario
+     *
+     * @param userCountry Pais del usuario
+     */
+    public void setUserCountry(String userCountry) {
+        this.userCountry = userCountry;
+    }
+
+    /**
+     * Obtiene ciudad del usuario
+     *
+     * @return Ciudad del usuario
+     */
+    public String getUserCity() {
+        return userCity;
+    }
+
+    /**
+     * Asigna ciudad del usuario
+     *
+     * @param userCity Ciudad del usuario
+     */
+    public void setUserCity(String userCity) {
+        this.userCity = userCity;
     }
 
     /*************************

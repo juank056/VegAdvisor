@@ -7,4 +7,6 @@
     <string name="title_activity_inicio_sesion">InicioSesionActivity</string>
     <string name="title_activity_registro">RegistroActivity</string>
     <string name="title_activity_menu_principal">MenuPrincipalActivity</string>
+    <string name="error_conexion">Error de Conexión!</string>
+    <string name="error_inicio_sesion">Nombre de Usuario o Contraseña inválido</string>
 </resources>

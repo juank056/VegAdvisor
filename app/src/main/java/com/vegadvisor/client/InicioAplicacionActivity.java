@@ -1,6 +1,7 @@
 package com.vegadvisor.client;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -92,8 +93,12 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
             SessionData.getInstance().setUser(true);
             SessionData.getInstance().setUserId(userId);
             SessionData.getInstance().setUserPasswd(passwd);
+            //Parámetros de llamado al servicio
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("userId", userId);
+            params.put("password", passwd);
             //Valida usuario y contraseña en el servidor
-            //Crea intent para navegar al menú principal
+            SessionData.getInstance().executeServiceRV(getResources().getString(R.string.user_validateUser), params);
         }
     }
 
@@ -126,19 +131,26 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
      */
     @Override
     public void onClick(View v) {
+        //Intent de navegación
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.b1: /*Iniciar sesión*/
                 //Crea intent para ir al inicio de la sesion
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", "jmesa");
-                params.put("password", "jmesa");
-                SessionData.getInstance().executeServiceRV(getResources().getString(R.string.user_validateUser), params);
+                intent = new Intent(InicioAplicacionActivity.this, InicioSesionActivity.class);
+                //Navega
+                startActivity(intent);
                 break;
             case R.id.b2: /*Registrarse*/
                 //Crea intent para ir al registro de un nuevo usuario
+                intent = new Intent(InicioAplicacionActivity.this, RegistroActivity.class);
+                //Navega
+                startActivity(intent);
                 break;
             case R.id.t1: /*Saltar inicio de sesión*/
                 //Crea intent para ir directamente al menu como invitado
+                intent = new Intent(InicioAplicacionActivity.this, MenuPrincipalActivity.class);
+                //Navega
+                startActivity(intent);
                 break;
         }
     }
@@ -154,7 +166,31 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Revisa el resultado obtenido
+                if (result == null) {/*No llegó respuesta*/
+                    //Muestra mensaje de error de conexión
+                    Toast.makeText(getApplicationContext(), R.string.error_conexion, Toast.LENGTH_SHORT).show();
+                } else {/*Llegó resultado*/
+                    //Pregunta por servicio ejecutado
+                    if (service.equals(getResources().getString(R.string.user_validateUser))) {
+                        //Revisa respuesta
+                        if (Constants.ZERO.equals(result.getValidationInd())) {/*Error iniciando sesión*/
+                            Toast.makeText(getApplicationContext(), R.string.error_inicio_sesion, Toast.LENGTH_SHORT).show();
+                        } else {/*Sesión iniciada correctamente*/
+                            //Existe un usuario en sesion
+                            SessionData.getInstance().setUser(true);
+                            //Asigna pais y ciudad del usuario
+                            SessionData.getInstance().setUserCountry(result.getParams().get(Constants.USER_COUNTRY));
+                            SessionData.getInstance().setUserCity(result.getParams().get(Constants.USER_CITY));
+                            //Crea intent para ir al menú principal
+                            Intent intent = new Intent(InicioAplicacionActivity.this, MenuPrincipalActivity.class);
+                            //Navega
+                            startActivity(intent);
+                            //Termina esta actividad
+                            finish();
+                        }
+                    }
+                }
             }
         });
     }
