@@ -9,4 +9,7 @@
     <string name="title_activity_menu_principal">MenuPrincipalActivity</string>
     <string name="error_conexion">Error de Conexión!</string>
     <string name="error_inicio_sesion">Nombre de Usuario o Contraseña inválido</string>
+    <string name="id_usuario">Id Usuario</string>
+    <string name="passwd">Contraseña</string>
+    <string name="enviar">Enviar</string>
 </resources>

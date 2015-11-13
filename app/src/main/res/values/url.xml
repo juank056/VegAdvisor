@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--URLs ruta de servicios rest servidor de aplicaciones -->
-    <item name="server_path" type="string">http://192.168.1.34:8080/VegAdvisor_Server/rest</item>
+    <item name="server_path" type="string">http://52.18.255.10/VegAdvisor_Server/rest</item>
     <!--URLs para servicios de usuarios -->
     <item name="user_validateUser" type="string">/user/validateUser</item>
     <item name="user_createUser" type="string">/user/createUser</item>

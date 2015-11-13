@@ -1,36 +1,49 @@
 package com.vegadvisor.client;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class InicioSesionActivity extends VegAdvisorActivity {
+public class InicioSesionActivity extends VegAdvisorActivity implements View.OnClickListener {
 
+    /**
+     * Campos de texto
+     */
+    private EditText userId, passwd;
+
+
+    /**
+     * Inicia actividad
+     *
+     * @param savedInstanceState Instancia salvada
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Botones
+        findViewById(R.id.b1).setOnClickListener(this);
+        //Obtiene campos de texto
+        userId = (EditText) findViewById(R.id.userid);
+        passwd = (EditText) findViewById(R.id.passwd);
     }
 
     /**
@@ -44,7 +57,44 @@ public class InicioSesionActivity extends VegAdvisorActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Revisa el resultado obtenido
+                if (result == null) {/*No llegó respuesta*/
+                    //Muestra mensaje de error de conexión
+                    Toast.makeText(getApplicationContext(), R.string.error_conexion, Toast.LENGTH_SHORT).show();
+                } else {/*Llegó resultado*/
+                    //Pregunta por servicio ejecutado
+                    if (service.equals(getResources().getString(R.string.user_validateUser))) {
+                        //Revisa respuesta
+                        if (Constants.ZERO.equals(result.getValidationInd())) {/*Error iniciando sesión*/
+                            Toast.makeText(getApplicationContext(), R.string.error_inicio_sesion, Toast.LENGTH_SHORT).show();
+                        } else {/*Sesión iniciada correctamente*/
+                            //Existe un usuario en sesion
+                            SessionData.getInstance().setUser(true);
+                            //Nombre de usuario y contraseña
+                            SessionData.getInstance().setUserId(userId.getText().toString());
+                            SessionData.getInstance().setUserId(passwd.getText().toString());
+                            //Asigna pais y ciudad del usuario
+                            SessionData.getInstance().setUserCountry(result.getParams().get(Constants.USER_COUNTRY));
+                            SessionData.getInstance().setUserCity(result.getParams().get(Constants.USER_CITY));
+                            //Guarda datos del usuario en las preferencias del sistema
+                            //Obtiene shared Preferences
+                            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                            //Obtiene editor
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            //Ingresa nuevo valor
+                            editor.putString(Constants.USERID_PREFERENCE, userId.getText().toString());
+                            editor.putString(Constants.PASSWD_PREFERENCE, passwd.getText().toString());
+                            //Commit del valor nuevo
+                            editor.commit();
+                            //Crea intent para ir al menú principal
+                            Intent intent = new Intent(InicioSesionActivity.this, MenuPrincipalActivity.class);
+                            //Navega
+                            startActivity(intent);
+                            //Termina esta actividad
+                            finish();
+                        }
+                    }
+                }
             }
         });
     }
@@ -65,4 +115,24 @@ public class InicioSesionActivity extends VegAdvisorActivity {
         });
     }
 
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        //Revisa caso
+        switch (v.getId()) {
+            case R.id.b1: /*Enviar para iniciar sesión*/
+                //Ejecuta llamado a inicio de sesion
+                //Parámetros de llamado al servicio
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userId", userId.getText().toString());
+                params.put("password", passwd.getText().toString());
+                //Valida usuario y contraseña en el servidor
+                SessionData.getInstance().executeServiceRV(getResources().getString(R.string.user_validateUser), params);
+                break;
+        }
+    }
 }
