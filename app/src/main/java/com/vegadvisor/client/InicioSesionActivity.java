@@ -3,6 +3,7 @@ package com.vegadvisor.client;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,7 +15,6 @@ import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,7 +143,7 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
      * @param result    Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final InputStream result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

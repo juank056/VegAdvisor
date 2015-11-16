@@ -1,5 +1,6 @@
 package com.vegadvisor.client.util;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.vegadvisor.client.bo.ReturnValidation;
@@ -320,7 +321,7 @@ public class SessionData {
                     break;
                 case 3: /*Imagen*/
                     //Ejecuta servicio del server connector
-                    InputStream responseImage = serverConnector.executeServiceImage(service, parameters);
+                    Bitmap responseImage = serverConnector.executeServiceImage(service, parameters);
                     //Notifica a la actividad para que haga algo con la respuesta
                     activity.receiveServerCallResult(serviceId, service, responseImage);
                     break;

@@ -1,18 +1,14 @@
 package com.vegadvisor.client;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.io.InputStream;
 import java.util.List;
 
 public class RegistroActivity extends VegAdvisorActivity {
@@ -33,7 +29,7 @@ public class RegistroActivity extends VegAdvisorActivity {
      * @param result  Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final int serviceId,final String service, final ReturnValidation result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -49,7 +45,7 @@ public class RegistroActivity extends VegAdvisorActivity {
      * @param result  Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final int serviceId,final String service, final List<?> result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -66,7 +62,7 @@ public class RegistroActivity extends VegAdvisorActivity {
      * @param result    Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final InputStream result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

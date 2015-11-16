@@ -1,11 +1,11 @@
 package com.vegadvisor.client.util;
 
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -49,5 +49,5 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param service   Servicio que se ha llamado
      * @param result    Resultado de la ejecución
      */
-    public abstract void receiveServerCallResult(final int serviceId, final String service, final InputStream result);
+    public abstract void receiveServerCallResult(final int serviceId, final String service, final Bitmap result);
 }

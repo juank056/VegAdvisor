@@ -1,5 +1,7 @@
 package com.vegadvisor.client.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -123,19 +125,21 @@ public class ServerConnector {
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      * @return Input Stream de la imagen obtenida
      */
-    public InputStream executeServiceImage(String service, Map<String, String> parameters) {
+    public Bitmap executeServiceImage(String service, Map<String, String> parameters) {
         Log.d(Constants.DEBUG, "Ejecutando Servicio: " + server + service);
         try {
+            InputStream response;
             //Revisa si es cloud front o el servidor directamente
             if (usingCloudFront) {/*Cloud Front*/
                 //Ruta de imagen
                 String imageUrl = cloudFrontPath + parameters.get(Constants.IMAGE_KEY);
                 //URL de llamado
                 URL url = new URL(imageUrl);
+                Log.d(Constants.DEBUG, "Obteniendo imagen de : " + imageUrl);
                 //Conexion con el servidor
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 //Retorna input stream
-                connection.getInputStream();
+                response = connection.getInputStream();
             } else {/*Servidor normal*/
                 //Cliente http
                 HttpClient httpClient = new HttpClient();
@@ -148,9 +152,10 @@ public class ServerConnector {
                 //Ejecuta llamado
                 httpClient.executeMethod(postMethod);
                 //Retorna respuesta
-                postMethod.getResponseBodyAsStream();
+                response = postMethod.getResponseBodyAsStream();
             }
-            return null;
+            //Genera BitMap de la imagen
+            return BitmapFactory.decodeStream(response);
         } catch (Exception e) {/*Ocurrio un error*/
             e.printStackTrace();
             //Retorna null para que se trate el error en interfaz

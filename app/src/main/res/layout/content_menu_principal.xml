@@ -10,4 +10,8 @@
     tools:context="com.vegadvisor.client.MenuPrincipalActivity"
     tools:showIn="@layout/activity_menu_principal">
 
+    <ImageView
+        android:id="@+id/myimage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
