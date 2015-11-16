@@ -2,6 +2,7 @@
 <resources>
     <!--URLs ruta de servicios rest servidor de aplicaciones -->
     <item name="server_path" type="string">http://52.18.255.10/VegAdvisor_Server/rest</item>
+    <item name="use_cloud_front" type="string">true</item>
     <item name="cloud_front_path" type="string">http://d3sr8z6zbsxrla.cloudfront.net/</item>
     <!--URLs para servicios de usuarios -->
     <item name="user_validateUser" type="string">/user/validateUser</item>

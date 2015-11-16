@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -97,33 +98,49 @@ public class SessionData {
     /**
      * Inicia conectores
      *
-     * @param serverPath ruta del servidor
+     * @param usingCloudFront Indicador de si se usa cloud front o no para manejo de imagenes
+     * @param serverPath      ruta del servidor
+     * @param cloudFrontPath  Ruta del servidor cloud front
      */
-    public void initConnectors(String serverPath) {
+    public void initConnectors(String serverPath, boolean usingCloudFront, String cloudFrontPath) {
         //Conector
-        this.serverConnector = new ServerConnector(serverPath);
+        this.serverConnector = new ServerConnector(serverPath, usingCloudFront, cloudFrontPath);
     }
 
     /**
      * Método para ejecutar un servicio en el servidor que retorna Return Validation
      *
+     * @param serviceId  Id del servicio a ejecutar
      * @param service    Ruta del servicio a ejecutar
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      */
-    public void executeServiceRV(String service, Map<String, String> parameters) {
+    public void executeServiceRV(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(1, service, parameters));
+        threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters));
     }
 
     /**
      * Método para ejecutar un servicio en el servidor que retorna una lista de objetos
      *
+     * @param serviceId  Id del servicio a ejecutar
      * @param service    Ruta del servicio a ejecutar
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      */
-    public void executeServiceList(String service, Map<String, String> parameters) {
+    public void executeServiceList(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(2, service, parameters));
+        threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters));
+    }
+
+    /**
+     * Método para ejecutar un servicio en el servidor que retorna una imagen
+     *
+     * @param serviceId  Id del servicio a ejecutar
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     */
+    public void executeServiceImage(int serviceId, String service, Map<String, String> parameters) {
+        //Ejecuta llamada
+        threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters));
     }
 
 
@@ -245,6 +262,11 @@ public class SessionData {
     private class ConnectorExecutorService implements Runnable {
 
         /**
+         * Id del servicio
+         */
+        private int serviceId;
+
+        /**
          * Servicio a ejecutar
          */
         private String service;
@@ -264,12 +286,14 @@ public class SessionData {
         /**
          * Constructor del thread para ejecutar los servicios con el servidor
          *
+         * @param serviceId   Id del servicio
          * @param serviceType Tipo de servicio a llamar
          * @param service     Ruta del servicio
          * @param parameters  Parámetros de ejecución del servicio
          */
-        public ConnectorExecutorService(int serviceType, String service, Map<String, String> parameters) {
+        public ConnectorExecutorService(int serviceType, int serviceId, String service, Map<String, String> parameters) {
             //Asigna parámetros
+            this.serviceId = serviceId;
             this.serviceType = serviceType;
             this.service = service;
             this.parameters = parameters;
@@ -286,13 +310,19 @@ public class SessionData {
                     //Ejecuta servicio del server connector
                     ReturnValidation responseRV = serverConnector.executeServiceRV(service, parameters);
                     //Notifica a la actividad para que haga algo con la respuesta
-                    activity.receiveServerCallResult(service, responseRV);
+                    activity.receiveServerCallResult(serviceId, service, responseRV);
                     break;
                 case 2: /*Lista*/
                     //Ejecuta servicio del server connector
                     List<?> responseList = serverConnector.executeServiceList(service, parameters);
                     //Notifica a la actividad para que haga algo con la respuesta
-                    activity.receiveServerCallResult(service, responseList);
+                    activity.receiveServerCallResult(serviceId, service, responseList);
+                    break;
+                case 3: /*Imagen*/
+                    //Ejecuta servicio del server connector
+                    InputStream responseImage = serverConnector.executeServiceImage(service, parameters);
+                    //Notifica a la actividad para que haga algo con la respuesta
+                    activity.receiveServerCallResult(serviceId, service, responseImage);
                     break;
             }
             Log.d(Constants.DEBUG, "Finaliza ejecución servicio: " + service);

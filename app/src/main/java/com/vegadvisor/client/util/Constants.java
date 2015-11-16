@@ -237,4 +237,9 @@ public class Constants {
      * Debug
      */
     public static final String DEBUG = "DEBUG";
+
+    /**
+     * Llave de la imagen
+     */
+    public static final String IMAGE_KEY = "imagePath";
 }

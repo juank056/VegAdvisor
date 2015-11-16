@@ -1,17 +1,14 @@
 package com.vegadvisor.client;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Toast;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
+import java.io.InputStream;
 import java.util.List;
 
 public class MenuPrincipalActivity extends VegAdvisorActivity {
@@ -31,7 +28,7 @@ public class MenuPrincipalActivity extends VegAdvisorActivity {
      * @param result  Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final String service, final ReturnValidation result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -47,7 +44,24 @@ public class MenuPrincipalActivity extends VegAdvisorActivity {
      * @param result  Resultado de la ejecución
      */
     @Override
-    public void receiveServerCallResult(final String service, final List<?> result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Método para recibir y procesar la respuesta a un llamado al servidor
+     *
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    @Override
+    public void receiveServerCallResult(final int serviceId, final String service, final InputStream result) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
