@@ -6,7 +6,7 @@ package com.vegadvisor.client.util;
 import java.util.Random;
 
 /**
- * @author Juan Camilo Esta clase va a manejar todo lo relacionado con los
+ * @author Juan Camilo Esta clase va a manejar lo relacionado con los
  *         passwords
  */
 public class PasswordManager {
