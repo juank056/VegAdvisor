@@ -27,11 +27,11 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="5dp"/>
 
         <Button
             android:id="@+id/b1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right"
@@ -39,11 +39,11 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="10dp"/>
 
         <Button
             android:id="@+id/b2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right"
@@ -51,7 +51,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="2dp"/>
+            android:layout_height="40dp"/>
 
         <TextView
             android:id="@+id/t1"
@@ -60,7 +60,8 @@
             android:layout_gravity="right"
             android:gravity="right"
             android:linksClickable="true"
-            android:text="@string/saltar_inicio"/>
+            android:text="@string/saltar_inicio"
+            android:textSize="20dp"/>
 
     </LinearLayout>
 </LinearLayout>
