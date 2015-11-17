@@ -3,6 +3,7 @@ package com.vegadvisor.client.util;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 
@@ -27,11 +28,32 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     /**
      * Método para recibir y procesar la respuesta a un llamado al servidor
      *
-     * @param serviceId Id del servicio ejecutado
-     * @param service   Servicio que se ha llamado
-     * @param result    Resultado de la ejecución
+     * @param service Servicio que se ha llamado
+     * @param result  Resultado de la ejecución
      */
-    public abstract void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result);
+    public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    /**
+     * Método para recibir y procesar la respuesta a un llamado al servidor
+     *
+     * @param service Servicio que se ha llamado
+     * @param result  Resultado de la ejecución
+     */
+    public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     /**
      * Método para recibir y procesar la respuesta a un llamado al servidor
@@ -40,14 +62,12 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param service   Servicio que se ha llamado
      * @param result    Resultado de la ejecución
      */
-    public abstract void receiveServerCallResult(final int serviceId, final String service, final List<?> result);
-
-    /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param serviceId Id del servicio ejecutado
-     * @param service   Servicio que se ha llamado
-     * @param result    Resultado de la ejecución
-     */
-    public abstract void receiveServerCallResult(final int serviceId, final String service, final Bitmap result);
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

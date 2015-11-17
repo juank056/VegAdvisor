@@ -22,53 +22,5 @@ public class RegistroActivity extends VegAdvisorActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param service Servicio que se ha llamado
-     * @param result  Resultado de la ejecución
-     */
-    @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param service Servicio que se ha llamado
-     * @param result  Resultado de la ejecución
-     */
-    @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param serviceId Id del servicio ejecutado
-     * @param service   Servicio que se ha llamado
-     * @param result    Resultado de la ejecución
-     */
-    @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 }

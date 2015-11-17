@@ -20,7 +20,8 @@
         android:id="@+id/passwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/passwd"/>
+        android:hint="@string/passwd"
+        android:password="true"/>
 
     <Button
         android:id="@+id/b1"

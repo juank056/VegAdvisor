@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.PasswordManager;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
@@ -99,22 +100,6 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
     }
 
     /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param service Servicio que se ha llamado
-     * @param result  Resultado de la ejecución
-     */
-    @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
      * Called when a view has been clicked.
      *
      * @param v The view that was clicked.
@@ -128,27 +113,10 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
                 //Parámetros de llamado al servicio
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("userId", userId.getText().toString());
-                params.put("password", passwd.getText().toString());
+                params.put("password", PasswordManager.encryptPassword(passwd.getText().toString()));
                 //Valida usuario y contraseña en el servidor
                 SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_validateUser), params);
                 break;
         }
-    }
-
-    /**
-     * Método para recibir y procesar la respuesta a un llamado al servidor
-     *
-     * @param serviceId Id del servicio ejecutado
-     * @param service   Servicio que se ha llamado
-     * @param result    Resultado de la ejecución
-     */
-    @Override
-    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
