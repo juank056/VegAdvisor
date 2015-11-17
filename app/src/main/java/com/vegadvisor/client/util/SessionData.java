@@ -258,6 +258,17 @@ public class SessionData {
     }
 
     /**
+     * Limpia datos de la sesion
+     */
+    public void cleanData() {
+        this.user = false;
+        this.userId = null;
+        this.userPasswd = null;
+        this.userCity = null;
+        this.userCountry = null;
+    }
+
+    /**
      * Clase interna para ejecutar los llamados a los servicios del servidor
      */
     private class ConnectorExecutorService implements Runnable {

@@ -94,11 +94,9 @@ public class RegistroActivity extends VegAdvisorActivity implements View.OnClick
                         SessionData.getInstance().setUserCity(Constants.BLANKS);
                         //Crea intent para ir al menú principal
                         Intent intent = new Intent(RegistroActivity.this, MenuPrincipalActivity.class);
-                        //Termina esta actividad
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         //Navega
                         startActivity(intent);
-                        //finish();
+                        finish();
                     }
                 }
             }

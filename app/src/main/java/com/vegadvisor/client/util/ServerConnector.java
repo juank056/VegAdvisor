@@ -135,7 +135,6 @@ public class ServerConnector {
                 String imageUrl = cloudFrontPath + parameters.get(Constants.IMAGE_KEY);
                 //URL de llamado
                 URL url = new URL(imageUrl);
-                Log.d(Constants.DEBUG, "Obteniendo imagen de : " + imageUrl);
                 //Conexion con el servidor
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 //Retorna input stream

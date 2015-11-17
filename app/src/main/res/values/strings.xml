@@ -18,4 +18,13 @@
     <string name="passwdConfirm">Confirmar Contraseña</string>
     <string name="campoInvalido">Valor Inválido en Campo: </string>
     <string name="passwd_not_match">Las Contraseñas no Coinciden</string>
+    <string name="localizador">Localizador</string>
+    <string name="cercano_a_mi">Cercano a Mí</string>
+    <string name="mi_perfil">Mi Perfil</string>
+    <string name="eventos">Eventos</string>
+    <string name="foro">Foro</string>
+    <string name="chat">Chat</string>
+    <string name="mis_establecimientos">Mis Establecimientos</string>
+    <string name="contacto">Contacto</string>
+    <string name="salir">Salir</string>
 </resources>
