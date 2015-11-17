@@ -185,10 +185,11 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
                             SessionData.getInstance().setUserCity(result.getParams().get(Constants.USER_CITY));
                             //Crea intent para ir al menú principal
                             Intent intent = new Intent(InicioAplicacionActivity.this, MenuPrincipalActivity.class);
+                            //Termina esta actividad
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //Navega
                             startActivity(intent);
-                            //Termina esta actividad
-                            finish();
+                            //finish();
                         }
                     }
                 }

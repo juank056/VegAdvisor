@@ -12,4 +12,10 @@
     <string name="id_usuario">Id Usuario</string>
     <string name="passwd">Contraseña</string>
     <string name="enviar">Enviar</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="email">E-Mail</string>
+    <string name="passwdConfirm">Confirmar Contraseña</string>
+    <string name="campoInvalido">Valor Inválido en Campo: </string>
+    <string name="passwd_not_match">Las Contraseñas no Coinciden</string>
 </resources>

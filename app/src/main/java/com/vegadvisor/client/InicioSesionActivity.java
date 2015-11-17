@@ -88,10 +88,11 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
                             editor.commit();
                             //Crea intent para ir al menú principal
                             Intent intent = new Intent(InicioSesionActivity.this, MenuPrincipalActivity.class);
+                            //Termina esta actividad
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //Navega
                             startActivity(intent);
-                            //Termina esta actividad
-                            finish();
+                            //finish();
                         }
                     }
                 }
