@@ -9,15 +9,13 @@ import com.vegadvisor.client.bo.ReturnValidation;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.File;
 import java.io.InputStream;
@@ -190,47 +188,35 @@ public class ServerConnector {
      * Método para ejecutar un servicio en el servidor que retorna Return Validation
      * Especial para subir imagenes al servidor
      *
-     * @param service     Ruta del servicio a ejecutar
-     * @param parameters  Parámetros que se necesitan para ejecutar el servicio
-     * @param imageFile Archivo de la imagen a subir al servidor
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param imageFile  Archivo de la imagen a subir al servidor
      * @return Objeto T resultado de la ejecución del servicio
      */
     public ReturnValidation executeServiceRV(String service, Map<String, String> parameters, File imageFile) {
         try {
-            //Http Client
-            CloseableHttpClient httpclient = HttpClients.createDefault();
-            //Método Post
-            HttpPost httppost = new HttpPost(server + service);
-             //File Body
-            FileBody image = new FileBody(imageFile);
-            //Builder para parametros
-            MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-            //Imagen
-            builder.addPart(Constants.IMAGE, image);
-            //Asigna parámetros adicionales
+            //Crea cliente
+            org.apache.http.client.HttpClient client = new DefaultHttpClient();
+            //Http Post
+            HttpPost post = new HttpPost(server + service);
+            //Entity
+            MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+            //Adiciona imagen
+            entity.addPart(Constants.IMAGE, new FileBody(imageFile));
+            //Parámetros adicionales
             for (String key : parameters.keySet()) {
-                builder.addPart(key, new StringBody(parameters.get(key), ContentType.TEXT_PLAIN));
+                entity.addPart(key, new StringBody(parameters.get(key)));
             }
-            //Construye entity de parámetros
-            HttpEntity reqEntity = builder.build();
-            //Asigna Entity a método Post
-            httppost.setEntity(reqEntity);
+            //Post
+            post.setEntity(entity);
             //Ejecuta
-            CloseableHttpResponse response = httpclient.execute(httppost);
-            //Entity de respuesta
-            HttpEntity resEntity = response.getEntity();
+            HttpResponse response = client.execute(post);
             //Obtiene InputStream de respuesta
-            InputStream stream = resEntity.getContent();
+            InputStream stream = response.getEntity().getContent();
             //Convierte response a String
             String s_response = IOUtils.toString(stream);
             //Cierra stream
             stream.close();
-            //Cierra response
-            response.close();
-            //Cierra cliente
-            httpclient.close();
-            //Parsea respuesta y retorna
-            //Retorna objeto parseado
             return gson.fromJson(s_response, ReturnValidation.class);
         } catch (Exception e) {/*Ocurrio error*/
             e.printStackTrace();

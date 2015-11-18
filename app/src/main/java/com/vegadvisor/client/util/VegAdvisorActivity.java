@@ -20,7 +20,6 @@ import com.vegadvisor.client.R;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -104,7 +103,7 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
                 //Intent que se va a realizar
-                Intent intent = null;
+                Intent intent;
                 //Revisa caso seleccionado
                 switch (item) {
                     case 0:/*Tomar Foto*/
@@ -205,7 +204,7 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         // Imagen a guardar
         File image = new File(directory, String.valueOf(System.currentTimeMillis()) + Constants.JPG_EXT);
         //Output stream
-        FileOutputStream fos = null;
+        FileOutputStream fos;
         //Asigna imagen
         fos = new FileOutputStream(image);
         //Guarda imagen (JPG , de fotos)

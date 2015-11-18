@@ -9,4 +9,10 @@
     <item name="user_createUser" type="string">/user/createUser</item>
     <item name="user_updateUser" type="string">/user/updateUser</item>
     <item name="user_checkInUser" type="string">/user/checkInUser</item>
+    <!--URLs para servicios de imagenes -->
+    <item name="image_uploadEstablishmentImage" type="string">/image/uploadEstablishmentImage</item>
+    <item name="image_uploadEventImage" type="string">/image/uploadEventImage</item>
+    <item name="image_uploadOpinionImage" type="string">/image/uploadOpinionImage</item>
+    <item name="image_uploadUserImage" type="string">/image/uploadUserImage</item>
+    <item name="image_downloadImage" type="string">/image/downloadImage</item>
 </resources>

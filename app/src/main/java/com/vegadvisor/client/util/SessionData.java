@@ -1,5 +1,6 @@
 package com.vegadvisor.client.util;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -74,6 +75,11 @@ public class SessionData {
      * Servicio ejecutor
      */
     private ExecutorService threadExecutor;
+
+    /**
+     * Context de la aplicacion
+     */
+    private Context context;
 
     /**
      * Constructor privado
@@ -246,6 +252,7 @@ public class SessionData {
     public void setUserCity(String userCity) {
         this.userCity = userCity;
     }
+
 
     /*************************
      * GETTERS DE CONNECTORES
