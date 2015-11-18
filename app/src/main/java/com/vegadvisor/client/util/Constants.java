@@ -242,4 +242,9 @@ public class Constants {
      * Llave de la imagen
      */
     public static final String IMAGE_KEY = "imagePath";
+
+    /**
+     * Llave de la imagen
+     */
+    public static final String IMAGE = "image";
 }
