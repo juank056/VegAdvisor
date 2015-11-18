@@ -2,7 +2,6 @@ package com.vegadvisor.client.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.vegadvisor.client.bo.ReturnValidation;
@@ -21,15 +20,11 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Clase para conectarse con el servidor y ejecutar todos los servicios de red necesarios
@@ -83,7 +78,6 @@ public class ServerConnector {
      * @return Objeto T resultado de la ejecución del servicio
      */
     public ReturnValidation executeServiceRV(String service, Map<String, String> parameters) {
-        Log.d(Constants.DEBUG, "Ejecutando Servicio: " + server + service);
         try {
             //Cliente http
             HttpClient httpClient = new HttpClient();
@@ -119,7 +113,6 @@ public class ServerConnector {
      * @return Lista resultado de la ejecución del servicio
      */
     public List<?> executeServiceList(String service, Map<String, String> parameters) {
-        Log.d(Constants.DEBUG, "Ejecutando Servicio: " + server + service);
         try {
             //Cliente http
             HttpClient httpClient = new HttpClient();
@@ -154,7 +147,6 @@ public class ServerConnector {
      * @return Input Stream de la imagen obtenida
      */
     public Bitmap executeServiceImage(String service, Map<String, String> parameters) {
-        Log.d(Constants.DEBUG, "Ejecutando Servicio: " + server + service);
         try {
             InputStream response;
             //Revisa si es cloud front o el servidor directamente
@@ -200,20 +192,17 @@ public class ServerConnector {
      *
      * @param service     Ruta del servicio a ejecutar
      * @param parameters  Parámetros que se necesitan para ejecutar el servicio
-     * @param imageBitMap Archivo de la imagen a subir al servidor
+     * @param imageFile Archivo de la imagen a subir al servidor
      * @return Objeto T resultado de la ejecución del servicio
      */
-    public ReturnValidation executeServiceRV(String service, Map<String, String> parameters, Bitmap imageBitMap) {
-        Log.d(Constants.DEBUG, "Ejecutando Servicio: " + server + service);
+    public ReturnValidation executeServiceRV(String service, Map<String, String> parameters, File imageFile) {
         try {
             //Http Client
             CloseableHttpClient httpclient = HttpClients.createDefault();
             //Método Post
             HttpPost httppost = new HttpPost(server + service);
-            //Persiste Imagen
-            String imagePath = persistImage(imageBitMap);
-            //File Body
-            FileBody image = new FileBody(new File(imagePath));
+             //File Body
+            FileBody image = new FileBody(imageFile);
             //Builder para parametros
             MultipartEntityBuilder builder = MultipartEntityBuilder.create();
             //Imagen
@@ -240,44 +229,12 @@ public class ServerConnector {
             response.close();
             //Cierra cliente
             httpclient.close();
-            //Elimina imagen que se creo para enviar
-            new File(imagePath).delete();
             //Parsea respuesta y retorna
             //Retorna objeto parseado
             return gson.fromJson(s_response, ReturnValidation.class);
         } catch (Exception e) {/*Ocurrio error*/
             e.printStackTrace();
             //Retorna null para que se trate el error en interfaz
-            return null;
-        }
-    }
-
-    /**
-     * Guarda imagen en almacenamiento del teléfono
-     *
-     * @param bitmap Bitmap de la imagen a guardar
-     */
-    private String persistImage(Bitmap bitmap) {
-        try {
-            //Obtiene fecha actual
-            Date current = new Date();
-            Random random = new Random();
-            //Genera Path de la imagen
-            String path = Constants.BLANKS + current.getTime() + random.nextLong();
-            //Crea file
-            File imageFile = new File(path);
-            //Output stream
-            OutputStream os = new FileOutputStream(imageFile);
-            //Comprime imagen
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);
-            //Flush y termina
-            os.flush();
-            os.close();
-            //Retorna path de la imagen
-            return path;
-        } catch (Exception e) {/*ocurrio un error*/
-            e.printStackTrace();
-            //retorna null
             return null;
         }
     }

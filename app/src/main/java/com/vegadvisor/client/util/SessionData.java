@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -146,14 +147,14 @@ public class SessionData {
     /**
      * Método para ejecutar un servicio en el servidor que retorna Return Validation
      *
-     * @param serviceId   Id del servicio a ejecutar
-     * @param service     Ruta del servicio a ejecutar
-     * @param parameters  Parámetros que se necesitan para ejecutar el servicio
-     * @param bitmapImage Bitmap de imagen a enviar al servidor
+     * @param serviceId  Id del servicio a ejecutar
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param imageFile  Bitmap de imagen a enviar al servidor
      */
-    public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, Bitmap bitmapImage) {
+    public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, File imageFile) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, bitmapImage));
+        threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile));
     }
 
     /**
@@ -302,7 +303,7 @@ public class SessionData {
         /**
          * Bitmap de imagen
          */
-        private Bitmap imageBitmap;
+        private File imageFile;
 
         /**
          * Tipo de servicio
@@ -320,13 +321,13 @@ public class SessionData {
          * @param parameters  Parámetros de ejecución del servicio
          */
         public ConnectorExecutorService(int serviceType, int serviceId, String service,
-                                        Map<String, String> parameters, Bitmap imageBitmap) {
+                                        Map<String, String> parameters, File imageFile) {
             //Asigna parámetros
             this.serviceId = serviceId;
             this.serviceType = serviceType;
             this.service = service;
             this.parameters = parameters;
-            this.imageBitmap = imageBitmap;
+            this.imageFile = imageFile;
         }
 
         /**
@@ -356,7 +357,7 @@ public class SessionData {
                     break;
                 case 4: /*Envío de imagen*/
                     //Ejecuta servicio del server connector
-                    ReturnValidation responseRVImage = serverConnector.executeServiceRV(service, parameters, imageBitmap);
+                    ReturnValidation responseRVImage = serverConnector.executeServiceRV(service, parameters, imageFile);
                     //Notifica a la actividad para que haga algo con la respuesta
                     activity.receiveServerCallResult(serviceId, service, responseRVImage);
                     break;

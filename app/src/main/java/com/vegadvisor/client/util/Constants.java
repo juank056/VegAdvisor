@@ -247,4 +247,34 @@ public class Constants {
      * Llave de la imagen
      */
     public static final String IMAGE = "image";
+
+    /**
+     * Request Camera
+     */
+    public static final int REQUEST_CAMERA = 234;
+
+    /**
+     * Request Camera
+     */
+    public static final int SELECT_FILE = 123;
+
+    /**
+     * VegAdvisor
+     */
+    public static final String VEGADVISOR = "Vegadvisor";
+
+    /**
+     * Default
+     */
+    public static final Object DEFAULT = "default";
+
+    /**
+     * Directorio de imagenes
+     */
+    public static final String IMAGE_DIR = "ImageDir";
+
+    /**
+     * Extension jpg
+     */
+    public static final String JPG_EXT = ".jpg";
 }

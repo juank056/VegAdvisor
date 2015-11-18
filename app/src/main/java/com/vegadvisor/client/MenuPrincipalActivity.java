@@ -67,7 +67,8 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.b3: /*Perfil*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega hacia actividad de perfil
+                intent = new Intent(MenuPrincipalActivity.this, PerfilActivity.class);
                 break;
             case R.id.b4: /*Eventos*/
                 Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
@@ -79,7 +80,7 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.b7: /*Establecimientos*/
-                //Navegar hacia
+                //Navegar hacia Establecimientos
                 intent = new Intent(MenuPrincipalActivity.this, EstablecimientosActivity.class);
                 break;
             case R.id.b8: /*Contacto*/
