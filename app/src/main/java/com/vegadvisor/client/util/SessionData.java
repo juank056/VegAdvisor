@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.vegadvisor.client.bo.ReturnValidation;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -117,7 +116,7 @@ public class SessionData {
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters));
+        threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters, null));
     }
 
     /**
@@ -129,7 +128,7 @@ public class SessionData {
      */
     public void executeServiceList(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters));
+        threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters, null));
     }
 
     /**
@@ -141,9 +140,21 @@ public class SessionData {
      */
     public void executeServiceImage(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters));
+        threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters, null));
     }
 
+    /**
+     * Método para ejecutar un servicio en el servidor que retorna Return Validation
+     *
+     * @param serviceId   Id del servicio a ejecutar
+     * @param service     Ruta del servicio a ejecutar
+     * @param parameters  Parámetros que se necesitan para ejecutar el servicio
+     * @param bitmapImage Bitmap de imagen a enviar al servidor
+     */
+    public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, Bitmap bitmapImage) {
+        //Ejecuta llamada
+        threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, bitmapImage));
+    }
 
     /**
      * Obtiene indicador de si hay usuario o no en sesion
@@ -289,6 +300,11 @@ public class SessionData {
         private Map<String, String> parameters;
 
         /**
+         * Bitmap de imagen
+         */
+        private Bitmap imageBitmap;
+
+        /**
          * Tipo de servicio
          * 1. ReturnValidation
          * 2. List
@@ -303,12 +319,14 @@ public class SessionData {
          * @param service     Ruta del servicio
          * @param parameters  Parámetros de ejecución del servicio
          */
-        public ConnectorExecutorService(int serviceType, int serviceId, String service, Map<String, String> parameters) {
+        public ConnectorExecutorService(int serviceType, int serviceId, String service,
+                                        Map<String, String> parameters, Bitmap imageBitmap) {
             //Asigna parámetros
             this.serviceId = serviceId;
             this.serviceType = serviceType;
             this.service = service;
             this.parameters = parameters;
+            this.imageBitmap = imageBitmap;
         }
 
         /**
@@ -335,6 +353,12 @@ public class SessionData {
                     Bitmap responseImage = serverConnector.executeServiceImage(service, parameters);
                     //Notifica a la actividad para que haga algo con la respuesta
                     activity.receiveServerCallResult(serviceId, service, responseImage);
+                    break;
+                case 4: /*Envío de imagen*/
+                    //Ejecuta servicio del server connector
+                    ReturnValidation responseRVImage = serverConnector.executeServiceRV(service, parameters, imageBitmap);
+                    //Notifica a la actividad para que haga algo con la respuesta
+                    activity.receiveServerCallResult(serviceId, service, responseRVImage);
                     break;
             }
             Log.d(Constants.DEBUG, "Finaliza ejecución servicio: " + service);

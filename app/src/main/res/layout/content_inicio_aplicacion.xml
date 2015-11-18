@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#000"
+        android:background="#FFF"
+        android:contentDescription="@string/imagen_inicial"
         android:src="@drawable/intro_1"/>
 
     <LinearLayout
@@ -57,11 +58,11 @@
             android:id="@+id/t1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:gravity="right"
+            android:layout_gravity="end"
+            android:gravity="end"
             android:linksClickable="true"
             android:text="@string/saltar_inicio"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
 
     </LinearLayout>
 </LinearLayout>

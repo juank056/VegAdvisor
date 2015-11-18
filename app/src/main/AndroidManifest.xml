@@ -53,6 +53,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vegadvisor.client.MenuPrincipalActivity" />
         </activity>
+        <activity
+            android:name=".PerfilActivity"
+            android:label="@string/title_activity_perfil"
+            android:parentActivityName=".MenuPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.MenuPrincipalActivity" />
+        </activity>
     </application>
 
 </manifest>

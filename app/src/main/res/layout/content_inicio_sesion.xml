@@ -14,19 +14,22 @@
         android:id="@+id/userid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:hint="@string/id_usuario"/>
 
     <EditText
         android:id="@+id/passwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:hint="@string/passwd"
-        android:password="true"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/b1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/enviar"/>
 
 </LinearLayout>

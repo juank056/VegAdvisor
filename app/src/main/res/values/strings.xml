@@ -28,4 +28,6 @@
     <string name="contacto">Contacto</string>
     <string name="salir">Salir</string>
     <string name="title_activity_establecimientos">Mis Establecimientos</string>
+    <string name="title_activity_perfil">Mi Perfil</string>
+    <string name="imagen_inicial">Imagen Inicial</string>
 </resources>

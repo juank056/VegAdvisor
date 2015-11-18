@@ -9,11 +9,15 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.vegadvisor.client.EstablecimientosActivity"
-        tools:showIn="@layout/activity_establecimientos">
+        tools:context="com.vegadvisor.client.PerfilActivity"
+        tools:showIn="@layout/activity_perfil">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
     </LinearLayout>
 </ScrollView>
