@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.google.gson.Gson;
+import com.vegadvisor.client.bo.AbstractBO;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -19,6 +20,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -110,7 +112,7 @@ public class ServerConnector {
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      * @return Lista resultado de la ejecución del servicio
      */
-    public List<?> executeServiceList(String service, Map<String, String> parameters) {
+    public List<AbstractBO> executeServiceList(String service, Map<String, String> parameters, Type classType) {
         try {
             //Cliente http
             HttpClient httpClient = new HttpClient();
@@ -129,7 +131,7 @@ public class ServerConnector {
             //Cierra stream
             stream.close();
             //Retorna objeto parseado
-            return gson.fromJson(s_response, List.class);
+            return gson.fromJson(s_response, classType);
         } catch (Exception e) {/*Ocurrio un error*/
             e.printStackTrace();
             //Retorna null para que se trate el error en interfaz

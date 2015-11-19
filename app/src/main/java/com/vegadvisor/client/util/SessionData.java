@@ -7,6 +7,7 @@ import android.util.Log;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -123,7 +124,7 @@ public class SessionData {
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters, null));
+        threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters, null, null));
     }
 
     /**
@@ -132,10 +133,12 @@ public class SessionData {
      * @param serviceId  Id del servicio a ejecutar
      * @param service    Ruta del servicio a ejecutar
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param classType  Clase esperada en retorno
      */
-    public void executeServiceList(int serviceId, String service, Map<String, String> parameters) {
+    public void executeServiceList(int serviceId, String service, Map<String, String> parameters, Type classType) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters, null));
+        threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters, null,
+                classType));
     }
 
     /**
@@ -147,7 +150,7 @@ public class SessionData {
      */
     public void executeServiceImage(int serviceId, String service, Map<String, String> parameters) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters, null));
+        threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters, null, null));
     }
 
     /**
@@ -160,7 +163,7 @@ public class SessionData {
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, File imageFile) {
         //Ejecuta llamada
-        threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile));
+        threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile, null));
     }
 
     /**
@@ -320,6 +323,11 @@ public class SessionData {
         private int serviceType;
 
         /**
+         * Clase de retorno
+         */
+        private Type classType;
+
+        /**
          * Constructor del thread para ejecutar los servicios con el servidor
          *
          * @param serviceId   Id del servicio
@@ -328,13 +336,14 @@ public class SessionData {
          * @param parameters  Parámetros de ejecución del servicio
          */
         public ConnectorExecutorService(int serviceType, int serviceId, String service,
-                                        Map<String, String> parameters, File imageFile) {
+                                        Map<String, String> parameters, File imageFile, Type classType) {
             //Asigna parámetros
             this.serviceId = serviceId;
             this.serviceType = serviceType;
             this.service = service;
             this.parameters = parameters;
             this.imageFile = imageFile;
+            this.classType = classType;
         }
 
         /**
@@ -352,7 +361,7 @@ public class SessionData {
                     break;
                 case 2: /*Lista*/
                     //Ejecuta servicio del server connector
-                    List<?> responseList = serverConnector.executeServiceList(service, parameters);
+                    List<?> responseList = serverConnector.executeServiceList(service, parameters, classType);
                     //Notifica a la actividad para que haga algo con la respuesta
                     activity.receiveServerCallResult(serviceId, service, responseList);
                     break;

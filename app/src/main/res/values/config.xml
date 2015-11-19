@@ -15,4 +15,9 @@
     <item name="image_uploadOpinionImage" type="string">/image/uploadOpinionImage</item>
     <item name="image_uploadUserImage" type="string">/image/uploadUserImage</item>
     <item name="image_downloadImage" type="string">/image/downloadImage</item>
+    <!--URLs para servicios de tablas basicas -->
+    <item name="basic_getCountries" type="string">/basic/getCountries</item>
+    <item name="basic_getCities" type="string">/basic/getCities</item>
+    <item name="basic_getEstablishmentTypes" type="string">/basic/getEstablishmentTypes</item>
+    <item name="basic_getEventTypes" type="string">/basic/getEventTypes</item>
 </resources>

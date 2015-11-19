@@ -17,6 +17,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.vegadvisor.client.R;
+import com.vegadvisor.client.bo.AbstractBO;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import java.io.File;
@@ -43,8 +44,9 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     /**
      * Método para recibir y procesar la respuesta a un llamado al servidor
      *
-     * @param service Servicio que se ha llamado
-     * @param result  Resultado de la ejecución
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         runOnUiThread(new Runnable() {
@@ -58,8 +60,9 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     /**
      * Método para recibir y procesar la respuesta a un llamado al servidor
      *
-     * @param service Servicio que se ha llamado
-     * @param result  Resultado de la ejecución
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
         runOnUiThread(new Runnable() {
