@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.vegadvisor.client.bo.AbstractBO;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import java.io.File;
@@ -164,6 +165,20 @@ public class SessionData {
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, File imageFile) {
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile, null));
+    }
+
+    /**
+     * Método para ejecutar un servicio en el servidor que retorna un objeto específico
+     *
+     * @param serviceId  Id del servicio a ejecutar
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param classType  Clase esperada en retorno
+     */
+    public void executeServiceObject(int serviceId, String service, Map<String, String> parameters, Type classType) {
+        //Ejecuta llamada
+        threadExecutor.execute(new ConnectorExecutorService(5, serviceId, service, parameters, null,
+                classType));
     }
 
     /**
@@ -376,6 +391,12 @@ public class SessionData {
                     ReturnValidation responseRVImage = serverConnector.executeServiceRV(service, parameters, imageFile);
                     //Notifica a la actividad para que haga algo con la respuesta
                     activity.receiveServerCallResult(serviceId, service, responseRVImage);
+                    break;
+                case 5: /*Objeto específico*/
+                    //Ejecuta servicio del server connector
+                    Object responseObject = serverConnector.executeServiceObject(service, parameters, classType);
+                    //Notifica a la actividad para que haga algo con la respuesta
+                    activity.receiveServerCallResult(serviceId, service, responseObject);
                     break;
             }
             Log.d(Constants.DEBUG, "Finaliza ejecución servicio: " + service);

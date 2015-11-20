@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.google.gson.Gson;
-import com.vegadvisor.client.bo.AbstractBO;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -110,9 +109,45 @@ public class ServerConnector {
      *
      * @param service    Ruta del servicio a ejecutar
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param classType  Tipo de objeto que se va a retornar
      * @return Lista resultado de la ejecución del servicio
      */
-    public List<AbstractBO> executeServiceList(String service, Map<String, String> parameters, Type classType) {
+    public List<?> executeServiceList(String service, Map<String, String> parameters, Type classType) {
+        try {
+            //Cliente http
+            HttpClient httpClient = new HttpClient();
+            //Metodo post
+            PostMethod postMethod = new PostMethod(server + service);
+            //Asigna parámetros
+            for (String key : parameters.keySet()) {
+                postMethod.addParameter(key, parameters.get(key));
+            }
+            //Ejecuta llamado
+            httpClient.executeMethod(postMethod);
+            //Obtiene InputStream de respuesta
+            InputStream stream = postMethod.getResponseBodyAsStream();
+            //Convierte response a String
+            String s_response = IOUtils.toString(stream);
+            //Cierra stream
+            stream.close();
+            //Retorna objeto parseado
+            return gson.fromJson(s_response, classType);
+        } catch (Exception e) {/*Ocurrio un error*/
+            e.printStackTrace();
+            //Retorna null para que se trate el error en interfaz
+            return null;
+        }
+    }
+
+    /**
+     * Método para ejecutar un servicio en el servidor que retorna una lista de objetos
+     *
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param classType  Tipo de objeto que se va a retornar
+     * @return Objeto retornado en la consulta
+     */
+    public Object executeServiceObject(String service, Map<String, String> parameters, Type classType) {
         try {
             //Cliente http
             HttpClient httpClient = new HttpClient();

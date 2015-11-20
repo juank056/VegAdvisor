@@ -5,6 +5,7 @@
     <item name="use_cloud_front" type="string">true</item>
     <item name="cloud_front_path" type="string">http://d3sr8z6zbsxrla.cloudfront.net/</item>
     <!--URLs para servicios de usuarios -->
+    <item name="user_findUserById" type="string">/user/findUserById</item>
     <item name="user_validateUser" type="string">/user/validateUser</item>
     <item name="user_createUser" type="string">/user/createUser</item>
     <item name="user_updateUser" type="string">/user/updateUser</item>
@@ -20,4 +21,26 @@
     <item name="basic_getCities" type="string">/basic/getCities</item>
     <item name="basic_getEstablishmentTypes" type="string">/basic/getEstablishmentTypes</item>
     <item name="basic_getEventTypes" type="string">/basic/getEventTypes</item>
+    <!--URLs para servicios de Chat -->
+    <item name="chat_findChatUsers" type="string">/chat/findChatUsers</item>
+    <item name="chat_recolectChatMessages" type="string">/chat/recolectChatMessages</item>
+    <item name="chat_registerChatMessage" type="string">/chat/registerChatMessage</item>
+    <!--URLs para servicios de Establecimientos -->
+    <item name="establishment_createOrUpdateEstablishment" type="string">/establishment/createOrUpdateEstablishment</item>
+    <item name="establishment_findEstablishments" type="string">/establishment/findEstablishments</item>
+    <item name="establishment_getEstablishmentStatistics" type="string">/establishment/getEstablishmentStatistics</item>
+    <item name="establishment_getUserEstablishments" type="string">/establishment/getUserEstablishments</item>
+    <!--URLs para servicios de Eventos -->
+    <item name="event_createEvent" type="string">/event/createEvent</item>
+    <item name="event_findEvents" type="string">/event/findEvents</item>
+    <item name="event_registerUsersEventParticipation" type="string">/event/registerUsersEventParticipation</item>
+    <item name="event_findUserEvents" type="string">/event/findUserEvents</item>
+    <item name="event_updateEvent" type="string">/event/updateEvent</item>
+    <!--URLs para servicios de Foro -->
+    <item name="forum_createForumThread" type="string">/forum/createForumThread</item>
+    <item name="forum_createForumThreadResponse" type="string">/forum/createForumThreadResponse</item>
+    <item name="forum_findForumThreads" type="string">/forum/registerUsersEventParticipation</item>
+    <!--URLs para servicios de Opinión -->
+    <item name="opinion_findEstablishmentsOpinions" type="string">/opinion/findEstablishmentsOpinions</item>
+    <item name="opinion_registerUsersOpinion" type="string">/opinion/registerUsersOpinion</item>
 </resources>
