@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -34,6 +35,11 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
      * Texto de autocompletar
      */
     private AutoCompleteTextView texto;
+
+    /**
+     * Lista de paises de selección
+     */
+    private List<Csptpais> lsPais;
 
     /**
      * @param savedInstanceState OnCreate
@@ -67,6 +73,14 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
                 /*Nada*/
             }
         });
+        texto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Obtiene pais seleccionado
+                Csptpais pais = lsPais.get(position);
+                Log.d(Constants.DEBUG, "PAIS: " + pais.getPaicpaiak() + " - " + pais.getPaidpaiaf());
+            }
+        });
     }
 
     @Override
@@ -89,7 +103,7 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
         File file = new File(imagePath);
         //Envia imagen al servidor
         Map<String, String> params = new HashMap<>();
-        params.put("userId", "clau");
+        params.put("userId", SessionData.getInstance().getUserId());
         SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.image_uploadUserImage), params, file);
     }
 
@@ -130,8 +144,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
             @Override
             public void run() {
                 Log.d(Constants.DEBUG, "RESPUESTA A SERVICIO RECIBIDA: " + result);
-                //
-
+                //Asigna lista de respuesta
+                lsPais = (List<Csptpais>) result;
                 String[] data = new String[result.size()];
                 for (int i = 0; i < result.size(); i++) {
                     Csptpais pais = (Csptpais) result.get(i);

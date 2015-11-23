@@ -1,8 +1,11 @@
 package com.vegadvisor.client;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.PasswordManager;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
@@ -102,6 +106,16 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                     SessionData.getInstance().setUsuarObject(usuar);
                     //Nombre de imagen en la pantalla
                     userName.setText(usuar.getUsunusuaf() + Constants.BLANK_SPACE + usuar.getUsuapelaf());
+                    //Guarda datos del usuario en las preferencias del sistema
+                    //Obtiene shared Preferences
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    //Obtiene editor
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    //Ingresa nuevo valor
+                    editor.putString(Constants.USERID_PREFERENCE, usuar.getUsucusuak());
+                    editor.putString(Constants.PASSWD_PREFERENCE, usuar.getUsupassaf());
+                    //Commit del valor nuevo
+                    editor.commit();
                     //Revisa si el usuario tiene una imagen
                     if (!Constants.BLANKS.equals(usuar.getUsufotoaf())) {/*Hay imagen*/
                         //Obtiene la imagen del usuario
@@ -174,6 +188,15 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
             case R.id.b9: /*Salir*/
                 //Limpia datos de sesion
                 SessionData.getInstance().cleanData();
+                //Elimina shared preferences
+                //Obtiene shared Preferences
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                //Obtiene editor
+                SharedPreferences.Editor editor = sharedPref.edit();
+                //Ingresa nuevo valor
+                editor.putString(Constants.USERID_PREFERENCE, Constants.BLANKS);
+                editor.putString(Constants.PASSWD_PREFERENCE, Constants.BLANKS);
+                editor.commit();
                 //Navegar a la pantalla principal
                 intent = new Intent(MenuPrincipalActivity.this, InicioAplicacionActivity.class);
                 //Flags para limpiar stack

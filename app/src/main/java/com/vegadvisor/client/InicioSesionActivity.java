@@ -67,19 +67,10 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
                             SessionData.getInstance().setUser(true);
                             //Nombre de usuario y contraseña
                             SessionData.getInstance().setUserId(userId.getText().toString());
-                            //Guarda datos del usuario en las preferencias del sistema
-                            //Obtiene shared Preferences
-                            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-                            //Obtiene editor
-                            SharedPreferences.Editor editor = sharedPref.edit();
-                            //Ingresa nuevo valor
-                            editor.putString(Constants.USERID_PREFERENCE, userId.getText().toString());
-                            editor.putString(Constants.PASSWD_PREFERENCE,
-                                    PasswordManager.encryptPassword(passwd.getText().toString()));
-                            //Commit del valor nuevo
-                            editor.commit();
                             //Crea intent para ir al menú principal
                             Intent intent = new Intent(InicioSesionActivity.this, MenuPrincipalActivity.class);
+                            //Flags para limpiar stack
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             //Navega
                             startActivity(intent);
                             //Finaliza

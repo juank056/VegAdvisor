@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -37,8 +38,6 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         SessionData.getInstance().initConnectors(getResources().getString(R.string.server_path),
                 Boolean.parseBoolean(getResources().getString(R.string.use_cloud_front)),
                 getResources().getString(R.string.cloud_front_path));
-        /*Revisa si ya se encontraba un usuario autenticado*/
-        checkForUser();
         //Obtiene imagen superior de la pantalla
         ImageView image = (ImageView) findViewById(R.id.intro);
         //Botones
@@ -73,13 +72,22 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Limpia datos
+        SessionData.getInstance().cleanData();
+        /*Revisa si ya se encontraba un usuario autenticado*/
+        checkForUser();
+    }
+
     /**
      * Función para revisar si ya había un usuario autenticado en el sistema.
      * Si hay algun usuario, se navega directamente al menu principal
      */
     private void checkForUser() {
         //Obtiene shared Preferences
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //Obtiene nombre de usuario
         String userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
         Log.d(Constants.DEBUG, "USER ID PREFERENCIAS: " + userId);
@@ -171,12 +179,14 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
                     if (service.equals(getResources().getString(R.string.user_validateUser))) {
                         //Revisa respuesta
                         if (Constants.ZERO.equals(result.getValidationInd())) {/*Error iniciando sesión*/
-                            Toast.makeText(getApplicationContext(), R.string.error_inicio_sesion, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                         } else {/*Sesión iniciada correctamente*/
                             //Existe un usuario en sesion
                             SessionData.getInstance().setUser(true);
                             //Crea intent para ir al menú principal
                             Intent intent = new Intent(InicioAplicacionActivity.this, MenuPrincipalActivity.class);
+                            //Flags para limpiar stack
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             //Navega
                             startActivity(intent);
                             //Finaliza Actividad
