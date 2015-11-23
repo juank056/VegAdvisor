@@ -34,4 +34,6 @@
     <string name="tomar_foto">Tomar Foto</string>
     <string name="seleccionar_galeria">Seleccionar de Galería</string>
     <string name="cancelar">Cancelar</string>
+    <string name="imagen_usuario">Imagen Usuario</string>
+    <string name="usuario_invitado">Usuario Invitado</string>
 </resources>

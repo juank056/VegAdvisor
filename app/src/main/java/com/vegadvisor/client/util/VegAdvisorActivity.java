@@ -22,7 +22,9 @@ import com.vegadvisor.client.bo.ReturnValidation;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Clase que representa una actividad de VegAdvisor
@@ -245,5 +247,24 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      */
     public void processImageSelectedResponse(Bitmap imageBitmap, String imagePath) {
         Log.d(Constants.DEBUG, "Image Path: " + imagePath);
+    }
+
+    /**
+     * Se encarga de crear mapa de parametros para enviar al servidor
+     *
+     * @param values Valores de los parámetros (Se reciben por parejas)
+     * @return Mapa de parámetros creado
+     */
+    protected Map<String, String> createParametersMap(String... values) {
+        //Crea mapa de parámetros
+        Map<String, String> parameters = new HashMap<>();
+        for (int i = 0; i < values.length; i++) {
+            //Ingresa nuevo valor al mapa
+            parameters.put(values[i], values[i + 1]);
+            //incrementa i en 1
+            i++;
+        }
+        //Retorna parámetros
+        return parameters;
     }
 }

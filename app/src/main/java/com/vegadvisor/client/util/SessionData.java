@@ -1,11 +1,10 @@
 package com.vegadvisor.client.util;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import com.vegadvisor.client.bo.AbstractBO;
 import com.vegadvisor.client.bo.ReturnValidation;
+import com.vegadvisor.client.bo.Usmusuar;
 
 import java.io.File;
 import java.lang.reflect.Type;
@@ -46,22 +45,12 @@ public class SessionData {
      */
     private String userId;
 
-    /**
-     * Contraseña del usuario
-     */
-    private String userPasswd;
-
 
     /**
-     * Pais del usuario
+     * Objeto del usuario
      */
+    private Usmusuar usuarObject;
 
-    private String userCountry;
-
-    /**
-     * Ciudad del usuario
-     */
-    private String userCity;
 
     /**
      * Conector para ejecutar métodos en el servidor
@@ -78,10 +67,6 @@ public class SessionData {
      */
     private ExecutorService threadExecutor;
 
-    /**
-     * Context de la aplicacion
-     */
-    private Context context;
 
     /**
      * Constructor privado
@@ -217,58 +202,23 @@ public class SessionData {
         this.userId = userId;
     }
 
+
     /**
-     * Obtiene la contraseña del usuario en sesion
+     * Obtiene objeto del usuario
      *
-     * @return Contraseña del usuario en sesion
+     * @return Objeto del usuario
      */
-    public String getUserPasswd() {
-        return userPasswd;
+    public Usmusuar getUsuarObject() {
+        return usuarObject;
     }
 
     /**
-     * Asigna contraseña del usuario en sesión
+     * Asigna objeto del usuarii
      *
-     * @param userPasswd Contraseña del usuario en sesión
+     * @param usuarObject Usuario del objeto a asignar
      */
-    public void setUserPasswd(String userPasswd) {
-        this.userPasswd = userPasswd;
-    }
-
-    /**
-     * Asigna el pais del usuario
-     *
-     * @return Pais del usuario
-     */
-    public String getUserCountry() {
-        return userCountry;
-    }
-
-    /**
-     * Asigna Pais del usuario
-     *
-     * @param userCountry Pais del usuario
-     */
-    public void setUserCountry(String userCountry) {
-        this.userCountry = userCountry;
-    }
-
-    /**
-     * Obtiene ciudad del usuario
-     *
-     * @return Ciudad del usuario
-     */
-    public String getUserCity() {
-        return userCity;
-    }
-
-    /**
-     * Asigna ciudad del usuario
-     *
-     * @param userCity Ciudad del usuario
-     */
-    public void setUserCity(String userCity) {
-        this.userCity = userCity;
+    public void setUsuarObject(Usmusuar usuarObject) {
+        this.usuarObject = usuarObject;
     }
 
 
@@ -300,9 +250,7 @@ public class SessionData {
     public void cleanData() {
         this.user = false;
         this.userId = null;
-        this.userPasswd = null;
-        this.userCity = null;
-        this.userCountry = null;
+        this.usuarObject = null;
     }
 
     /**

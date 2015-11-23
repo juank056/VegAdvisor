@@ -3,7 +3,6 @@ package com.vegadvisor.client;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -15,10 +14,6 @@ import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.PasswordManager;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class InicioSesionActivity extends VegAdvisorActivity implements View.OnClickListener {
 
@@ -72,10 +67,6 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
                             SessionData.getInstance().setUser(true);
                             //Nombre de usuario y contraseña
                             SessionData.getInstance().setUserId(userId.getText().toString());
-                            SessionData.getInstance().setUserId(passwd.getText().toString());
-                            //Asigna pais y ciudad del usuario
-                            SessionData.getInstance().setUserCountry(result.getParams().get(Constants.USER_COUNTRY));
-                            SessionData.getInstance().setUserCity(result.getParams().get(Constants.USER_CITY));
                             //Guarda datos del usuario en las preferencias del sistema
                             //Obtiene shared Preferences
                             SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
@@ -83,7 +74,8 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
                             SharedPreferences.Editor editor = sharedPref.edit();
                             //Ingresa nuevo valor
                             editor.putString(Constants.USERID_PREFERENCE, userId.getText().toString());
-                            editor.putString(Constants.PASSWD_PREFERENCE, passwd.getText().toString());
+                            editor.putString(Constants.PASSWD_PREFERENCE,
+                                    PasswordManager.encryptPassword(passwd.getText().toString()));
                             //Commit del valor nuevo
                             editor.commit();
                             //Crea intent para ir al menú principal
@@ -110,12 +102,10 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
         switch (v.getId()) {
             case R.id.b1: /*Enviar para iniciar sesión*/
                 //Ejecuta llamado a inicio de sesion
-                //Parámetros de llamado al servicio
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userId", userId.getText().toString());
-                params.put("password", PasswordManager.encryptPassword(passwd.getText().toString()));
                 //Valida usuario y contraseña en el servidor
-                SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_validateUser), params);
+                SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_validateUser),
+                        this.createParametersMap("userId", userId.getText().toString(),
+                                "password", PasswordManager.encryptPassword(passwd.getText().toString())));
                 break;
         }
     }

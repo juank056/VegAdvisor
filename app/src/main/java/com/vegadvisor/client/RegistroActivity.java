@@ -83,15 +83,14 @@ public class RegistroActivity extends VegAdvisorActivity implements View.OnClick
                     //Muestra mensaje de error de conexión
                     Toast.makeText(getApplicationContext(), R.string.error_conexion, Toast.LENGTH_SHORT).show();
                 } else {
+                    //Despliega mensaje recibido
+                    Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                     //Revisa respuesta
-                    if (Constants.ZERO.equals(result.getValidationInd())) {/*Error iniciando sesión*/
-                        Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
-                    } else {/*Usuario creado correctamente*/
+                    if (Constants.ONE.equals(result.getValidationInd())) {/*Registro OK*/
                         //Existe un usuario en sesion
                         SessionData.getInstance().setUser(true);
                         //Asigna pais y ciudad del usuario
-                        SessionData.getInstance().setUserCountry(Constants.BLANKS);
-                        SessionData.getInstance().setUserCity(Constants.BLANKS);
+                        SessionData.getInstance().setUserId(userId.getText().toString().trim());
                         //Crea intent para ir al menú principal
                         Intent intent = new Intent(RegistroActivity.this, MenuPrincipalActivity.class);
                         //Navega

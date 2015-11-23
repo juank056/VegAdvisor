@@ -3,9 +3,9 @@ package com.vegadvisor.client;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,9 +17,6 @@ import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class InicioAplicacionActivity extends VegAdvisorActivity implements View.OnClickListener {
@@ -28,7 +25,7 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
     /**
      * On create
      *
-     * @param savedInstanceState
+     * @param savedInstanceState Instancia
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,20 +82,18 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         //Obtiene nombre de usuario
         String userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
+        Log.d(Constants.DEBUG, "USER ID PREFERENCIAS: " + userId);
         //Revisa si lo encontro
         if (!Constants.BLANKS.equals(userId)) {
             //Obtiene contraseña
             String passwd = sharedPref.getString(Constants.PASSWD_PREFERENCE, Constants.BLANKS);
+            Log.d(Constants.DEBUG, "PASSWORD PREFERENCIAS: " + passwd);
             //Asigna usuario y contraseña en los datos de sesión
             SessionData.getInstance().setUser(true);
             SessionData.getInstance().setUserId(userId);
-            SessionData.getInstance().setUserPasswd(passwd);
-            //Parámetros de llamado al servicio
-            Map<String, String> params = new HashMap<String, String>();
-            params.put("userId", userId);
-            params.put("password", passwd);
             //Valida usuario y contraseña en el servidor
-            SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_validateUser), params);
+            SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_validateUser),
+                    this.createParametersMap("userId", userId, "password", passwd));
         }
     }
 
@@ -132,7 +127,7 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
     @Override
     public void onClick(View v) {
         //Intent de navegación
-        Intent intent = null;
+        Intent intent;
         switch (v.getId()) {
             case R.id.b1: /*Iniciar sesión*/
                 //Crea intent para ir al inicio de la sesion
@@ -180,9 +175,6 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
                         } else {/*Sesión iniciada correctamente*/
                             //Existe un usuario en sesion
                             SessionData.getInstance().setUser(true);
-                            //Asigna pais y ciudad del usuario
-                            SessionData.getInstance().setUserCountry(result.getParams().get(Constants.USER_COUNTRY));
-                            SessionData.getInstance().setUserCity(result.getParams().get(Constants.USER_CITY));
                             //Crea intent para ir al menú principal
                             Intent intent = new Intent(InicioAplicacionActivity.this, MenuPrincipalActivity.class);
                             //Navega

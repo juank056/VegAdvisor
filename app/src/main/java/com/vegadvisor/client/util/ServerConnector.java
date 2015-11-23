@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vegadvisor.client.bo.ReturnValidation;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -65,7 +66,7 @@ public class ServerConnector {
         this.server = server;
         this.usingCloudFront = usingCloudFront;
         this.cloudFrontPath = cloudFrontPath;
-        this.gson = new Gson();
+        this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         //Crea configuración del cliente
     }
 

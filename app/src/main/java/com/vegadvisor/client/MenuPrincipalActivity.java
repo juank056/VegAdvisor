@@ -2,27 +2,31 @@ package com.vegadvisor.client;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vegadvisor.client.bo.ReturnValidation;
+import com.google.gson.reflect.TypeToken;
+import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class MenuPrincipalActivity extends VegAdvisorActivity implements View.OnClickListener {
 
+    /**
+     * Nombre del usuario
+     */
+    private TextView userName;
+
+    /**
+     * Imágen del usuario
+     */
+    private ImageView userImage;
 
     /**
      * @param savedInstanceState Instancia salvada
@@ -34,6 +38,7 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Botones
+        findViewById(R.id.b0).setOnClickListener(this);
         findViewById(R.id.b1).setOnClickListener(this);
         findViewById(R.id.b2).setOnClickListener(this);
         findViewById(R.id.b3).setOnClickListener(this);
@@ -43,11 +48,87 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
         findViewById(R.id.b7).setOnClickListener(this);
         findViewById(R.id.b8).setOnClickListener(this);
         findViewById(R.id.b9).setOnClickListener(this);
+        //Nombre del usuario e imagen
+        userName = (TextView) findViewById(R.id.userName);
+        userImage = (ImageView) findViewById(R.id.userImage);
     }
 
     @Override
     protected void onResume() {
+        //On Resume Padre
         super.onResume();
+        //Revisa si hay un usuario en sesion
+        if (SessionData.getInstance().isUser()) {
+            //Boton de registro deshabilitado
+            findViewById(R.id.b0).setVisibility(View.INVISIBLE);
+            findViewById(R.id.b0).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            //Obtiene datos del usuario que se encuentra en sesion
+            SessionData.getInstance().executeServiceObject(1,
+                    getResources().getString(R.string.user_findUserById),
+                    this.createParametersMap("userId", SessionData.getInstance().getUserId()),
+                    new TypeToken<Usmusuar>() {
+                    }.getType());
+        } else {/*No hay usuario en sesion*/
+            //Esconde botones (mi perfil, chat, mis establecimientos)
+            findViewById(R.id.b3).setVisibility(View.INVISIBLE);
+            findViewById(R.id.b6).setVisibility(View.INVISIBLE);
+            findViewById(R.id.b7).setVisibility(View.INVISIBLE);
+            findViewById(R.id.b3).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            findViewById(R.id.b6).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            findViewById(R.id.b7).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+            //Asigna texto de usuario invitado
+            userName.setText(R.string.usuario_invitado);
+            //Imagen
+            userImage.setImageResource(R.drawable.ic_launcher);
+        }
+
+    }
+
+    /**
+     * Método para recibir y procesar la respuesta a un llamado al servidor
+     *
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    public void receiveServerCallResult(final int serviceId, final String service, final Object result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (result != null) {/*Llego usuario de resultado*/
+                    //Usuario recibido
+                    Usmusuar usuar = (Usmusuar) result;
+                    //Asigna el usuario a los datos de sesion
+                    SessionData.getInstance().setUsuarObject(usuar);
+                    //Nombre de imagen en la pantalla
+                    userName.setText(usuar.getUsunusuaf() + Constants.BLANK_SPACE + usuar.getUsuapelaf());
+                    //Revisa si el usuario tiene una imagen
+                    if (!Constants.BLANKS.equals(usuar.getUsufotoaf())) {/*Hay imagen*/
+                        //Obtiene la imagen del usuario
+                        SessionData.getInstance().executeServiceImage(2,
+                                getResources().getString(R.string.image_downloadImage),
+                                MenuPrincipalActivity.this.createParametersMap("imagePath", usuar.getUsufotoaf()));
+                    } else {/*No hay imagen*/
+                        //Asigna logo de la aplicación
+                        userImage.setImageResource(R.drawable.ic_launcher);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Revisa que se tenga imagen
+                if (result != null) {
+                    //Asigna bitmap a la imagen
+                    userImage.setImageBitmap(result);
+                }
+            }
+        });
     }
 
     /**
@@ -60,6 +141,10 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
         //Intent
         Intent intent = null;
         switch (v.getId()) {
+            case R.id.b0: /*Registrarse*/
+                //Navega hacia el registro de un nuevo usuario
+                intent = new Intent(MenuPrincipalActivity.this, RegistroActivity.class);
+                break;
             case R.id.b1: /*Localizador*/
                 Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
                 break;

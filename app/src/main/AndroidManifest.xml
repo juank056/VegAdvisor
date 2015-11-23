@@ -4,8 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -26,6 +30,7 @@
         </activity>
         <activity
             android:name=".InicioSesionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_inicio_sesion"
             android:parentActivityName=".InicioAplicacionActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,6 +40,7 @@
         </activity>
         <activity
             android:name=".RegistroActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_registro"
             android:parentActivityName=".InicioAplicacionActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -44,11 +50,13 @@
         </activity>
         <activity
             android:name=".MenuPrincipalActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_menu_principal"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".EstablecimientosActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_establecimientos"
             android:parentActivityName=".MenuPrincipalActivity"
             android:theme="@style/AppTheme.NoActionBar">
