@@ -20,23 +20,198 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <Button
-            android:id="@+id/b1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Seleccionar Imagen"/>
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:contentDescription="Descripcion"
-            />
-
-        <AutoCompleteTextView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/texto"
-            android:layout_gravity="center_horizontal"/>
+            android:text="@string/nombre"/>
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/nombre"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apellido"/>
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/apellido"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fecha_nacimiento"/>
+
+        <EditText
+            android:id="@+id/fecha_nacimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fecha_nacimiento"
+            android:inputType="date"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pais"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/pais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pais"
+            android:inputType="date"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ciudad"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ciudad"
+            android:inputType="date"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genero"
+            />
+
+        <RadioGroup
+            android:id="@+id/group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/mujer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mujer"/>
+
+            <RadioButton
+                android:id="@+id/hombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hombre"/>
+        </RadioGroup>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/soy_vegano"
+                />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="match_parent"/>
+
+            <CheckBox
+                android:id="@+id/soy_vegano"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hobbies"/>
+
+        <EditText
+            android:id="@+id/hobbies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hobbies"
+            android:lines="3"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:text="@string/foto_perfil"/>
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="2"
+                android:contentDescription="@string/imagen_usuario"/>
+
+            <ImageButton
+                android:id="@+id/b1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="@string/imagen_usuario"
+                android:src="@drawable/select_image"
+                />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/b2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/enviar"/>
     </LinearLayout>
 </ScrollView>

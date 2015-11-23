@@ -28,7 +28,8 @@
             android:id="@+id/userid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/id_usuario"/>
+            android:hint="@string/id_usuario"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -43,7 +44,8 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/nombre"/>
+            android:hint="@string/nombre"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -59,7 +61,8 @@
             android:id="@+id/lastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/apellido"/>
+            android:hint="@string/apellido"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -75,7 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -91,14 +95,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/passwd"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:singleLine="true"/>
 
         <EditText
             android:id="@+id/passwd_con"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/passwdConfirm"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"

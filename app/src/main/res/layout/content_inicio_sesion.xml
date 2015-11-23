@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="@string/id_usuario"/>
+        android:hint="@string/id_usuario"
+        android:singleLine="true"/>
 
     <EditText
         android:id="@+id/passwd"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:hint="@string/passwd"
-        android:inputType="textPassword"/>
+        android:inputType="textPassword"
+        android:singleLine="true"/>
 
     <Button
         android:id="@+id/b1"

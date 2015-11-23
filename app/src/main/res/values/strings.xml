@@ -36,4 +36,13 @@
     <string name="cancelar">Cancelar</string>
     <string name="imagen_usuario">Imagen Usuario</string>
     <string name="usuario_invitado">Usuario Invitado</string>
+    <string name="fecha_nacimiento">Fecha de Nacimiento</string>
+    <string name="pais">País</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="soy_vegano">Soy Vegano</string>
+    <string name="genero">Género</string>
+    <string name="mujer">Mujer</string>
+    <string name="hombre">Hombre</string>
+    <string name="hobbies">Hobbies</string>
+    <string name="foto_perfil">Foto Perfil</string>
 </resources>
