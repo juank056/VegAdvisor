@@ -171,6 +171,8 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //Esconde Icono de cargando
+                setProgressBarIndeterminateVisibility(false);
                 //Revisa el resultado obtenido
                 if (result == null) {/*No llegó respuesta*/
                     //Muestra mensaje de error de conexión
