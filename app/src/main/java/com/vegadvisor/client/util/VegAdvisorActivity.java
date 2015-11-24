@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.vegadvisor.client.R;
@@ -38,6 +39,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Request para loading
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         //Asigna actividad a los datos de sesión
         SessionData.getInstance().setActivity(this);
     }
@@ -53,8 +56,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + serviceId +
-                        Constants.BLANK_SPACE + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Esconde Icono de cargando
+                setProgressBarIndeterminateVisibility(false);
             }
         });
     }
@@ -70,8 +73,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + serviceId +
-                        Constants.BLANK_SPACE + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Esconde Icono de cargando
+                setProgressBarIndeterminateVisibility(false);
             }
         });
     }
@@ -87,8 +90,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + serviceId +
-                        Constants.BLANK_SPACE + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Esconde Icono de cargando
+                setProgressBarIndeterminateVisibility(false);
             }
         });
     }
@@ -104,10 +107,36 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), "Respuesta Recibida: " + serviceId +
-                        Constants.BLANK_SPACE + service + Constants.BLANK_SPACE + result, Toast.LENGTH_SHORT).show();
+                //Esconde Icono de cargando
+                setProgressBarIndeterminateVisibility(false);
             }
         });
+    }
+
+    /**
+     * Muestra icono de cargando
+     */
+    public void showLoadingIcon() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setProgressBarIndeterminateVisibility(true);
+            }
+        });
+
+    }
+
+    /**
+     * Esconde icono de cargando
+     */
+    public void hideLoadingIcon() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                setProgressBarIndeterminateVisibility(false);
+            }
+        });
+
     }
 
     /**

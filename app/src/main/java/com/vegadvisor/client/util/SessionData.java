@@ -109,6 +109,8 @@ public class SessionData {
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters) {
+        //Cargando
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters, null, null));
     }
@@ -122,6 +124,8 @@ public class SessionData {
      * @param classType  Clase esperada en retorno
      */
     public void executeServiceList(int serviceId, String service, Map<String, String> parameters, Type classType) {
+        //Cargando
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters, null,
                 classType));
@@ -135,6 +139,8 @@ public class SessionData {
      * @param parameters Parámetros que se necesitan para ejecutar el servicio
      */
     public void executeServiceImage(int serviceId, String service, Map<String, String> parameters) {
+        //Cargando
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters, null, null));
     }
@@ -148,6 +154,8 @@ public class SessionData {
      * @param imageFile  Bitmap de imagen a enviar al servidor
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, File imageFile) {
+        //Cargando
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile, null));
     }
@@ -161,6 +169,8 @@ public class SessionData {
      * @param classType  Clase esperada en retorno
      */
     public void executeServiceObject(int serviceId, String service, Map<String, String> parameters, Type classType) {
+        //Cargando
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(5, serviceId, service, parameters, null,
                 classType));
