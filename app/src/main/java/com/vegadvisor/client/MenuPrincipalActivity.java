@@ -163,7 +163,7 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.b2: /*Cercano a mi*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                intent = new Intent(MenuPrincipalActivity.this, CercanoaMiActivity.class);
                 break;
             case R.id.b3: /*Perfil*/
                 //Navega hacia actividad de perfil

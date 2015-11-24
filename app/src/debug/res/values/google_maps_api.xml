@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=D4:71:8E:02:91:DB:14:8D:E6:B3:21:DF:CC:07:B8:21:EF:99:97:18%3Bcom.vegadvisor.client
+
+    You can also add your credentials to an existing key, using this line:
+    D4:71:8E:02:91:DB:14:8D:E6:B3:21:DF:CC:07:B8:21:EF:99:97:18;com.vegadvisor.client
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCaFq9L1VTXBh-8jm_HKKaCsl7eDrJX_88
+    </string>
+</resources>
