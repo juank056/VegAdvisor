@@ -3,6 +3,7 @@ package com.vegadvisor.client.util;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.vegadvisor.client.bo.Esmestab;
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.bo.Usmusuar;
 
@@ -51,6 +52,10 @@ public class SessionData {
      */
     private Usmusuar usuarObject;
 
+    /**
+     * Establecimiento de usuario
+     */
+    private Esmestab userEstab;
 
     /**
      * Conector para ejecutar métodos en el servidor
@@ -229,6 +234,24 @@ public class SessionData {
      */
     public void setUsuarObject(Usmusuar usuarObject) {
         this.usuarObject = usuarObject;
+    }
+
+    /**
+     * Obtiene el establecimiento de un usuario
+     *
+     * @return Establecimiento de un usuario para ver/editar
+     */
+    public Esmestab getUserEstab() {
+        return userEstab;
+    }
+
+    /**
+     * Asigna establecimiento de usuario
+     *
+     * @param userEstab Asigna el establecimiento de un usuario
+     */
+    public void setUserEstab(Esmestab userEstab) {
+        this.userEstab = userEstab;
     }
 
 

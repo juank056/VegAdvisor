@@ -34,15 +34,11 @@
             android:label="@string/title_activity_inicio_sesion"
             android:parentActivityName=".InicioAplicacionActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.vegadvisor.client.InicioAplicacionActivity"/>
         </activity>
         <activity
             android:name=".RegistroActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_registro"
-            android:parentActivityName=".InicioAplicacionActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -73,6 +69,26 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vegadvisor.client.MenuPrincipalActivity"/>
+        </activity>
+        <activity
+            android:name=".DetalleEstabActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_detalle_estab"
+            android:parentActivityName=".EstablecimientosActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.EstablecimientosActivity"/>
+        </activity>
+        <activity
+            android:name=".CrearEstabActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_crear_estab"
+            android:parentActivityName=".EstablecimientosActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.EstablecimientosActivity"/>
         </activity>
     </application>
 

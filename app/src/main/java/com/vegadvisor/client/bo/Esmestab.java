@@ -10,195 +10,215 @@ import java.util.List;
  */
 public class Esmestab implements java.io.Serializable, AbstractBO<Integer> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private Integer estcestnk;
-	private String usucusuak;
-	private String estnestaf;
-	private int tesctesnk;
-	private String estdireaf;
-	private String estteleaf;
-	private Date esthoratf;
-	private Date esthorctf;
-	private String paicpaiak;
-	private String ciucciuak;
-	private double estlatinf;
-	private double estlongnf;
-	private String estdestaf;
-	private double estpestnf;
-	private String estiactsf;
-	// Lista de imagenes del establecimiento
-	private List<Esdimaes> images;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private Integer estcestnk;
+    private String usucusuak;
+    private String estnestaf;
+    private int tesctesnk;
+    private String estdireaf;
+    private String estteleaf;
+    private String esthoratf;
+    private String esthorctf;
+    private String paicpaiak;
+    private String ciucciuak;
+    private double estlatinf;
+    private double estlongnf;
+    private String estdestaf;
+    private double estpestnf;
+    private String estiactsf;
+    // Lista de imagenes del establecimiento
+    private List<Esdimaes> images;
 
-	public Esmestab() {
-	}
+    public Esmestab() {
+    }
 
-	public Esmestab(String usucusuak, String estnestaf, int tesctesnk,
-			String estdireaf, String estteleaf, Date esthoratf, Date esthorctf,
-			String paicpaiak, String ciucciuak, double estlatinf,
-			double estlongnf, String estdestaf, double estpestnf,
-			String estiactsf) {
-		this.usucusuak = usucusuak;
-		this.estnestaf = estnestaf;
-		this.tesctesnk = tesctesnk;
-		this.estdireaf = estdireaf;
-		this.estteleaf = estteleaf;
-		this.esthoratf = esthoratf;
-		this.esthorctf = esthorctf;
-		this.paicpaiak = paicpaiak;
-		this.ciucciuak = ciucciuak;
-		this.estlatinf = estlatinf;
-		this.estlongnf = estlongnf;
-		this.estdestaf = estdestaf;
-		this.estpestnf = estpestnf;
-		this.estiactsf = estiactsf;
-	}
+    public Esmestab(String usucusuak, String estnestaf, int tesctesnk,
+                    String estdireaf, String estteleaf, String esthoratf, String esthorctf,
+                    String paicpaiak, String ciucciuak, double estlatinf,
+                    double estlongnf, String estdestaf, double estpestnf,
+                    String estiactsf) {
+        this.usucusuak = usucusuak;
+        this.estnestaf = estnestaf;
+        this.tesctesnk = tesctesnk;
+        this.estdireaf = estdireaf;
+        this.estteleaf = estteleaf;
+        this.esthoratf = esthoratf;
+        this.esthorctf = esthorctf;
+        this.paicpaiak = paicpaiak;
+        this.ciucciuak = ciucciuak;
+        this.estlatinf = estlatinf;
+        this.estlongnf = estlongnf;
+        this.estdestaf = estdestaf;
+        this.estpestnf = estpestnf;
+        this.estiactsf = estiactsf;
+    }
 
-	public Integer getEstcestnk() {
-		return this.estcestnk;
-	}
+    public Integer getEstcestnk() {
+        return this.estcestnk;
+    }
 
-	public void setEstcestnk(Integer estcestnk) {
-		this.estcestnk = estcestnk;
-	}
+    public void setEstcestnk(Integer estcestnk) {
+        this.estcestnk = estcestnk;
+    }
 
-	public String getUsucusuak() {
-		return this.usucusuak;
-	}
+    public String getUsucusuak() {
+        return this.usucusuak;
+    }
 
-	public void setUsucusuak(String usucusuak) {
-		this.usucusuak = usucusuak;
-	}
+    public void setUsucusuak(String usucusuak) {
+        this.usucusuak = usucusuak;
+    }
 
-	public String getEstnestaf() {
-		return this.estnestaf;
-	}
+    public String getEstnestaf() {
+        return this.estnestaf;
+    }
 
-	public void setEstnestaf(String estnestaf) {
-		this.estnestaf = estnestaf;
-	}
+    public void setEstnestaf(String estnestaf) {
+        this.estnestaf = estnestaf;
+    }
 
-	public int getTesctesnk() {
-		return this.tesctesnk;
-	}
+    public int getTesctesnk() {
+        return this.tesctesnk;
+    }
 
-	public void setTesctesnk(int tesctesnk) {
-		this.tesctesnk = tesctesnk;
-	}
+    public void setTesctesnk(int tesctesnk) {
+        this.tesctesnk = tesctesnk;
+    }
 
-	public String getEstdireaf() {
-		return this.estdireaf;
-	}
+    public String getEstdireaf() {
+        return this.estdireaf;
+    }
 
-	public void setEstdireaf(String estdireaf) {
-		this.estdireaf = estdireaf;
-	}
+    public void setEstdireaf(String estdireaf) {
+        this.estdireaf = estdireaf;
+    }
 
-	public String getEstteleaf() {
-		return this.estteleaf;
-	}
+    public String getEstteleaf() {
+        return this.estteleaf;
+    }
 
-	public void setEstteleaf(String estteleaf) {
-		this.estteleaf = estteleaf;
-	}
+    public void setEstteleaf(String estteleaf) {
+        this.estteleaf = estteleaf;
+    }
 
-	public Date getEsthoratf() {
-		return this.esthoratf;
-	}
+    public String getEsthoratf() {
+        return this.esthoratf;
+    }
 
-	public void setEsthoratf(Date esthoratf) {
-		this.esthoratf = esthoratf;
-	}
+    public void setEsthoratf(String esthoratf) {
+        this.esthoratf = esthoratf;
+    }
 
-	public Date getEsthorctf() {
-		return this.esthorctf;
-	}
+    public String getEsthorctf() {
+        return this.esthorctf;
+    }
 
-	public void setEsthorctf(Date esthorctf) {
-		this.esthorctf = esthorctf;
-	}
+    public void setEsthorctf(String esthorctf) {
+        this.esthorctf = esthorctf;
+    }
 
-	public String getPaicpaiak() {
-		return this.paicpaiak;
-	}
+    public String getPaicpaiak() {
+        return this.paicpaiak;
+    }
 
-	public void setPaicpaiak(String paicpaiak) {
-		this.paicpaiak = paicpaiak;
-	}
+    public void setPaicpaiak(String paicpaiak) {
+        this.paicpaiak = paicpaiak;
+    }
 
-	public String getCiucciuak() {
-		return this.ciucciuak;
-	}
+    public String getCiucciuak() {
+        return this.ciucciuak;
+    }
 
-	public void setCiucciuak(String ciucciuak) {
-		this.ciucciuak = ciucciuak;
-	}
+    public void setCiucciuak(String ciucciuak) {
+        this.ciucciuak = ciucciuak;
+    }
 
-	public double getEstlatinf() {
-		return this.estlatinf;
-	}
+    public double getEstlatinf() {
+        return this.estlatinf;
+    }
 
-	public void setEstlatinf(double estlatinf) {
-		this.estlatinf = estlatinf;
-	}
+    public void setEstlatinf(double estlatinf) {
+        this.estlatinf = estlatinf;
+    }
 
-	public double getEstlongnf() {
-		return this.estlongnf;
-	}
+    public double getEstlongnf() {
+        return this.estlongnf;
+    }
 
-	public void setEstlongnf(double estlongnf) {
-		this.estlongnf = estlongnf;
-	}
+    public void setEstlongnf(double estlongnf) {
+        this.estlongnf = estlongnf;
+    }
 
-	public String getEstdestaf() {
-		return this.estdestaf;
-	}
+    public String getEstdestaf() {
+        return this.estdestaf;
+    }
 
-	public void setEstdestaf(String estdestaf) {
-		this.estdestaf = estdestaf;
-	}
+    public void setEstdestaf(String estdestaf) {
+        this.estdestaf = estdestaf;
+    }
 
-	public double getEstpestnf() {
-		return this.estpestnf;
-	}
+    public double getEstpestnf() {
+        return this.estpestnf;
+    }
 
-	public void setEstpestnf(double estpestnf) {
-		this.estpestnf = estpestnf;
-	}
+    public void setEstpestnf(double estpestnf) {
+        this.estpestnf = estpestnf;
+    }
 
-	public String getEstiactsf() {
-		return this.estiactsf;
-	}
+    public String getEstiactsf() {
+        return this.estiactsf;
+    }
 
-	public void setEstiactsf(String estiactsf) {
-		this.estiactsf = estiactsf;
-	}
+    public void setEstiactsf(String estiactsf) {
+        this.estiactsf = estiactsf;
+    }
 
-	@Override
-	public Integer getPrimaryKey() {
-		return estcestnk;
-	}
+    @Override
+    public Integer getPrimaryKey() {
+        return estcestnk;
+    }
 
-	@Override
-	public void cleanObject() {
-		
-	}
+    @Override
+    public void cleanObject() {
 
-	/**
-	 * @return the images
-	 */
-	public List<Esdimaes> getImages() {
-		return images;
-	}
+    }
 
-	/**
-	 * @param images
-	 *            the images to set
-	 */
-	public void setImages(List<Esdimaes> images) {
-		this.images = images;
-	}
+    /**
+     * @return the images
+     */
+    public List<Esdimaes> getImages() {
+        return images;
+    }
 
+    /**
+     * @param images the images to set
+     */
+    public void setImages(List<Esdimaes> images) {
+        this.images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Esmestab{" +
+                "estcestnk=" + estcestnk +
+                ", usucusuak='" + usucusuak + '\'' +
+                ", estnestaf='" + estnestaf + '\'' +
+                ", tesctesnk=" + tesctesnk +
+                ", estdireaf='" + estdireaf + '\'' +
+                ", estteleaf='" + estteleaf + '\'' +
+                ", esthoratf='" + esthoratf + '\'' +
+                ", esthorctf='" + esthorctf + '\'' +
+                ", paicpaiak='" + paicpaiak + '\'' +
+                ", ciucciuak='" + ciucciuak + '\'' +
+                ", estlatinf=" + estlatinf +
+                ", estlongnf=" + estlongnf +
+                ", estdestaf='" + estdestaf + '\'' +
+                ", estpestnf=" + estpestnf +
+                ", estiactsf='" + estiactsf + '\'' +
+                ", images=" + images +
+                '}';
+    }
 }

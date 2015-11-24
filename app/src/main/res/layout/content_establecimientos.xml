@@ -15,5 +15,23 @@
         tools:context="com.vegadvisor.client.EstablecimientosActivity"
         tools:showIn="@layout/activity_establecimientos">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crear_establecimiento"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <ListView
+            android:id="@+id/listaEstab"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
     </LinearLayout>
 </ScrollView>

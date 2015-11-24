@@ -45,4 +45,7 @@
     <string name="hombre">Hombre</string>
     <string name="hobbies">Hobbies</string>
     <string name="foto_perfil">Foto Perfil</string>
+    <string name="crear_establecimiento">+ Establecimiento</string>
+    <string name="title_activity_detalle_estab">Detalle Establecimiento</string>
+    <string name="title_activity_crear_estab">Crear Establecimiento</string>
 </resources>
