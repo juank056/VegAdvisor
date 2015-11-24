@@ -34,13 +34,22 @@ import java.util.Map;
 public abstract class VegAdvisorActivity extends AppCompatActivity {
 
     /**
+     * Sobre-escribe onCreate
+     * @param savedInstanceState Instancia
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        //Request para loading
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
+    }
+
+    /**
      * Sobre-escribe método on resume
      */
     @Override
     protected void onResume() {
         super.onResume();
-        //Request para loading
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         //Asigna actividad a los datos de sesión
         SessionData.getInstance().setActivity(this);
     }

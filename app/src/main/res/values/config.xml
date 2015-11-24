@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--URLs ruta de servicios rest servidor de aplicaciones -->
-    <item name="server_path" type="string">http://138.4.220.187:8080/VegAdvisor_Server/rest</item>
+    <item name="server_path" type="string">http://10.10.3.89:8080/VegAdvisor_Server/rest</item>
     <item name="use_cloud_front" type="string">true</item>
     <item name="cloud_front_path" type="string">http://d3sr8z6zbsxrla.cloudfront.net/</item>
     <!--URLs para servicios de usuarios -->
