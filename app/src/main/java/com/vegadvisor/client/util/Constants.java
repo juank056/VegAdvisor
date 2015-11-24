@@ -277,4 +277,9 @@ public class Constants {
      * Extension jpg
      */
     public static final String JPG_EXT = ".jpg";
+
+    /**
+     * Mínimo de caracteres de autocomplete
+     */
+    public static final int MIN_AUTOCOMPLETE_CHARS = 1;
 }
