@@ -105,6 +105,57 @@
             android:name=".CercanoaMiActivity"
             android:label="@string/title_activity_cercanoa_mi">
         </activity>
+        <activity
+            android:name=".EditarEstabActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_editar_estab"
+            android:parentActivityName=".DetalleEstabActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.DetalleEstabActivity"/>
+        </activity>
+        <activity
+            android:name=".EstadisticasEstabActivity"
+            android:label="@string/title_activity_estadisticas_estab"
+            android:parentActivityName=".DetalleEstabActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.DetalleEstabActivity"/>
+        </activity>
+        <activity
+            android:name=".LocalizadorActivity"
+            android:label="@string/title_activity_localizador"
+            android:parentActivityName=".MenuPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.MenuPrincipalActivity"/>
+        </activity>
+        <activity
+            android:name=".ConsultaEstabActivity"
+            android:label="@string/title_activity_consulta_estab"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".RegistroOpinionActivity"
+            android:label="@string/title_activity_registro_opinion"
+            android:parentActivityName=".ConsultaEstabActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.ConsultaEstabActivity"/>
+        </activity>
+        <activity
+            android:name=".DetalleOpinionActivity"
+            android:label="@string/title_activity_detalle_opinion"
+            android:parentActivityName=".ConsultaEstabActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.ConsultaEstabActivity"/>
+        </activity>
     </application>
 
 </manifest>
