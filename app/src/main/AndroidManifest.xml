@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.vegadvisor.client"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.vegadvisor.client"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -117,6 +118,7 @@
         </activity>
         <activity
             android:name=".EstadisticasEstabActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_estadisticas_estab"
             android:parentActivityName=".DetalleEstabActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -126,6 +128,7 @@
         </activity>
         <activity
             android:name=".LocalizadorActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_localizador"
             android:parentActivityName=".MenuPrincipalActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -135,11 +138,13 @@
         </activity>
         <activity
             android:name=".ConsultaEstabActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_consulta_estab"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
             android:name=".RegistroOpinionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_registro_opinion"
             android:parentActivityName=".ConsultaEstabActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -149,12 +154,43 @@
         </activity>
         <activity
             android:name=".DetalleOpinionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_detalle_opinion"
             android:parentActivityName=".ConsultaEstabActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vegadvisor.client.ConsultaEstabActivity"/>
+        </activity>
+        <activity
+            android:name=".ContactoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_contacto"
+            android:parentActivityName=".MenuPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.MenuPrincipalActivity"/>
+        </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_chat"
+            android:parentActivityName=".MenuPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.MenuPrincipalActivity"/>
+        </activity>
+        <activity
+            android:name=".ConversacionActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_conversacion"
+            android:parentActivityName=".ChatActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.ChatActivity"/>
         </activity>
     </application>
 
