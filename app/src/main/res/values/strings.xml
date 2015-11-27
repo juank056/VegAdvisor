@@ -65,4 +65,8 @@
     <string name="title_activity_contacto">Información Contacto</string>
     <string name="title_activity_chat">Chat</string>
     <string name="title_activity_conversacion">Conversación</string>
+    <string name="title_activity_eventos">Eventos</string>
+    <string name="title_activity_crear_evento">Crear Evento</string>
+    <string name="title_activity_detalle_evento">Detalle Evento</string>
+    <string name="title_activity_editar_evento">Editar Evento</string>
 </resources>

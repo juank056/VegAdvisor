@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.vegadvisor.client.LocalizadorActivity"
-        tools:showIn="@layout/activity_localizador">
+        tools:context="com.vegadvisor.client.EventosActivity"
+        tools:showIn="@layout/activity_eventos">
 
         <Space
             android:layout_width="match_parent"
