@@ -1,6 +1,5 @@
 package com.vegadvisor.client;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,12 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.Constants;
-import com.vegadvisor.client.util.PasswordManager;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
@@ -160,9 +157,11 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 intent = new Intent(MenuPrincipalActivity.this, RegistroActivity.class);
                 break;
             case R.id.b1: /*Localizador*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega a localizador
+                intent = new Intent(MenuPrincipalActivity.this, LocalizadorActivity.class);
                 break;
             case R.id.b2: /*Cercano a mi*/
+                //Navega a cercano a mi
                 intent = new Intent(MenuPrincipalActivity.this, CercanoaMiActivity.class);
                 break;
             case R.id.b3: /*Perfil*/
@@ -170,20 +169,24 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 intent = new Intent(MenuPrincipalActivity.this, PerfilActivity.class);
                 break;
             case R.id.b4: /*Eventos*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega hacia actividad de Eventos
+                intent = new Intent(MenuPrincipalActivity.this, EventosActivity.class);
                 break;
             case R.id.b5: /*Foro*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega hacia actividad de foro
+                intent = new Intent(MenuPrincipalActivity.this, ForoActivity.class);
                 break;
             case R.id.b6: /*Chat*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega hacia actividad de chat
+                intent = new Intent(MenuPrincipalActivity.this, ChatActivity.class);
                 break;
             case R.id.b7: /*Establecimientos*/
                 //Navegar hacia Establecimientos
                 intent = new Intent(MenuPrincipalActivity.this, EstablecimientosActivity.class);
                 break;
             case R.id.b8: /*Contacto*/
-                Toast.makeText(getApplicationContext(), "No Implementado!", Toast.LENGTH_SHORT).show();
+                //Navega hacia actividad de Contacto
+                intent = new Intent(MenuPrincipalActivity.this, ContactoActivity.class);
                 break;
             case R.id.b9: /*Salir*/
                 //Limpia datos de sesion

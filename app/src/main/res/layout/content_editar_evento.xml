@@ -15,5 +15,8 @@
         tools:context="com.vegadvisor.client.EditarEventoActivity"
         tools:showIn="@layout/activity_editar_evento">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
     </LinearLayout>
 </ScrollView>

@@ -15,5 +15,8 @@
         tools:context="com.vegadvisor.client.DetalleOpinionActivity"
         tools:showIn="@layout/activity_detalle_opinion">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
     </LinearLayout>
 </ScrollView>

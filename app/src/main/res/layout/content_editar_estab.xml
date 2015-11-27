@@ -15,5 +15,8 @@
         tools:context="com.vegadvisor.client.EditarEstabActivity"
         tools:showIn="@layout/activity_editar_estab">
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
     </LinearLayout>
 </ScrollView>
