@@ -32,7 +32,6 @@ public class RegistroActivity extends VegAdvisorActivity implements View.OnClick
         setContentView(R.layout.activity_registro);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Obtiene campos de la pantalla
         userId = (EditText) findViewById(R.id.userid);
         name = (EditText) findViewById(R.id.name);

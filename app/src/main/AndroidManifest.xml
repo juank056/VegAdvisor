@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.vegadvisor.client"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest
+    package="com.vegadvisor.client"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -193,6 +194,7 @@
         </activity>
         <activity
             android:name=".EventosActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_eventos"
             android:parentActivityName=".MenuPrincipalActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -202,6 +204,7 @@
         </activity>
         <activity
             android:name=".CrearEventoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_crear_evento"
             android:parentActivityName=".EventosActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -211,6 +214,7 @@
         </activity>
         <activity
             android:name=".DetalleEventoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_detalle_evento"
             android:parentActivityName=".EventosActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -220,12 +224,53 @@
         </activity>
         <activity
             android:name=".EditarEventoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_editar_evento"
             android:parentActivityName=".DetalleEventoActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.vegadvisor.client.DetalleEventoActivity"/>
+        </activity>
+        <activity
+            android:name=".ForoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_foro"
+            android:parentActivityName=".MenuPrincipalActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.MenuPrincipalActivity"/>
+        </activity>
+        <activity
+            android:name=".CrearHiloActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_crear_hilo"
+            android:parentActivityName=".ForoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.ForoActivity"/>
+        </activity>
+        <activity
+            android:name=".DetalleHiloActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_detalle_hilo"
+            android:parentActivityName=".ForoActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.ForoActivity"/>
+        </activity>
+        <activity
+            android:name=".RespuestaHiloActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_respuesta_hilo"
+            android:parentActivityName=".DetalleHiloActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.vegadvisor.client.DetalleHiloActivity"/>
         </activity>
     </application>
 
