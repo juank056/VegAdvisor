@@ -77,4 +77,5 @@
     <string name="ubicacion">Ubicación</string>
     <string name="seleccionar_ubicacion">Seleccionar esta ubicación</string>
     <string name="aceptar">Aceptar</string>
+    <string name="buscar">Buscar</string>
 </resources>

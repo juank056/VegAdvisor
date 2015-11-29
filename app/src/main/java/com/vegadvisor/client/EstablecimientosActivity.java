@@ -81,8 +81,6 @@ public class EstablecimientosActivity extends VegAdvisorActivity implements View
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
                 //Revisa que haya lista de resultado
                 if (result != null) {
                     //Lista de establecimientos

@@ -292,4 +292,9 @@ public class Constants {
      * Horario por defecto de cierre
      */
     public static final String DEF_CLOSE_TIME = "20:00:00";
+
+    /**
+     * Ratio de busqueda por defecto
+     */
+    public static final String DEF_SEARCH_RATIO = "6900.0";
 }
