@@ -139,8 +139,10 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
             public void run() {
                 //Revisa que se tenga imagen
                 if (result != null) {
+                    //Bitmap re ajustado
+                    Bitmap scaled = Bitmap.createScaledBitmap(result, userImage.getWidth(), userImage.getHeight(), true);
                     //Asigna bitmap a la imagen
-                    userImage.setImageBitmap(result);
+                    userImage.setImageBitmap(scaled);
                 }
             }
         });

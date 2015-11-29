@@ -178,6 +178,30 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/imagenes"/>
+
+        <LinearLayout
+            android:id="@+id/imagenes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/b2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="5dp"
+                android:src="@drawable/plus"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
         <Button
             android:id="@+id/b1"
             android:layout_width="match_parent"

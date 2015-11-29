@@ -233,6 +233,8 @@ public class ServerConnector {
      */
     public ReturnValidation executeServiceRV(String service, Map<String, String> parameters, File imageFile) {
         try {
+            //Duerme un poco para no saturar server
+            Thread.sleep(100);
             //Crea cliente
             org.apache.http.client.HttpClient client = new DefaultHttpClient();
             //Http Post

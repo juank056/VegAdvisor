@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -36,6 +40,8 @@ import com.vegadvisor.client.util.DateUtils;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +118,26 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
      */
     private Csptiest selectedTiest;
 
+    /**
+     * Layout de imagenes
+     */
+    private LinearLayout imagenes;
+
+    /**
+     * Lista de imágenes a enviar
+     */
+    private List<File> estabImagesFiles;
+
+    /**
+     * Boton de imagen
+     */
+    private ImageButton b2;
+
+    /**
+     * Total de respuestas recibidas en upload de imagenes
+     */
+    private int totalUploadResponses;
+
 
     /**
      * @param savedInstanceState Instancia
@@ -125,6 +151,10 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Set loading icon false
         this.setShowLoadingIcon(false);
+        //Lista de imagenes a enviar
+        estabImagesFiles = new ArrayList<>();
+        //Upload responses en cero
+        totalUploadResponses = 0;
         //Obtiene elementos de la pantalla
         nombreEstab = (EditText) findViewById(R.id.nombreEstab);
         descripcion = (EditText) findViewById(R.id.descripcion);
@@ -132,6 +162,7 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
         telefono = (EditText) findViewById(R.id.telefono);
         apertura = (EditText) findViewById(R.id.apertura);
         cierre = (EditText) findViewById(R.id.cierre);
+        imagenes = (LinearLayout) findViewById(R.id.imagenes);
         //Texto por defecto de apertura y cierre
         apertura.setText(Constants.DEF_OPEN_TIME);
         cierre.setText(Constants.DEF_CLOSE_TIME);
@@ -166,6 +197,30 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
         initScreen();
         //Boton de envio
         findViewById(R.id.b1).setOnClickListener(this);
+        //Ingresar otra imagen
+        b2 = (ImageButton) findViewById(R.id.b2);
+        b2.setOnClickListener(this);
+    }
+
+    /**
+     * Se engarga de procesar el resultado de cargar una imagen
+     *
+     * @param imageBitmap Bitmap de la imagen cargada
+     * @param imagePath   Ruta de la imagen cargada
+     */
+    @Override
+    public void processImageSelectedResponse(Bitmap imageBitmap, String imagePath) {
+        //Crea nueva image view
+        ImageView image = new ImageView(getApplicationContext());
+        Bitmap scaled = Bitmap.createScaledBitmap(imageBitmap, b2.getWidth(), b2.getHeight(), true);
+        //Asigna bitmap
+        image.setImageBitmap(scaled);
+        //Padding
+        image.setPadding(5, 5, 5, 5);
+        //Ingresa imagen al list view de imagenes
+        imagenes.addView(image, 0);
+        //Adiciona nuevo file para enviar al servidor
+        estabImagesFiles.add(new File(imagePath));
     }
 
     @Override
@@ -182,6 +237,32 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                     case 106: /*Creacion de establecimiento*/
                         //Revisa si fue exitosa la actualización
                         if (Constants.ONE.equals(result.getValidationInd())) {/*Exitoso*/
+                            //Revisa si no habían imagenes
+                            if (estabImagesFiles.size() == 0) {/*Sin imagenes*/
+                                //Navega hacia el menú principal de nuevo
+                                Intent intent = new Intent(CrearEstabActivity.this, MenuPrincipalActivity.class);
+                                //Navega
+                                startActivity(intent);
+                                //Finaliza Actividad
+                                finish();
+                            } else {/*Hay Imagenes*/
+                                //Obtiene datos del response
+                                String establishmentId = result.getParams().get("establishmentId");
+                                //Envía imágenes al servidor
+                                for (File image : estabImagesFiles) {
+                                    SessionData.getInstance().executeServiceRV(107,
+                                            getResources().getString(R.string.image_uploadEstablishmentImage),
+                                            CrearEstabActivity.this.createParametersMap("establishmentId",
+                                                    establishmentId),
+                                            image);
+                                }
+                            }
+                        }
+                        break;
+                    case 107: /*Respuesta de upload de imagen*/
+                        //Incrementa contador
+                        totalUploadResponses++;
+                        if (totalUploadResponses == estabImagesFiles.size()) {/*Todos*/
                             //Navega hacia el menú principal de nuevo
                             Intent intent = new Intent(CrearEstabActivity.this, MenuPrincipalActivity.class);
                             //Navega
@@ -189,7 +270,6 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                             //Finaliza Actividad
                             finish();
                         }
-                        break;
                 }
             }
         });
@@ -471,6 +551,10 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                 break;
             case R.id.cierre: /*Hora cierre*/
                 timePickerDialogClose.show();
+                break;
+            case R.id.b2: /*Adicionar imagen*/
+                //Lanza dialogo de selección de imagen
+                this.launchSelectImageDialog();
                 break;
         }
     }
