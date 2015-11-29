@@ -118,6 +118,8 @@ public class CercanoaMiActivity extends VegAdvisorActivity implements
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -222,16 +224,22 @@ public class CercanoaMiActivity extends VegAdvisorActivity implements
      */
     @Override
     public void onClick(View v) {
+        //Indicador de cambio
+        boolean change = true;
         switch (v.getId()) {
             case R.id.b1: /*Disminuir radio radio*/
                 selectedRatio--;
-                if (selectedRatio < 0)
+                if (selectedRatio < 0) {
                     selectedRatio = 0;
+                    change = false;
+                }
                 break;
             case R.id.b2: /*Disminuir radio radio*/
                 selectedRatio++;
-                if (selectedRatio >= ratios.length)
+                if (selectedRatio >= ratios.length) {
                     selectedRatio = ratios.length - 1;
+                    change = false;
+                }
                 break;
             case R.id.selectedEstab:/*Establecimiento seleccionado*/
                 //Revisa que haya algun establecimiento seleccionado
@@ -243,7 +251,7 @@ public class CercanoaMiActivity extends VegAdvisorActivity implements
                 }
                 break;
         }
-        if (v.getId() == R.id.b1 || v.getId() == R.id.b2) {/*Busqueda*/
+        if (change && (v.getId() == R.id.b1 || v.getId() == R.id.b2)) {/*Busqueda*/
             //Establecimiento seleccionado, ninguno
             selectedEstab.setText(Constants.BLANKS);
             //Asigna texto de selected ratio

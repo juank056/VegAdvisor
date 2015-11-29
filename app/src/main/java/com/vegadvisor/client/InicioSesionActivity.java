@@ -49,6 +49,8 @@ public class InicioSesionActivity extends VegAdvisorActivity implements View.OnC
      */
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -74,6 +74,8 @@ public class RegistroActivity extends VegAdvisorActivity implements View.OnClick
      * @param result  Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

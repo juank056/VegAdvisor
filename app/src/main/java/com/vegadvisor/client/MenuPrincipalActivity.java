@@ -93,6 +93,8 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final Object result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -130,6 +132,8 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
 
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

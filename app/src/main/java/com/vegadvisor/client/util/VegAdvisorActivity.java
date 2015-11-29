@@ -2,6 +2,7 @@ package com.vegadvisor.client.util;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.DialogInterface;
@@ -34,13 +35,30 @@ import java.util.Map;
 public abstract class VegAdvisorActivity extends AppCompatActivity {
 
     /**
+     * Dialogo de progreso
+     */
+    private ProgressDialog loadingDialog;
+
+    /**
+     * Indicador de show loading icon
+     */
+    private boolean showLoadingIcon;
+
+    /**
      * Sobre-escribe onCreate
+     *
      * @param savedInstanceState Instancia
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Request para loading
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        loadingDialog = new ProgressDialog(this);
+        loadingDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        loadingDialog.setMessage(getResources().getString(R.string.espere));
+        loadingDialog.setIndeterminate(true);
+        loadingDialog.setCanceledOnTouchOutside(false);
+        //Show loading true
+        showLoadingIcon = true;
+        //Super
         super.onCreate(savedInstanceState);
     }
 
@@ -62,13 +80,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
-            }
-        });
+        //Esconde icono de cargando
+        this.hideLoadingIcon();
     }
 
     /**
@@ -79,13 +92,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
-            }
-        });
+        //Esconde icono de cargando
+        this.hideLoadingIcon();
     }
 
     /**
@@ -96,13 +104,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final Object result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
-            }
-        });
+        //Esconde icono de cargando
+        this.hideLoadingIcon();
     }
 
     /**
@@ -113,13 +116,8 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
-            }
-        });
+        //Esconde icono de cargando
+        this.hideLoadingIcon();
     }
 
     /**
@@ -129,7 +127,9 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                setProgressBarIndeterminateVisibility(true);
+                //Revisa si estaba mostrando
+                if (isShowLoadingIcon())
+                    loadingDialog.show();
             }
         });
 
@@ -142,10 +142,30 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                setProgressBarIndeterminateVisibility(false);
+                //Revisa si estaba mostrando
+                if (isShowLoadingIcon())
+                    loadingDialog.hide();
             }
         });
 
+    }
+
+    /**
+     * Asigna indicador de mostrar icono de cargando
+     *
+     * @param showLoadingIcon Indicador de mostrar icono de cargando
+     */
+    public void setShowLoadingIcon(boolean showLoadingIcon) {
+        this.showLoadingIcon = showLoadingIcon;
+    }
+
+    /**
+     * Obtiene indicador de mostrar icono de cargando
+     *
+     * @return Indicador de mostrar icono de cargando
+     */
+    public boolean isShowLoadingIcon() {
+        return showLoadingIcon;
     }
 
     /**

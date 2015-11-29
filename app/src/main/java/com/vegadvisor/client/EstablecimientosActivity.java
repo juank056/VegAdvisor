@@ -78,6 +78,8 @@ public class EstablecimientosActivity extends VegAdvisorActivity implements View
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -108,6 +108,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Set loading icon false
+        this.setShowLoadingIcon(false);
         //Obtiene campos de texto
         name = (EditText) findViewById(R.id.name);
         lastname = (EditText) findViewById(R.id.lastname);
@@ -194,6 +196,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
 
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -243,6 +247,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
     @Override
     public void receiveServerCallResult(final int serviceId, final String service,
                                         final List<?> result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -317,6 +323,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
     @Override
     public void receiveServerCallResult(final int serviceId, final String service,
                                         final Bitmap result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -422,6 +430,8 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
                     getResources().getText(R.string.genero).toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
+        //Set loading icon true
+        this.setShowLoadingIcon(true);
         //Obtiene objeto de usuario
         Usmusuar usuar = SessionData.getInstance().getUsuarObject();
         //Envía actualización al servidor

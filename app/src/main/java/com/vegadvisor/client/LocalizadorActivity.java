@@ -82,6 +82,8 @@ public class LocalizadorActivity extends VegAdvisorActivity implements View.OnCl
      * @param result    Resultado de la ejecución
      */
     public void receiveServerCallResult(final int serviceId, final String service, final List<?> result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

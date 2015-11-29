@@ -79,4 +79,6 @@
     <string name="aceptar">Aceptar</string>
     <string name="buscar">Buscar</string>
     <string name="radio_busqueda">Radio Búsqueda</string>
+    <string name="cargando_espere">Cargando. Espere...</string>
+    <string name="espere">Espere</string>
 </resources>

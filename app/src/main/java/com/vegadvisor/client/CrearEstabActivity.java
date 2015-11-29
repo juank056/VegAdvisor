@@ -123,6 +123,8 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Set loading icon false
+        this.setShowLoadingIcon(false);
         //Obtiene elementos de la pantalla
         nombreEstab = (EditText) findViewById(R.id.nombreEstab);
         descripcion = (EditText) findViewById(R.id.descripcion);
@@ -168,6 +170,8 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
 
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -199,6 +203,8 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
     @Override
     public void receiveServerCallResult(final int serviceId, final String service,
                                         final List<?> result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -527,6 +533,8 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                     getResources().getText(R.string.ubicacion).toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
+        //Set loading icon true
+        this.setShowLoadingIcon(true);
         //Obtiene objeto de usuario
         Usmusuar usuar = SessionData.getInstance().getUsuarObject();
         //Envía actualización al servidor

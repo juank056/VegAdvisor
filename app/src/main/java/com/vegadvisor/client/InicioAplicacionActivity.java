@@ -166,11 +166,11 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
      */
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Esconde Icono de cargando
-                setProgressBarIndeterminateVisibility(false);
                 //Revisa el resultado obtenido
                 if (result == null) {/*No llegó respuesta*/
                     //Muestra mensaje de error de conexión
