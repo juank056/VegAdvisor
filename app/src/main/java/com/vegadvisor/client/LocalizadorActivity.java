@@ -141,7 +141,7 @@ public class LocalizadorActivity extends VegAdvisorActivity implements View.OnCl
      */
     private void searchEstablishments() {
         //Obtiene establecimientos
-        SessionData.getInstance().executeServiceList(1,
+        SessionData.getInstance().executeServiceList(181,
                 getResources().getString(R.string.establishment_findEstablishments),
                 this.createParametersMap("clue", busqueda.getText().toString().trim(),
                         "ratio", Constants.DEF_SEARCH_RATIO,
@@ -171,7 +171,7 @@ public class LocalizadorActivity extends VegAdvisorActivity implements View.OnCl
             //Asina establecimiento a datos de sesion
             SessionData.getInstance().setUserEstab(estab);
             //Crea intent para ir a detalle establecimiento
-            Intent intent = new Intent(LocalizadorActivity.this, ConsultaEstabActivity.class);
+            Intent intent = new Intent(LocalizadorActivity.this, DetalleEstabActivity.class);
             //Inicia
             startActivity(intent);
         }

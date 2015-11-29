@@ -78,4 +78,5 @@
     <string name="seleccionar_ubicacion">Seleccionar esta ubicación</string>
     <string name="aceptar">Aceptar</string>
     <string name="buscar">Buscar</string>
+    <string name="radio_busqueda">Radio Búsqueda</string>
 </resources>

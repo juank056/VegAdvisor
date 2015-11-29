@@ -297,4 +297,9 @@ public class Constants {
      * Ratio de busqueda por defecto
      */
     public static final String DEF_SEARCH_RATIO = "6900.0";
+
+    /**
+     * Kilometros
+     */
+    public static final String KM = "Km";
 }
