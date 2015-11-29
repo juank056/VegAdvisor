@@ -91,7 +91,6 @@ public class EstablecimientosActivity extends VegAdvisorActivity implements View
                     List<String> listEstabScreen = new ArrayList<String>();
                     //Recorre lista de establecimientos recibida
                     for (Esmestab estab : lsEstab) {
-                        Log.d(Constants.DEBUG, "ESTABLECIMIENTO: " + estab);
                         listEstabScreen.add(estab.getEstnestaf());
                     }
                     //Para incluir elementos de la lista

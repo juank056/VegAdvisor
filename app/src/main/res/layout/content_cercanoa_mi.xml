@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.vegadvisor.client.ChatActivity"
-        tools:showIn="@layout/activity_chat">
+        tools:context="com.vegadvisor.client.CercanoaMiActivity"
+        tools:showIn="@layout/activity_cercanoa_mi">
 
         <Space
             android:layout_width="match_parent"

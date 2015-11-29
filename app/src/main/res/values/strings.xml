@@ -73,4 +73,8 @@
     <string name="title_activity_crear_hilo">Crear Hilo Foro</string>
     <string name="title_activity_detalle_hilo">Detalle Hilo</string>
     <string name="title_activity_respuesta_hilo">Respuesta Hilo Foro</string>
+    <string name="descripcion">Descripción</string>
+    <string name="ubicacion">Ubicación</string>
+    <string name="seleccionar_ubicacion">Seleccionar esta ubicación</string>
+    <string name="aceptar">Aceptar</string>
 </resources>

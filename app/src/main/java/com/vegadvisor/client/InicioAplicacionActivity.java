@@ -91,12 +91,10 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //Obtiene nombre de usuario
         String userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
-        Log.d(Constants.DEBUG, "USER ID PREFERENCIAS: " + userId);
         //Revisa si lo encontro
         if (!Constants.BLANKS.equals(userId)) {
             //Obtiene contraseña
             String passwd = sharedPref.getString(Constants.PASSWD_PREFERENCE, Constants.BLANKS);
-            Log.d(Constants.DEBUG, "PASSWORD PREFERENCIAS: " + passwd);
             //Asigna usuario y contraseña en los datos de sesión
             SessionData.getInstance().setUser(true);
             SessionData.getInstance().setUserId(userId);

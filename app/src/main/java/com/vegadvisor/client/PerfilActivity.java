@@ -187,6 +187,7 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
                 break;
             case R.id.fecha_nacimiento: /*Campo de fecha nacimiento*/
                 datePickerDialog.show();
+                break;
         }
 
     }
@@ -409,7 +410,7 @@ public class PerfilActivity extends VegAdvisorActivity implements View.OnClickLi
                     getResources().getText(R.string.pais).toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
-        //Pais
+        //Ciuddad
         if (selectedCiudad == null) {
             Toast.makeText(getApplicationContext(), getResources().getText(R.string.campoInvalido).toString() +
                     getResources().getText(R.string.ciudad).toString(), Toast.LENGTH_SHORT).show();

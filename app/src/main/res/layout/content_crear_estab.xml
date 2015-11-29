@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.CrearEstabActivity"
@@ -30,6 +30,53 @@
             android:layout_height="wrap_content"
             android:hint="@string/nombre_establecimiento"
             android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"/>
+
+        <EditText
+            android:id="@+id/descripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/descripcion"
+            android:lines="3"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pais"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/pais"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/pais"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ciudad"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/ciudad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ciudad"/>
 
         <Space
             android:layout_width="match_parent"
@@ -76,6 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/telefono"
+            android:inputType="phone"
             android:singleLine="true"/>
 
         <Space
@@ -110,5 +158,31 @@
                 android:inputType="time"
                 android:singleLine="true"/>
         </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ubicacion"/>
+
+        <fragment
+            android:id="@+id/ubicacion"
+            class="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/enviar"/>
     </LinearLayout>
 </ScrollView>

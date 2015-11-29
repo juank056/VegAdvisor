@@ -60,6 +60,22 @@ public class DateUtils {
     }
 
     /**
+     * Genera String de time
+     *
+     * @param hour   Hora
+     * @param minute Minutos
+     * @return Hora en formato HH:MM:SS (Segundos en cero)
+     */
+    public static String getTimeString(int hour, int minute) {
+        String ret = hour > 9 ? Constants.BLANKS + hour
+                : Constants.ZERO + hour;
+        ret += minute > 9 ? Constants.TWO_POINTS + minute
+                : Constants.TWO_POINTS_ZERO + minute;
+        ret += Constants.TWO_POINTS_ZERO + "0";
+        return ret;
+    }
+
+    /**
      * Obtiene la fecha en string YYYYMMDD
      *
      * @param date la fecha a obtener

@@ -282,4 +282,14 @@ public class Constants {
      * Mínimo de caracteres de autocomplete
      */
     public static final int MIN_AUTOCOMPLETE_CHARS = 1;
+
+    /**
+     * Horario por defecto de apertura
+     */
+    public static final String DEF_OPEN_TIME = "09:00:00";
+
+    /**
+     * Horario por defecto de cierre
+     */
+    public static final String DEF_CLOSE_TIME = "20:00:00";
 }
