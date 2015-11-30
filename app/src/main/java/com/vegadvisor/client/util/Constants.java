@@ -302,4 +302,9 @@ public class Constants {
      * Kilometros
      */
     public static final String KM = "Km";
+
+    /**
+     * Telefono para llamar
+     */
+    public static final String TEL = "tel:" ;
 }

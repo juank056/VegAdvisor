@@ -184,6 +184,8 @@ public class ServerConnector {
      */
     public Bitmap executeServiceImage(String service, Map<String, String> parameters) {
         try {
+            //Duerme un poco para no saturar server
+            Thread.sleep(50);
             InputStream response;
             //Revisa si es cloud front o el servidor directamente
             if (usingCloudFront) {/*Cloud Front*/
@@ -234,7 +236,7 @@ public class ServerConnector {
     public ReturnValidation executeServiceRV(String service, Map<String, String> parameters, File imageFile) {
         try {
             //Duerme un poco para no saturar server
-            Thread.sleep(100);
+            Thread.sleep(50);
             //Crea cliente
             org.apache.http.client.HttpClient client = new DefaultHttpClient();
             //Http Post

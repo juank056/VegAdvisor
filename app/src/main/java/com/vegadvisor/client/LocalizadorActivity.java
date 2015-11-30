@@ -173,7 +173,7 @@ public class LocalizadorActivity extends VegAdvisorActivity implements View.OnCl
             //Asina establecimiento a datos de sesion
             SessionData.getInstance().setUserEstab(estab);
             //Crea intent para ir a detalle establecimiento
-            Intent intent = new Intent(LocalizadorActivity.this, DetalleEstabActivity.class);
+            Intent intent = new Intent(LocalizadorActivity.this, ConsultaEstabActivity.class);
             //Inicia
             startActivity(intent);
         }

@@ -245,7 +245,7 @@ public class CercanoaMiActivity extends VegAdvisorActivity implements
                 //Revisa que haya algun establecimiento seleccionado
                 if (!selectedEstab.getText().toString().equals(Constants.BLANKS)) {
                     //Crea intent para ir a detalle establecimiento
-                    Intent intent = new Intent(CercanoaMiActivity.this, DetalleEstabActivity.class);
+                    Intent intent = new Intent(CercanoaMiActivity.this, ConsultaEstabActivity.class);
                     //Inicia
                     startActivity(intent);
                 }
