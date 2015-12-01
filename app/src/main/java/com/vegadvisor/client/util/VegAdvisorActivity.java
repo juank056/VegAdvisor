@@ -72,6 +72,37 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         SessionData.getInstance().setActivity(this);
     }
 
+
+    protected void showConfirmDialog(final int dialogId, final String title,
+                                     final String message, final String positive, final String negative) {
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        dialog.setCancelable(false);
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, positive, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int buttonId) {
+                executeConfirmDialogAction(dialogId, true);
+            }
+        });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, negative, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int buttonId) {
+                executeConfirmDialogAction(dialogId, false);
+            }
+        });
+        dialog.setIcon(android.R.drawable.ic_dialog_alert);
+        dialog.show();
+    }
+
+    /**
+     * Ejecuta acción al confirmar un dialogo
+     *
+     * @param dialogId Id del dialogo de confirmación
+     * @param positive Si la respuesta fue positiva o no
+     */
+    protected void executeConfirmDialogAction(int dialogId, boolean positive) {
+        Toast.makeText(getApplicationContext(), "Response: " + dialogId + " was: " + positive, Toast.LENGTH_SHORT).show();
+    }
+
     /**
      * Método para recibir y procesar la respuesta a un llamado al servidor
      *

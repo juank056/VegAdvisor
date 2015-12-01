@@ -112,7 +112,7 @@ public class LocalizadorActivity extends VegAdvisorActivity implements View.OnCl
                             String[] data = listEstabScreen.get(position);
                             row.getText1().setText(data[0]);
                             row.getText2().setText(data[1]);
-                            row.getText1().setTextColor(Color.GREEN);
+                            row.getText1().setTextColor(Color.BLUE);
                             row.getText2().setTextColor(Color.DKGRAY);
                             return row;
                         }

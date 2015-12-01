@@ -82,4 +82,11 @@
     <string name="cargando_espere">Cargando. Espere...</string>
     <string name="espere">Espere</string>
     <string name="imagenes">Imagenes</string>
+    <string name="confirmacion">Confirmación</string>
+    <string name="confirm_check_in">Desea realizar Check-in aquí?</string>
+    <string name="si">Si</string>
+    <string name="no">No</string>
+    <string name="opinion">Opinión</string>
+    <string name="valorar_opinar">Valorar y Opinar</string>
+    <string name="estrellas">Estrellas</string>
 </resources>

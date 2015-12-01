@@ -306,5 +306,10 @@ public class Constants {
     /**
      * Telefono para llamar
      */
-    public static final String TEL = "tel:" ;
+    public static final String TEL = "tel:";
+
+    /**
+     * Maximo de opiniones a traer
+     */
+    public static final String MAX_OPINION = "10";
 }

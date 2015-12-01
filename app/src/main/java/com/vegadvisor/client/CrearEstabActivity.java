@@ -223,6 +223,12 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
         estabImagesFiles.add(new File(imagePath));
     }
 
+    /**
+     *
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         //Super
