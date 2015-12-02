@@ -27,7 +27,8 @@ import com.vegadvisor.client.util.VegAdvisorActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LocalizadorActivity extends VegAdvisorActivity implements View.OnClickListener, AdapterView.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class LocalizadorActivity extends VegAdvisorActivity implements View.OnClickListener,
+        AdapterView.OnItemClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * Texto de busqueda del establecimiento

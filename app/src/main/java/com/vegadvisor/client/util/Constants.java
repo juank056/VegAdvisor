@@ -99,6 +99,11 @@ public class Constants {
     public static final String URL_PARAM01 = "&1";
 
     /**
+     * Parametro de Url 2
+     */
+    public static final String URL_PARAM02 = "&2";
+
+    /**
      * f
      */
     public static final String F = "F";

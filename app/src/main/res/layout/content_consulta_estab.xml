@@ -19,15 +19,32 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <TextView
-            android:id="@+id/nombreEstab"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/nombre_establecimiento"
-            android:textColor="@color/wallet_link_text_light"
-            android:textSize="30sp"/>
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/nombreEstab"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:text="@string/nombre_establecimiento"
+                android:textColor="@color/wallet_link_text_light"
+                android:textSize="30sp"/>
+
+            <ImageButton
+                android:id="@+id/b3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#FFF"
+                android:contentDescription="@string/compartir"
+                android:src="@drawable/share"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,6 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#FFF"
                 android:src="@drawable/icon_check"/>
         </LinearLayout>
 
@@ -205,17 +223,18 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="@string/opinion"
                 android:textColor="@color/wallet_link_text_light"/>
 
             <Button
                 android:id="@+id/b2"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right" android:gravity="right"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="right"
                 android:text="@string/valorar_opinar"
                 android:textColor="@color/wallet_link_text_light"/>
         </LinearLayout>

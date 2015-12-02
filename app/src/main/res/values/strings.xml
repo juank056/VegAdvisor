@@ -89,4 +89,11 @@
     <string name="opinion">Opinión</string>
     <string name="valorar_opinar">Valorar y Opinar</string>
     <string name="estrellas">Estrellas</string>
+    <string name="editar_estab">Editar Establecimiento</string>
+    <string name="estadisticas">Estadísticas</string>
+    <string name="editar">Editar</string>
+    <string name="compartir">Compartir</string>
+    <string name="texto_compartir"><![CDATA[Hola, estoy en &1. ¡Nos vemos aquí!. Dirección: &2]]></string>
+    <string name="detalle_opinion">Detalle Opinión</string>
+    <string name="establecimiento">Establecimiento</string>
 </resources>

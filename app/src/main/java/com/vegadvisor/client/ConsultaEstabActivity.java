@@ -17,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -47,7 +48,8 @@ import com.vegadvisor.client.util.VegAdvisorActivity;
 
 import java.util.List;
 
-public class ConsultaEstabActivity extends VegAdvisorActivity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class ConsultaEstabActivity extends VegAdvisorActivity implements View.OnClickListener, AdapterView.OnItemClickListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /**
      * Establecimiento consultado
@@ -128,6 +130,7 @@ public class ConsultaEstabActivity extends VegAdvisorActivity implements View.On
         imagenes = (ViewFlipper) findViewById(R.id.imagenes);
         //Lista opinion
         listaOpinion = (ListView) findViewById(R.id.listaOpinion);
+        listaOpinion.setOnItemClickListener(this);
         //Inicia view Flipper
         initViewFlipper();
         //Acciones de mapa
@@ -144,11 +147,15 @@ public class ConsultaEstabActivity extends VegAdvisorActivity implements View.On
         //Boton registro opinión
         Button b2 = (Button) findViewById(R.id.b2);
         b2.setOnClickListener(this);
+        //Compartir
+        ImageButton b3 = (ImageButton) findViewById(R.id.b3);
+        b3.setOnClickListener(this);
         //Revisa si no hay usuario para esconder botones
         if (!SessionData.getInstance().isUser()) {/*No hay usuario*/
-            //Esconde botones check in y registro opinion
+            //Esconde botones check in y registro opinion y compartir
             b1.setVisibility(View.GONE);
             b2.setVisibility(View.GONE);
+            b3.setVisibility(View.GONE);
         }
     }
 
@@ -383,6 +390,17 @@ public class ConsultaEstabActivity extends VegAdvisorActivity implements View.On
                 //Inicia
                 startActivity(intent);
                 break;
+            case R.id.b3: /*Compartir*/
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                String textoSend = getResources().getString(R.string.texto_compartir);
+                //Asigna parametros
+                textoSend = textoSend.replace(Constants.URL_PARAM01, SessionData.getInstance().getUserEstab().getEstnestaf());
+                textoSend = textoSend.replace(Constants.URL_PARAM02, SessionData.getInstance().getUserEstab().getEstdireaf());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, textoSend);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                break;
         }
     }
 
@@ -431,6 +449,33 @@ public class ConsultaEstabActivity extends VegAdvisorActivity implements View.On
                 return true;
             }
         });
+    }
+
+    /**
+     * Callback method to be invoked when an item in this AdapterView has
+     * been clicked.
+     * <p/>
+     * Implementers can call getItemAtPosition(position) if they need
+     * to access the data associated with the selected item.
+     *
+     * @param parent   The AdapterView where the click happened.
+     * @param view     The view within the AdapterView that was clicked (this
+     *                 will be a view provided by the adapter)
+     * @param position The position of the view in the adapter.
+     * @param id       The row id of the item that was clicked.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //Obtiene opinion seleccionada
+        Esdopies opinion = lsOpinion.get(position);
+        if (opinion != null) {/*Hay establecimiento*/
+            //Asina opinion en datos de sesion
+            SessionData.getInstance().setOpinion(opinion);
+            //Crea intent para ir a consultar la opinion
+            Intent intent = new Intent(ConsultaEstabActivity.this, DetalleOpinionActivity.class);
+            //Inicia
+            startActivity(intent);
+        }
     }
 
     /**

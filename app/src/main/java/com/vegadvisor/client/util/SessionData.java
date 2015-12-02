@@ -3,7 +3,10 @@ package com.vegadvisor.client.util;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import com.vegadvisor.client.bo.Esdopies;
 import com.vegadvisor.client.bo.Esmestab;
+import com.vegadvisor.client.bo.Evmevent;
+import com.vegadvisor.client.bo.Fomhilfo;
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.bo.Usmusuar;
 
@@ -58,6 +61,21 @@ public class SessionData {
     private Esmestab userEstab;
 
     /**
+     * Registro de Opinion
+     */
+    private Esdopies opinion;
+
+    /**
+     * Registro de Evento
+     */
+    private Evmevent event;
+
+    /**
+     * Registro de hilo de foro
+     */
+    private Fomhilfo forumThread;
+
+    /**
      * Conector para ejecutar métodos en el servidor
      */
     private ServerConnector serverConnector;
@@ -72,9 +90,6 @@ public class SessionData {
      * Servicio ejecutor
      */
     private ExecutorService threadExecutor;
-
-
-
 
 
     /**
@@ -120,7 +135,7 @@ public class SessionData {
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters) {
         //Cargando
-            this.activity.showLoadingIcon();
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(1, serviceId, service, parameters, null, null));
     }
@@ -135,7 +150,7 @@ public class SessionData {
      */
     public void executeServiceList(int serviceId, String service, Map<String, String> parameters, Type classType) {
         //Cargando
-            this.activity.showLoadingIcon();
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(2, serviceId, service, parameters, null,
                 classType));
@@ -150,7 +165,7 @@ public class SessionData {
      */
     public void executeServiceImage(int serviceId, String service, Map<String, String> parameters) {
         //Cargando
-            this.activity.showLoadingIcon();
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(3, serviceId, service, parameters, null, null));
     }
@@ -165,7 +180,7 @@ public class SessionData {
      */
     public void executeServiceRV(int serviceId, String service, Map<String, String> parameters, File imageFile) {
         //Cargando
-            this.activity.showLoadingIcon();
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(4, serviceId, service, parameters, imageFile, null));
     }
@@ -180,7 +195,7 @@ public class SessionData {
      */
     public void executeServiceObject(int serviceId, String service, Map<String, String> parameters, Type classType) {
         //Cargando
-            this.activity.showLoadingIcon();
+        this.activity.showLoadingIcon();
         //Ejecuta llamada
         threadExecutor.execute(new ConnectorExecutorService(5, serviceId, service, parameters, null,
                 classType));
@@ -257,6 +272,60 @@ public class SessionData {
      */
     public void setUserEstab(Esmestab userEstab) {
         this.userEstab = userEstab;
+    }
+
+    /**
+     * Obtiene hilo de foro de sesion
+     *
+     * @return Hilo de foro de sesion
+     */
+    public Fomhilfo getForumThread() {
+        return forumThread;
+    }
+
+    /**
+     * Asigna hilo de foro de sesion
+     *
+     * @param forumThread Hilo de foro de sesion
+     */
+    public void setForumThread(Fomhilfo forumThread) {
+        this.forumThread = forumThread;
+    }
+
+    /**
+     * Obtiene evento de sesion
+     *
+     * @return Evento de sesión
+     */
+    public Evmevent getEvent() {
+        return event;
+    }
+
+    /**
+     * Asigna evento de sesion
+     *
+     * @param event Evento de sesion
+     */
+    public void setEvent(Evmevent event) {
+        this.event = event;
+    }
+
+    /**
+     * Obtiene opinion de sesion
+     *
+     * @return Opinion de sesion
+     */
+    public Esdopies getOpinion() {
+        return opinion;
+    }
+
+    /**
+     * Asigna opinion de sesion
+     *
+     * @param opinion Opinion de sesion
+     */
+    public void setOpinion(Esdopies opinion) {
+        this.opinion = opinion;
     }
 
     /*************************
