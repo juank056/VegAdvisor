@@ -82,12 +82,6 @@ public class ConsultaEstabActivity extends VegAdvisorActivity implements View.On
     private final GestureDetector detector = new GestureDetector(new SwipeGestureDetector());
 
     /**
-     * Datos del Swipe
-     */
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-    /**
      * Botones
      */
     private ImageButton b1;

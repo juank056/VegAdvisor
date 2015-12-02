@@ -45,6 +45,12 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     private boolean showLoadingIcon;
 
     /**
+     * Datos del Swipe
+     */
+    protected static final int SWIPE_MIN_DISTANCE = 50;
+    protected static final int SWIPE_THRESHOLD_VELOCITY = 100;
+
+    /**
      * Sobre-escribe onCreate
      *
      * @param savedInstanceState Instancia

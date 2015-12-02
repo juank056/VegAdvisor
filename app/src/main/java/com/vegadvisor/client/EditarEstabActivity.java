@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -33,8 +32,9 @@ import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.Cspciuda;
 import com.vegadvisor.client.bo.Csptiest;
 import com.vegadvisor.client.bo.Csptpais;
+import com.vegadvisor.client.bo.Esdimaes;
+import com.vegadvisor.client.bo.Esmestab;
 import com.vegadvisor.client.bo.ReturnValidation;
-import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.DateUtils;
 import com.vegadvisor.client.util.SessionData;
@@ -46,6 +46,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Servicios 141 al 160
+ */
 public class EditarEstabActivity extends VegAdvisorActivity implements DialogInterface.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     /**
@@ -54,19 +57,9 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
     private GoogleMap googleMap;
 
     /**
-     * Fragmento del mapa
-     */
-    private MapFragment mapFragment;
-
-    /**
      * Posicion click
      */
     private LatLng estabLocation;
-
-    /**
-     * Google api client
-     */
-    private GoogleApiClient mGoogleApiClient;
 
     /**
      * Campos edit text de la pantalla
@@ -235,7 +228,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                 Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                 //Revisa de acuerdo a lo ejecutado
                 switch (serviceId) {
-                    case 106: /*Creacion de establecimiento*/
+                    case 147: /*Actualizacion de establecimiento*/
                         //Revisa si fue exitosa la actualización
                         if (Constants.ONE.equals(result.getValidationInd())) {/*Exitoso*/
                             //Revisa si no habían imagenes
@@ -251,7 +244,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                                 String establishmentId = result.getParams().get("establishmentId");
                                 //Envía imágenes al servidor
                                 for (File image : estabImagesFiles) {
-                                    SessionData.getInstance().executeServiceRV(107,
+                                    SessionData.getInstance().executeServiceRV(148,
                                             getResources().getString(R.string.image_uploadEstablishmentImage),
                                             EditarEstabActivity.this.createParametersMap("establishmentId",
                                                     establishmentId),
@@ -260,7 +253,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                             }
                         }
                         break;
-                    case 107: /*Respuesta de upload de imagen*/
+                    case 148: /*Respuesta de upload de imagen*/
                         //Incrementa contador
                         totalUploadResponses++;
                         if (totalUploadResponses == estabImagesFiles.size()) {/*Todos*/
@@ -295,7 +288,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                 ArrayAdapter<?> adapter;
                 //Revisa id de servicio ejecutado
                 switch (serviceId) {
-                    case 101: /*Llega nombre del pais*/
+                    case 141: /*Llega nombre del pais*/
                         lsPais = (List<Csptpais>) result;
                         if (lsPais.size() > 0) {
                             //Asigna pais
@@ -304,7 +297,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                             pais.setText(selectedPais.getPaidpaiaf());
                         }
                         break;
-                    case 102: /*Llega nombre de ciudad*/
+                    case 142: /*Llega nombre de ciudad*/
                         lsCiudad = (List<Cspciuda>) result;
                         if (lsCiudad.size() > 0) {
                             //Asigna ciudad
@@ -313,7 +306,16 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                             ciudad.setText(selectedCiudad.getCiunciuaf());
                         }
                         break;
-                    case 103:/*Busqueda de paises*/
+                    case 143: /*Llega Tipo de establecimiento*/
+                        lsTiest = (List<Csptiest>) result;
+                        if (lsTiest.size() > 0) {
+                            //Asigna tipo establecimiento
+                            selectedTiest = lsTiest.get(0);
+                            //Asigna nombre al campo
+                            tipo_establecimiento.setText(selectedTiest.getTesntesaf());
+                        }
+                        break;
+                    case 144:/*Busqueda de paises*/
                         //Asigna lista de respuesta
                         lsPais = (List<Csptpais>) result;
                         //Datos
@@ -332,7 +334,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                         //Notifica
                         adapter.notifyDataSetChanged();
                         break;
-                    case 104:/*Busqueda de ciudades*/
+                    case 145:/*Busqueda de ciudades*/
                         //Asigna lista de respuesta
                         lsCiudad = (List<Cspciuda>) result;
                         //Datos
@@ -351,7 +353,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                         //Notifica
                         adapter.notifyDataSetChanged();
                         break;
-                    case 105:/*Busqueda de tipos de establecimiento*/
+                    case 146:/*Busqueda de tipos de establecimiento*/
                         //Asigna lista de respuesta
                         lsTiest = (List<Csptiest>) result;
                         //Datos
@@ -377,30 +379,78 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
     }
 
     /**
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    @Override
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Revisa que se tenga imagen
+                if (result != null) {
+                    //Crea nueva image view
+                    ImageView image = new ImageView(getApplicationContext());
+                    Bitmap scaled = Bitmap.createScaledBitmap(result, b2.getWidth(), b2.getHeight(), true);
+                    //Asigna bitmap
+                    image.setImageBitmap(scaled);
+                    //Padding
+                    image.setPadding(5, 5, 5, 5);
+                    //Ingresa imagen al list view de imagenes
+                    imagenes.addView(image, 0);
+                }
+            }
+        });
+    }
+
+    /**
      * Inicia la pantalla
      */
     private void initScreen() {
-        //Obtiene usuario
-        Usmusuar usuar = SessionData.getInstance().getUsuarObject();
+        //Establecimiento
+        Esmestab estab = SessionData.getInstance().getUserEstab();
+        //Nombre establecimiento
+        nombreEstab.setText(estab.getEstnestaf());
+        //Descripción
+        descripcion.setText(estab.getEstnestaf());
+        //Dirección
+        direccion.setText(estab.getEstdireaf());
+        //Telefono
+        telefono.setText(estab.getEstteleaf());
+        //Horario apertura
+        apertura.setText(estab.getEsthoratf());
+        //Horario cierre
+        cierre.setText(estab.getEsthorctf());
         //Pais
-        if (!Constants.BLANKS.equals(usuar.getPaicpaiak())) {
-            //Obtiene Nombre del pais
-            SessionData.getInstance().executeServiceList(101,
-                    getResources().getString(R.string.basic_getCountries),
-                    this.createParametersMap("countryCode", usuar.getPaicpaiak()),
-                    new TypeToken<List<Csptpais>>() {
-                    }.getType()
-            );
-        }
+        SessionData.getInstance().executeServiceList(141,
+                getResources().getString(R.string.basic_getCountries),
+                this.createParametersMap("countryCode", estab.getPaicpaiak()),
+                new TypeToken<List<Csptpais>>() {
+                }.getType()
+        );
         //Ciudad
-        if (!Constants.BLANKS.equals(usuar.getCiucciuak())) {
-            //Obtiene Nombre del pais
-            SessionData.getInstance().executeServiceList(102,
-                    getResources().getString(R.string.basic_getCities),
-                    this.createParametersMap("countryCode", usuar.getPaicpaiak(), "cityCode", usuar.getCiucciuak()),
-                    new TypeToken<List<Cspciuda>>() {
-                    }.getType()
-            );
+        SessionData.getInstance().executeServiceList(142,
+                getResources().getString(R.string.basic_getCities),
+                this.createParametersMap("countryCode", estab.getPaicpaiak(), "cityCode", estab.getCiucciuak()),
+                new TypeToken<List<Cspciuda>>() {
+                }.getType()
+        );
+        //Tipo de establecimiento
+        SessionData.getInstance().executeServiceList(143,
+                getResources().getString(R.string.basic_getEstablishmentTypes),
+                this.createParametersMap("establishmentTypeId", Constants.BLANKS + estab.getTesctesnk()),
+                new TypeToken<List<Csptiest>>() {
+                }.getType()
+        );
+        //Imagenes del establecimiento
+        for (Esdimaes imaes : estab.getImages()) {
+            //Envia petición para cargar imagen
+            SessionData.getInstance().executeServiceImage(149,
+                    getResources().getString(R.string.image_downloadImage),
+                    EditarEstabActivity.this.createParametersMap("imagePath", imaes.getIesrimaaf()));
         }
     }
 
@@ -494,7 +544,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
                 params.put("countryCode", countryCode);
                 params.put("clue", clue);
                 //Ejecuta servicio
-                SessionData.getInstance().executeServiceList(104, getResources().getString(R.string.basic_getCities),
+                SessionData.getInstance().executeServiceList(145, getResources().getString(R.string.basic_getCities),
                         params, new TypeToken<List<Cspciuda>>() {
                         }.getType());
             }
@@ -513,7 +563,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
             Map<String, String> params = new HashMap<>();
             params.put("clue", clue);
             //Ejecuta servicio
-            SessionData.getInstance().executeServiceList(103, getResources().getString(R.string.basic_getCountries),
+            SessionData.getInstance().executeServiceList(144, getResources().getString(R.string.basic_getCountries),
                     params, new TypeToken<List<Csptpais>>() {
                     }.getType());
         }
@@ -529,7 +579,7 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
             Map<String, String> params = new HashMap<>();
             params.put("clue", clue);
             //Ejecuta servicio
-            SessionData.getInstance().executeServiceList(105, getResources().getString(R.string.basic_getEstablishmentTypes),
+            SessionData.getInstance().executeServiceList(146, getResources().getString(R.string.basic_getEstablishmentTypes),
                     params, new TypeToken<List<Csptiest>>() {
                     }.getType());
         }
@@ -620,13 +670,11 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
         }
         //Set loading icon true
         this.setShowLoadingIcon(true);
-        //Obtiene objeto de usuario
-        Usmusuar usuar = SessionData.getInstance().getUsuarObject();
         //Envía actualización al servidor
-        SessionData.getInstance().executeServiceRV(106,
+        SessionData.getInstance().executeServiceRV(147,
                 getResources().getString(R.string.establishment_createOrUpdateEstablishment),
                 this.createParametersMap(
-                        "establishmentId", Constants.ZERO,
+                        "establishmentId", Constants.BLANKS + SessionData.getInstance().getUserEstab().getEstcestnk(),
                         "userId", SessionData.getInstance().getUserId(),
                         "companyName", nombreEstab.getText().toString().trim(),
                         "establishmentType", Constants.BLANKS + selectedTiest.getTesctesnk(),
@@ -654,7 +702,10 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
      */
     private void mapActions() {
         //Obtiene fragmento del mapa
-        mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.ubicacion);
+        /*
+      Fragmento del mapa
+     */
+        MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.ubicacion);
         //Obtiene mapa
         googleMap = mapFragment.getMap();
         googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
@@ -685,15 +736,13 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
     }
 
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        GoogleApiClient mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        if (mGoogleApiClient != null) {
-            //Conecta
-            mGoogleApiClient.connect();
-        }
+        //Conecta
+        mGoogleApiClient.connect();
     }
 
     /**
@@ -703,12 +752,16 @@ public class EditarEstabActivity extends VegAdvisorActivity implements DialogInt
      */
     @Override
     public void onConnected(Bundle bundle) {
-        //Obtiene localizacion
-        Location loc = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        //Establecimiento
+        Esmestab estab = SessionData.getInstance().getUserEstab();
+        //Obtiene localizacion establecimiento
+        estabLocation = new LatLng(estab.getEstlatinf(), estab.getEstlongnf());
         //Posiciona el mapa segun la localizacion si ya esta
         if (googleMap != null) {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 18.0f));
+            //Camara
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(estabLocation, 18.0f));
+            //Adiciona nuevo marker
+            googleMap.addMarker(new MarkerOptions().position(estabLocation));
         }
     }
 
