@@ -3,14 +3,29 @@ package com.vegadvisor.client;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.vegadvisor.client.bo.Chdmensa;
+import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.SessionData;
+
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.io.IOUtils;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChatService extends Service {
 
@@ -25,6 +40,11 @@ public class ChatService extends Service {
     private int port;
 
     /**
+     * Servidor
+     */
+    private String server;
+
+    /**
      * Socket
      */
     private Socket socket;
@@ -33,6 +53,11 @@ public class ChatService extends Service {
      * Shutdown
      */
     private boolean shutdown;
+
+    /**
+     * Usuario en sesion
+     */
+    private String userId;
 
     /**
      * Data Input Stream del socket
@@ -48,6 +73,11 @@ public class ChatService extends Service {
      * Output router
      */
     private OutputRouter outputRouter;
+
+    /**
+     * Parseador de Json a objetos
+     */
+    private Gson gson = new Gson();
 
     /**
      * Constructor
@@ -67,16 +97,22 @@ public class ChatService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //Obtiene id del usuario
-        String userId = SessionData.getInstance().getUserId();
+        userId = SessionData.getInstance().getUserId();
         //Por ahora hace toast
         Toast.makeText(getApplicationContext(), "INICIA SERVICIO CHAT: " + userId, Toast.LENGTH_SHORT).show();
         //Dirección Ip
         ipAddress = getResources().getString(R.string.chat_server_ip);
         //Puerto
         port = Integer.valueOf(getResources().getString(R.string.chat_server_port));
+        //Servidor
+        server = getResources().getString(R.string.server_path);
+        //Parseador de Json
+        this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
         //Shutdown false
         shutdown = false;
         try {
+            //Revisa mensajes de chat
+            checkMessages();
             //Escribe el nombre del usuario para que llegue al servidor
             SessionData.getInstance().getMessages().offer(userId);
             //Inicia input router y output router
@@ -87,7 +123,7 @@ public class ChatService extends Service {
         } catch (Exception e) {/*Error */
             e.printStackTrace();
         }
-        //Retorna el id recibid
+        //Retorna START STICKY
         return Service.START_STICKY;
     }
 
@@ -112,6 +148,7 @@ public class ChatService extends Service {
         }
     }
 
+
     /**
      * Bind
      *
@@ -129,15 +166,75 @@ public class ChatService extends Service {
      * @param userIdFrom Usuario que ha enviado el mensaje
      */
     private void notifyNewMessage(String userIdFrom) {
-        //Por ahora hace toast
+        //Mensaje recibido
+        Log.d(Constants.DEBUG, "Mensaje recibido de: " + userIdFrom);
+        //Crea notificacion
         Toast.makeText(getApplicationContext(), "Mensaje recibido de: " + userIdFrom, Toast.LENGTH_SHORT).show();
+        //Revisa mensajes de chat
+        checkMessages();
+    }
+
+    /**
+     * Revisa mensajes de chat en el servidor
+     */
+    private void checkMessages() {
+        //Mapa de parametros
+        Map<String, String> params = new HashMap<>();
+        //Ingresa parametros
+        params.put("userId", userId);
+        //Obtiene mensajes
+        @SuppressWarnings("unchecked")
+        List<Chdmensa> messages = (List<Chdmensa>) this.executeServiceList(getResources().getString(R.string.chat_recolectChatMessages),
+                params, new TypeToken<List<Chdmensa>>() {
+                }.getType());
+        if (messages != null) {/*Llego objeto*/
+            //Recorre mensajes para ingresarlos a la base de datos
+            for (Chdmensa mensa : messages) {
+                SessionData.getInstance().getDatabaseHandler().saveMessage(userId,
+                        mensa.getId().getUsucusuak(), mensa.getMchmensaf(), Constants.ONE);
+            }
+        }
+    }
+
+    /**
+     * Método para ejecutar un servicio en el servidor que retorna una lista de objetos
+     *
+     * @param service    Ruta del servicio a ejecutar
+     * @param parameters Parámetros que se necesitan para ejecutar el servicio
+     * @param classType  Tipo de objeto que se va a retornar
+     * @return Lista resultado de la ejecución del servicio
+     */
+    private List<?> executeServiceList(String service, Map<String, String> parameters, Type classType) {
+        try {
+            //Cliente http
+            HttpClient httpClient = new HttpClient();
+            //Metodo post
+            PostMethod postMethod = new PostMethod(server + service);
+            //Asigna parámetros
+            for (String key : parameters.keySet()) {
+                postMethod.addParameter(key, parameters.get(key));
+            }
+            //Ejecuta llamado
+            httpClient.executeMethod(postMethod);
+            //Obtiene InputStream de respuesta
+            InputStream stream = postMethod.getResponseBodyAsStream();
+            //Convierte response a String
+            String s_response = IOUtils.toString(stream);
+            //Cierra stream
+            stream.close();
+            //Retorna objeto parseado
+            return gson.fromJson(s_response, classType);
+        } catch (Exception e) {/*Ocurrio un error*/
+            e.printStackTrace();
+            //Retorna null para que se trate el error en interfaz
+            return null;
+        }
     }
 
     /**
      * Clase privada de Input Router
      */
     private class InputRouter implements Runnable {
-
 
         /**
          * Ejecuta Input router

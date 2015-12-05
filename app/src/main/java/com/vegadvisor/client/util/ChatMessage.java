@@ -32,6 +32,11 @@ public class ChatMessage {
     private String messageContent;
 
     /**
+     * Mensaje recibido
+     */
+    private String messageReceived;
+
+    /**
      * Constructor de chat Message
      *
      * @param userSession    Usuario en sesion
@@ -40,12 +45,14 @@ public class ChatMessage {
      * @param messageTime    Hora del mensaje
      * @param messageContent Contenido del mensaje
      */
-    public ChatMessage(String userSession, String userOther, String messageDate, String messageTime, String messageContent) {
+    public ChatMessage(String userSession, String userOther, String messageDate,
+                       String messageTime, String messageContent, String messageReceived) {
         this.userSession = userSession;
         this.userOther = userOther;
         this.messageDate = messageDate;
         this.messageTime = messageTime;
         this.messageContent = messageContent;
+        this.messageReceived = messageReceived;
     }
 
     /****************************************
@@ -90,5 +97,13 @@ public class ChatMessage {
 
     public void setMessageContent(String messageContent) {
         this.messageContent = messageContent;
+    }
+
+    public String getMessageReceived() {
+        return messageReceived;
+    }
+
+    public void setMessageReceived(String messageReceived) {
+        this.messageReceived = messageReceived;
     }
 }

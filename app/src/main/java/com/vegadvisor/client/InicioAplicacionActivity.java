@@ -1,16 +1,13 @@
 package com.vegadvisor.client;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,7 +35,7 @@ public class InicioAplicacionActivity extends VegAdvisorActivity implements View
         /*Inicia Session Data y connectores*/
         SessionData.getInstance().initConnectors(getResources().getString(R.string.server_path),
                 Boolean.parseBoolean(getResources().getString(R.string.use_cloud_front)),
-                getResources().getString(R.string.cloud_front_path));
+                getResources().getString(R.string.cloud_front_path), getApplicationContext());
         //Obtiene imagen superior de la pantalla
         ImageView image = (ImageView) findViewById(R.id.intro);
         //Botones

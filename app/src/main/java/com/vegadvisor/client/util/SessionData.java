@@ -1,5 +1,6 @@
 package com.vegadvisor.client.util;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -114,6 +115,11 @@ public class SessionData {
      */
     private boolean chatServiceStarted;
 
+    /**
+     * Manejador base de datos chat
+     */
+    private ChatDatabaseHandler databaseHandler;
+
 
     /**
      * Constructor privado
@@ -127,6 +133,7 @@ public class SessionData {
         this.messages = new LinkedBlockingQueue<>();
         //Chat service no iniciado
         chatServiceStarted = false;
+
     }
 
     /**
@@ -146,10 +153,14 @@ public class SessionData {
      * @param usingCloudFront Indicador de si se usa cloud front o no para manejo de imagenes
      * @param serverPath      ruta del servidor
      * @param cloudFrontPath  Ruta del servidor cloud front
+     * @param context         Contexto de ejecucion
      */
-    public void initConnectors(String serverPath, boolean usingCloudFront, String cloudFrontPath) {
+    public void initConnectors(String serverPath, boolean usingCloudFront,
+                               String cloudFrontPath, Context context) {
         //Conector
         this.serverConnector = new ServerConnector(serverPath, usingCloudFront, cloudFrontPath);
+        //Inicia database handler
+        databaseHandler = new ChatDatabaseHandler(context);
     }
 
     /**
@@ -424,6 +435,15 @@ public class SessionData {
      */
     public void setActivity(VegAdvisorActivity activity) {
         this.activity = activity;
+    }
+
+    /**
+     * Obtiene database handler
+     *
+     * @return Handler de base de datos
+     */
+    public ChatDatabaseHandler getDatabaseHandler() {
+        return databaseHandler;
     }
 
     /**

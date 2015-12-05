@@ -40,6 +40,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
     private static final String MESSAGE_KEY = "messageKey";
     private static final String MESSAGE_TIME = "messageTime";
     private static final String MESSAGE_CONTENT = "messageContent";
+    private static final String MESSAGE_RECEIVED = "messageReceived";
 
     /**
      * Constructor de handler de la base de datos
@@ -65,6 +66,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                 + MESSAGE_KEY + " LONG,"
                 + MESSAGE_TIME + " VARCHAR(8),"
                 + MESSAGE_CONTENT + " VARCHAR(256),"
+                + MESSAGE_RECEIVED + " VARCHAR(1),"
                 + "PRIMARY KEY (" + USER_SESSION + ", " + USER_OTHER + ", " + MESSAGE_DATE + ", " + MESSAGE_KEY + "))";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
@@ -100,11 +102,12 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
     /**
      * Se encarga de guardar un mensaje en la base de datos
      *
-     * @param userSession Usuario en sesion
-     * @param userOther   Otro usuario del sistema
-     * @param message     Mensaje a enviar
+     * @param userSession     Usuario en sesion
+     * @param userOther       Otro usuario del sistema
+     * @param message         Mensaje a enviar
+     * @param messageReceived Indicador de si es un mensaje recibido ('0' enviado, '1' recibido)
      */
-    public void saveMessage(String userSession, String userOther, String message) {
+    public void saveMessage(String userSession, String userOther, String message, String messageReceived) {
         //Fecha actual
         Date current = DateUtils.getCurrentUtilDate();
         //Obtiene base de datos
@@ -118,6 +121,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
         values.put(MESSAGE_KEY, System.currentTimeMillis());
         values.put(MESSAGE_TIME, DateUtils.getTimeString(current));
         values.put(MESSAGE_CONTENT, message);
+        values.put(MESSAGE_RECEIVED, messageReceived);
         // Guarda registro
         db.insert(TABLE_MESSAGES, null, values);
         //Cierra base de datos
@@ -151,7 +155,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                         userOther,
                         cursor.getString(2),
                         cursor.getString(4),
-                        cursor.getString(5)));
+                        cursor.getString(5), cursor.getString(6)));
             } while (cursor.moveToNext());
         }
 
