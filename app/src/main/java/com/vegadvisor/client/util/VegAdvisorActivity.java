@@ -1,6 +1,7 @@
 package com.vegadvisor.client.util;
 
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,7 +16,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.vegadvisor.client.R;
@@ -361,5 +361,22 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         }
         //Retorna parámetros
         return parameters;
+    }
+
+
+    /**
+     * Revisa si un servicio esta en ejecución
+     *
+     * @param serviceClass Clase del servicio
+     * @return True si el servicio esta en ejecución, false de lo contrario
+     */
+    protected boolean checkForRunningService(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

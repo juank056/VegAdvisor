@@ -1,5 +1,6 @@
 package com.vegadvisor.client.util;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 
@@ -14,8 +15,10 @@ import java.io.File;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Clase que contendra los datos de la sesión de la aplicación.
@@ -91,6 +94,26 @@ public class SessionData {
      */
     private ExecutorService threadExecutor;
 
+    /**
+     * Cola de mensajes de chat
+     */
+    private BlockingQueue<String> messages;
+
+    /**
+     * Intent de creacion de servicio chat
+     */
+    private Intent chatServiceIntent;
+
+    /**
+     * Chat peer
+     */
+    private Usmusuar chatPeer;
+
+    /**
+     * Indicador de servicio de chat iniciado
+     */
+    private boolean chatServiceStarted;
+
 
     /**
      * Constructor privado
@@ -100,7 +123,10 @@ public class SessionData {
         this.user = false;
         //Inicia thread executor
         threadExecutor = Executors.newFixedThreadPool(MAX_THREADS);
-
+        // Inicia cola de mensajes
+        this.messages = new LinkedBlockingQueue<>();
+        //Chat service no iniciado
+        chatServiceStarted = false;
     }
 
     /**
@@ -328,17 +354,67 @@ public class SessionData {
         this.opinion = opinion;
     }
 
-    /*************************
-     * GETTERS DE CONNECTORES
-     *************************/
+    /**
+     * Obtiene cola de mensajes de chat
+     *
+     * @return Cola de mensajes de chat
+     */
+    public BlockingQueue<String> getMessages() {
+        return messages;
+    }
 
     /**
-     * Obtiene conector para ReturnValidation
+     * Obtiene intent de servicio de chat
      *
-     * @return Conector para métodos que retornan ReturnValidation
+     * @return Intent de servicio de chat
      */
-    public ServerConnector getServerConnector() {
-        return serverConnector;
+    public Intent getChatServiceIntent() {
+        return chatServiceIntent;
+    }
+
+    /**
+     * Asigna intent de servicio de chat
+     *
+     * @param chatServiceIntent intent de servicio de chat
+     */
+    public void setChatServiceIntent(Intent chatServiceIntent) {
+        this.chatServiceIntent = chatServiceIntent;
+    }
+
+    /**
+     * Obtiene char peer
+     *
+     * @return Chat peer
+     */
+    public Usmusuar getChatPeer() {
+        return chatPeer;
+    }
+
+    /**
+     * Asigna chat peer
+     *
+     * @param chatPeer Chat peer a asignar
+     */
+    public void setChatPeer(Usmusuar chatPeer) {
+        this.chatPeer = chatPeer;
+    }
+
+    /**
+     * Obtiene si el servicio de chat ha sido iniciado
+     *
+     * @return Indicador de servicio de chat iniciado
+     */
+    public boolean isChatServiceStarted() {
+        return chatServiceStarted;
+    }
+
+    /**
+     * Asigna indicador de servicio de chat iniciado
+     *
+     * @param chatServiceStarted Indicador de servicio de chat iniciado
+     */
+    public void setChatServiceStarted(boolean chatServiceStarted) {
+        this.chatServiceStarted = chatServiceStarted;
     }
 
     /**
@@ -357,6 +433,9 @@ public class SessionData {
         this.user = false;
         this.userId = null;
         this.usuarObject = null;
+        this.event = null;
+        this.userEstab = null;
+        this.forumThread = null;
     }
 
     /**

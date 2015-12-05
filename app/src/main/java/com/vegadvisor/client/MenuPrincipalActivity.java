@@ -52,6 +52,9 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
         //Nombre del usuario e imagen
         userName = (TextView) findViewById(R.id.userName);
         userImage = (ImageView) findViewById(R.id.userImage);
+        //Revisa servicio chat si hay usuario
+        if (SessionData.getInstance().isUser())
+            checkChatServiceExecution();
     }
 
     @Override
@@ -104,7 +107,8 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                     //Asigna el usuario a los datos de sesion
                     SessionData.getInstance().setUsuarObject(usuar);
                     //Nombre de imagen en la pantalla
-                    userName.setText(usuar.getUsunusuaf() + Constants.BLANK_SPACE + usuar.getUsuapelaf());
+                    String name = usuar.getUsunusuaf() + Constants.BLANK_SPACE + usuar.getUsuapelaf();
+                    userName.setText(name);
                     //Guarda datos del usuario en las preferencias del sistema
                     //Obtiene shared Preferences
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -206,6 +210,10 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
                 editor.putString(Constants.USERID_PREFERENCE, Constants.BLANKS);
                 editor.putString(Constants.PASSWD_PREFERENCE, Constants.BLANKS);
                 editor.commit();
+                //Finaliza servicio chat
+                if (SessionData.getInstance().isUser() && SessionData.getInstance().isChatServiceStarted()) {
+                    stopService(SessionData.getInstance().getChatServiceIntent());
+                }
                 //Navegar a la pantalla principal
                 intent = new Intent(MenuPrincipalActivity.this, InicioAplicacionActivity.class);
                 //Flags para limpiar stack
@@ -217,6 +225,38 @@ public class MenuPrincipalActivity extends VegAdvisorActivity implements View.On
             //navega
             startActivity(intent);
         }
+    }
 
+    /**
+     * Revisa ejecución del servicio de chat
+     */
+    private void checkChatServiceExecution() {
+        //Revisa si el servicio se esta ejecutando
+        boolean isExecuting = this.checkForRunningService(ChatService.class);
+        if (!isExecuting) {/*No se esta ejecutando*/
+            //Crea intent para iniciar servicio
+            Intent intent = new Intent(MenuPrincipalActivity.this, ChatService.class);
+            //Inicia servicio
+            startService(intent);
+            //Guarda intent
+            SessionData.getInstance().setChatServiceIntent(intent);
+            //Chat Service en ejecucion si
+            SessionData.getInstance().setChatServiceStarted(true);
+        } else {/*Ya esta ejecutando*/
+            //Revisa si no se habia iniciado aun
+            if (!SessionData.getInstance().isChatServiceStarted()) {
+                //Finaliza servicio
+                Intent intent = new Intent(MenuPrincipalActivity.this, ChatService.class);
+                stopService(intent);
+                //Inicia servicio nuevamente
+                intent = new Intent(MenuPrincipalActivity.this, ChatService.class);
+                //Inicia servicio
+                startService(intent);
+                //Guarda intent
+                SessionData.getInstance().setChatServiceIntent(intent);
+                //Chat Service en ejecucion si
+                SessionData.getInstance().setChatServiceStarted(true);
+            }
+        }
     }
 }
