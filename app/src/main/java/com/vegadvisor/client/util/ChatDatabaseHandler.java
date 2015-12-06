@@ -41,6 +41,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
     private static final String MESSAGE_TIME = "messageTime";
     private static final String MESSAGE_CONTENT = "messageContent";
     private static final String MESSAGE_RECEIVED = "messageReceived";
+    private static final String USER_NAME = "userName";
 
     /**
      * Constructor de handler de la base de datos
@@ -67,6 +68,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                 + MESSAGE_TIME + " VARCHAR(8),"
                 + MESSAGE_CONTENT + " VARCHAR(256),"
                 + MESSAGE_RECEIVED + " VARCHAR(1),"
+                + USER_NAME + " VARCHAR(50),"
                 + "PRIMARY KEY (" + USER_SESSION + ", " + USER_OTHER + ", " + MESSAGE_DATE + ", " + MESSAGE_KEY + "))";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
@@ -106,8 +108,10 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
      * @param userOther       Otro usuario del sistema
      * @param message         Mensaje a enviar
      * @param messageReceived Indicador de si es un mensaje recibido ('0' enviado, '1' recibido)
+     * @param userName        Nombre del otro usuario
      */
-    public void saveMessage(String userSession, String userOther, String message, String messageReceived) {
+    public void saveMessage(String userSession, String userOther, String message,
+                            String messageReceived, String userName) {
         //Fecha actual
         Date current = DateUtils.getCurrentUtilDate();
         //Obtiene base de datos
@@ -122,6 +126,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
         values.put(MESSAGE_TIME, DateUtils.getTimeString(current));
         values.put(MESSAGE_CONTENT, message);
         values.put(MESSAGE_RECEIVED, messageReceived);
+        values.put(USER_NAME, userName);
         // Guarda registro
         db.insert(TABLE_MESSAGES, null, values);
         //Cierra base de datos
@@ -140,7 +145,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
         List<ChatMessage> messages = new ArrayList<>();
         // Query a ejecutar
         String selectQuery = "SELECT  * FROM " + TABLE_MESSAGES + " WHERE "
-                + USER_SESSION + "=&1 AND " + USER_OTHER + "=&2 ORDER BY " + MESSAGE_KEY + " DESC LIMIT " + max;
+                + USER_SESSION + "='&1' AND " + USER_OTHER + "='&2' ORDER BY " + MESSAGE_KEY + " DESC LIMIT " + max;
         //Asigna parametros
         selectQuery = selectQuery.replace(Constants.URL_PARAM01, userSession);
         selectQuery = selectQuery.replace(Constants.URL_PARAM02, userOther);
@@ -155,7 +160,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                         userOther,
                         cursor.getString(2),
                         cursor.getString(4),
-                        cursor.getString(5), cursor.getString(6)));
+                        cursor.getString(5), cursor.getString(6), cursor.getString(7)));
             } while (cursor.moveToNext());
         }
 
@@ -169,11 +174,11 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
      * @param userSession Usuario en sesion
      * @return Lista de contactos con los que ha chateado
      */
-    public List<String> getContacts(String userSession) {
-        List<String> contacts = new ArrayList<>();
+    public List<String[]> getContacts(String userSession) {
+        List<String[]> contacts = new ArrayList<>();
         // Query a ejecutar
-        String selectQuery = "SELECT DISTINCT " + USER_OTHER + " FROM " + TABLE_MESSAGES + " WHERE "
-                + USER_SESSION + "=&1";
+        String selectQuery = "SELECT DISTINCT " + USER_OTHER + "," + USER_NAME + " FROM " + TABLE_MESSAGES + " WHERE "
+                + USER_SESSION + "='&1'";
         //Asigna parametros
         selectQuery = selectQuery.replace(Constants.URL_PARAM01, userSession);
         //Ejecuta Query
@@ -183,7 +188,7 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 // Addiciona contacto a la lista
-                contacts.add(cursor.getString(0));
+                contacts.add(new String[]{cursor.getString(0), cursor.getString(1)});
             } while (cursor.moveToNext());
         }
 

@@ -60,11 +60,6 @@ public class ChatService extends Service {
     private String userId;
 
     /**
-     * Data Input Stream del socket
-     */
-    private DataInputStream inputStream;
-
-    /**
      * Data Output Stream del socket
      */
     private DataOutputStream outputStream;
@@ -111,8 +106,6 @@ public class ChatService extends Service {
         //Shutdown false
         shutdown = false;
         try {
-            //Revisa mensajes de chat
-            checkMessages();
             //Escribe el nombre del usuario para que llegue al servidor
             SessionData.getInstance().getMessages().offer(userId);
             //Inicia input router y output router
@@ -191,7 +184,7 @@ public class ChatService extends Service {
             //Recorre mensajes para ingresarlos a la base de datos
             for (Chdmensa mensa : messages) {
                 SessionData.getInstance().getDatabaseHandler().saveMessage(userId,
-                        mensa.getId().getUsucusuak(), mensa.getMchmensaf(), Constants.ONE);
+                        mensa.getId().getUsucusuak(), mensa.getMchmensaf(), Constants.ONE, mensa.getSenderName());
             }
         }
     }
@@ -242,10 +235,12 @@ public class ChatService extends Service {
         @Override
         public void run() {
             try {
+                //Revisa mensajes de chat
+                checkMessages();
                 //Crea socket
                 socket = new Socket(ipAddress, port);
                 // Input y output stream del socket
-                inputStream = new DataInputStream(socket.getInputStream());
+                DataInputStream inputStream = new DataInputStream(socket.getInputStream());
                 outputStream = new DataOutputStream(socket.getOutputStream());
                 //Inicia output router
                 new Thread(outputRouter).start();

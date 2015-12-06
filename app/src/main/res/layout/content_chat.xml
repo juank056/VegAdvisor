@@ -18,5 +18,35 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/busqueda"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:hint="@string/id_usuario"
+                android:singleLine="true"/>
+
+            <ImageButton
+                android:id="@+id/b1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/buscar"
+                android:src="@drawable/search"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <ListView
+            android:id="@+id/listaUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
     </LinearLayout>
 </ScrollView>

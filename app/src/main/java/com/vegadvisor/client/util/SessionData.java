@@ -106,9 +106,9 @@ public class SessionData {
     private Intent chatServiceIntent;
 
     /**
-     * Chat peer
+     * Chat peer (Contiene id usuario y su nombre)
      */
-    private Usmusuar chatPeer;
+    private String[] chatPeer;
 
     /**
      * Indicador de servicio de chat iniciado
@@ -397,7 +397,7 @@ public class SessionData {
      *
      * @return Chat peer
      */
-    public Usmusuar getChatPeer() {
+    public String[] getChatPeer() {
         return chatPeer;
     }
 
@@ -406,7 +406,7 @@ public class SessionData {
      *
      * @param chatPeer Chat peer a asignar
      */
-    public void setChatPeer(Usmusuar chatPeer) {
+    public void setChatPeer(String[] chatPeer) {
         this.chatPeer = chatPeer;
     }
 
