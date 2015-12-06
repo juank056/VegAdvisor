@@ -163,9 +163,13 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                         cursor.getString(5), cursor.getString(6), cursor.getString(7)));
             } while (cursor.moveToNext());
         }
-
+        //Lista reverse
+        List<ChatMessage> reverse = new ArrayList<>();
+        for (int i = messages.size() - 1; i >= 0; i--) {
+            reverse.add(messages.get(i));
+        }
         // Retorna
-        return messages;
+        return reverse;
     }
 
     /**
@@ -211,8 +215,12 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
                 contacts.add(new String[]{cursor.getString(0), cursor.getString(1)});
             } while (cursor.moveToNext());
         }
-
+        //Lista reverse
+        List<String[]> reverse = new ArrayList<>();
+        for (int i = contacts.size() - 1; i >= 0; i--) {
+            reverse.add(contacts.get(i));
+        }
         // Retorna
-        return contacts;
+        return reverse;
     }
 }

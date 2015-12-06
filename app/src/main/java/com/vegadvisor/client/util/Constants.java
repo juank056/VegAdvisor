@@ -317,4 +317,9 @@ public class Constants {
      * Maximo de opiniones a traer
      */
     public static final String MAX_OPINION = "10";
+
+    /**
+     * Numero de mensajes a obtener
+     */
+    public static final int MAX_MESSAGES = 50;
 }

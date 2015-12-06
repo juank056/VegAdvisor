@@ -16,9 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TwoLineListItem;
 
-import com.vegadvisor.client.bo.Esmestab;
 import com.vegadvisor.client.bo.ReturnValidation;
-import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.ChatMessage;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.DateUtils;
@@ -69,11 +67,6 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
      * Lista de mensajes de conversacion
      */
     private List<ChatMessage> conversation;
-
-    /**
-     * Numero de mensajes a obtener
-     */
-    private static final int MAX_MESSAGES = 50;
 
 
     /**
@@ -156,6 +149,15 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
     }
 
     /**
+     * Asigna conversación
+     *
+     * @param conversation Conversacion
+     */
+    public void setConversation(List<ChatMessage> conversation) {
+        this.conversation = conversation;
+    }
+
+    /**
      * Para eliminar la conversación
      */
     private void deleteConversation() {
@@ -216,48 +218,54 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
         //Nombre del usuario
         userName.setText(peer[1]);
         //Conversacion
-        conversation = SessionData.getInstance().getDatabaseHandler().getMessages(userFrom, userTo, MAX_MESSAGES);
+        conversation = SessionData.getInstance().getDatabaseHandler().getMessages(userFrom, userTo, Constants.MAX_MESSAGES);
         //Refresca mensajes
         refreshMessages();
     }
+
 
     /**
      * Refresca mensajes en pantalla
      */
     @SuppressWarnings("unchecked")
-    private void refreshMessages() {
-        //Crea adapter
-        ArrayAdapter adapter = new ArrayAdapter(ConversacionActivity.this,
-                android.R.layout.simple_list_item_2, conversation) {
+    public void refreshMessages() {
+        runOnUiThread(new Runnable() {
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                TwoLineListItem row;
-                if (convertView == null) {
-                    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    row = (TwoLineListItem) inflater.inflate(android.R.layout.simple_list_item_2, null);
-                } else {
-                    row = (TwoLineListItem) convertView;
-                }
-                ChatMessage data = conversation.get(position);
-                String title = "(" + data.getMessageDate() + " " + data.getMessageTime() + ") ";
-                if (Constants.ONE.equals(data.getMessageReceived())) {/*Recibido*/
-                    row.getText1().setTextColor(Color.MAGENTA);
-                    title += data.getUserName();
-                } else {/*Enviado*/
-                    row.getText1().setTextColor(Color.BLUE);
-                    title += SessionData.getInstance().getUsuarObject().getUsunusuaf();
-                }
-                row.getText1().setText(title);
-                row.getText2().setText(data.getMessageContent());
-                row.getText2().setTextColor(Color.DKGRAY);
-                row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-                row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
-                return row;
+            public void run() {
+                //Crea adapter
+                ArrayAdapter adapter = new ArrayAdapter(ConversacionActivity.this,
+                        android.R.layout.simple_list_item_2, conversation) {
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        TwoLineListItem row;
+                        if (convertView == null) {
+                            LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                            row = (TwoLineListItem) inflater.inflate(android.R.layout.simple_list_item_2, null);
+                        } else {
+                            row = (TwoLineListItem) convertView;
+                        }
+                        ChatMessage data = conversation.get(position);
+                        String title = "(" + data.getMessageDate() + " " + data.getMessageTime() + ") ";
+                        if (Constants.ONE.equals(data.getMessageReceived())) {/*Recibido*/
+                            row.getText1().setTextColor(Color.MAGENTA);
+                            title += data.getUserName();
+                        } else {/*Enviado*/
+                            row.getText1().setTextColor(Color.BLUE);
+                            title += SessionData.getInstance().getUsuarObject().getUsunusuaf();
+                        }
+                        row.getText1().setText(title);
+                        row.getText2().setText(data.getMessageContent());
+                        row.getText2().setTextColor(Color.DKGRAY);
+                        row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                        row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                        return row;
+                    }
+                };
+                //Incluye nuevos peers
+                listaMensajes.setAdapter(adapter);
+                //Notifica
+                adapter.notifyDataSetChanged();
             }
-        };
-        //Incluye nuevos peers
-        listaMensajes.setAdapter(adapter);
-        //Notifica
-        adapter.notifyDataSetChanged();
+        });
     }
 }

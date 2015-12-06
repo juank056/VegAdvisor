@@ -429,6 +429,15 @@ public class SessionData {
     }
 
     /**
+     * Obtiene la actividad que esta en ejecucion
+     *
+     * @return Actividad en ejecución
+     */
+    public VegAdvisorActivity getActivity() {
+        return activity;
+    }
+
+    /**
      * Asigna la actividad que se está ejecutando en pantalla
      *
      * @param activity Actividad que ejecuta en pantalla

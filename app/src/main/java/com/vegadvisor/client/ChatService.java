@@ -168,6 +168,20 @@ public class ChatService extends Service {
         Log.d(Constants.DEBUG, "MENSAJE RECIBIDO DE : " + userIdFrom);
         //Revisa mensajes de chat
         checkMessages();
+        //Revisa si se esta en la pantalla de Conversación
+        if (SessionData.getInstance().getActivity() != null) {
+            if (SessionData.getInstance().getActivity() instanceof ConversacionActivity) {
+                ConversacionActivity activity = (ConversacionActivity) SessionData.getInstance().getActivity();
+                //Revisa ahora si la persona con la que esta hablando es la que envio mensaje
+                String userOther = SessionData.getInstance().getChatPeer()[0];
+                if (userIdFrom.equals(userOther)) {
+                    //Refresca conversacion
+                    activity.setConversation(SessionData.getInstance().getDatabaseHandler().
+                            getMessages(userId, userIdFrom, Constants.MAX_MESSAGES));
+                    activity.refreshMessages();
+                }
+            }
+        }
     }
 
     /**
