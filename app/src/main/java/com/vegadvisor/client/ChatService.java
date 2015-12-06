@@ -120,6 +120,8 @@ public class ChatService extends Service {
             new Thread(inputRouter).start();
         } catch (Exception e) {/*Error */
             e.printStackTrace();
+            //Termina servicio para que se reinicie
+            restartService();
         }
         //Retorna START STICKY
         return Service.START_STICKY;
@@ -130,8 +132,6 @@ public class ChatService extends Service {
      */
     @Override
     public void onDestroy() {
-        //Por ahora hace toast
-        Toast.makeText(getApplicationContext(), "FINALIZA SERVICIO CHAT.....", Toast.LENGTH_SHORT).show();
         //Shutdown a true
         shutdown = true;
         //Cierra socket
