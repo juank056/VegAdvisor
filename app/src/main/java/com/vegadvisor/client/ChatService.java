@@ -2,7 +2,9 @@ package com.vegadvisor.client;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -91,8 +93,11 @@ public class ChatService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //Obtiene id del usuario
-        userId = SessionData.getInstance().getUserId();
+        //Obtiene id del usuario de las perferencias
+        //Obtiene shared Preferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //Obtiene nombre de usuario
+        userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
         //Por ahora hace toast
         Toast.makeText(getApplicationContext(), "INICIA SERVICIO CHAT: " + userId, Toast.LENGTH_SHORT).show();
         //Dirección Ip
@@ -160,9 +165,7 @@ public class ChatService extends Service {
      */
     private void notifyNewMessage(String userIdFrom) {
         //Mensaje recibido
-        Log.d(Constants.DEBUG, "Mensaje recibido de: " + userIdFrom);
-        //Crea notificacion
-        Toast.makeText(getApplicationContext(), "Mensaje recibido de: " + userIdFrom, Toast.LENGTH_SHORT).show();
+        Log.d(Constants.DEBUG, "MENSAJE RECIBIDO DE : " + userIdFrom);
         //Revisa mensajes de chat
         checkMessages();
     }
@@ -260,14 +263,26 @@ public class ChatService extends Service {
                             notifyNewMessage(userIdFrom);
                         }
                     } catch (Exception e) {/*Error*/
-                        if (!shutdown)
+                        if (!shutdown) {
                             e.printStackTrace();
+                            //Termina servicio para que se reinicie
+                            restartService();
+                        }
                     }
                 }
             } catch (Exception e) {/*Error */
                 e.printStackTrace();
+                //Termina servicio para que se reinicie
+                restartService();
             }
         }
+    }
+
+    /**
+     * Reinicia servicio
+     */
+    private void restartService() {
+        stopSelf();
     }
 
     /**
@@ -285,13 +300,17 @@ public class ChatService extends Service {
                 try {
                     // Obtiene mensaje a enviar
                     String message = SessionData.getInstance().getMessages().take();
+                    Log.d(Constants.DEBUG, "NOTIFICANDO ENVIO A: " + message);
                     // Escribe longitud del mensaje
                     outputStream.writeInt(message.length());
                     // Escribe mensaje
                     outputStream.write(message.getBytes());
                 } catch (Exception e) {/*Error*/
-                    if (!shutdown)
+                    if (!shutdown) {
                         e.printStackTrace();
+                        //Termina servicio para que se reinicie
+                        restartService();
+                    }
                 }
             }
         }

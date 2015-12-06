@@ -169,6 +169,26 @@ public class ChatDatabaseHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Borra una conversación
+     *
+     * @param userSession Usuario en sesion
+     * @param userOther   Otro usuario del sistema
+     * @return Lista de mensajes de chat
+     */
+    public void deleteConversation(String userSession, String userOther) {
+        List<ChatMessage> messages = new ArrayList<>();
+        // Query a ejecutar
+        String deleteQuery = "DELETE FROM " + TABLE_MESSAGES + " WHERE "
+                + USER_SESSION + "='&1' AND " + USER_OTHER + "='&2'";
+        //Asigna parametros
+        deleteQuery = deleteQuery.replace(Constants.URL_PARAM01, userSession);
+        deleteQuery = deleteQuery.replace(Constants.URL_PARAM02, userOther);
+        //Ejecuta Query
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(deleteQuery);
+    }
+
+    /**
      * Obtiene contactos recientes de conversacion del usuario
      *
      * @param userSession Usuario en sesion

@@ -96,4 +96,7 @@
     <string name="texto_compartir"><![CDATA[Hola, estoy en &1. ¡Nos vemos aquí!. Dirección: &2]]></string>
     <string name="detalle_opinion">Detalle Opinión</string>
     <string name="establecimiento">Establecimiento</string>
+    <string name="mensaje">Mensaje</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="confirma_eliminar">¿Está seguro que desea eliminar la conversación?</string>
 </resources>
