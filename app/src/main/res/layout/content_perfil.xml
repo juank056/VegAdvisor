@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nombre"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
         <Space
@@ -47,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/apellido"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
         <Space
@@ -166,6 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hobbies"
+            android:inputType="textCapSentences"
             android:lines="3"/>
 
         <Space

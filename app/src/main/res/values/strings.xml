@@ -99,4 +99,5 @@
     <string name="mensaje">Mensaje</string>
     <string name="eliminar">Eliminar</string>
     <string name="confirma_eliminar">¿Está seguro que desea eliminar la conversación?</string>
+    <string name="yo">Yo</string>
 </resources>

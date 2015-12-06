@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nombre_establecimiento"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
         <Space
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:gravity="top"
             android:hint="@string/descripcion"
+            android:inputType="textCapSentences"
             android:lines="3"/>
 
         <Space
@@ -113,6 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/direccion"
+            android:inputType="textCapSentences"
             android:singleLine="true"/>
 
         <Space

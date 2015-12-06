@@ -1,9 +1,11 @@
 package com.vegadvisor.client;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TwoLineListItem;
 
+import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.ReturnValidation;
+import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.ChatMessage;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.DateUtils;
@@ -91,6 +95,70 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
     }
 
     /**
+     * Método para recibir y procesar la respuesta a un llamado al servidor
+     *
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    public void receiveServerCallResult(final int serviceId, final String service, final Object result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (result != null) {/*Llego usuario de resultado*/
+                    Usmusuar usuar;
+                    //Revisa de acuerdo a lo ejecutado
+                    switch (serviceId) {
+                        case 482: /*Buscar usuario en sesion*/
+                            //Usuario recibido
+                            usuar = (Usmusuar) result;
+                            //Asigna el usuario a los datos de sesion
+                            SessionData.getInstance().setUsuarObject(usuar);
+                            SessionData.getInstance().setUser(true);
+                            break;
+                        case 483: /*Buscar usuario del chat*/
+                            //Usuario recibido
+                            usuar = (Usmusuar) result;
+                            //Revisa si el usuario tiene una imagen
+                            if (!Constants.BLANKS.equals(usuar.getUsufotoaf())) {/*Hay imagen*/
+                                //Obtiene la imagen del usuario
+                                SessionData.getInstance().executeServiceImage(484,
+                                        getResources().getString(R.string.image_downloadImage),
+                                        ConversacionActivity.this.createParametersMap("imagePath", usuar.getUsufotoaf()));
+                            }
+                            break;
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    @Override
+    public void receiveServerCallResult(final int serviceId, final String service, final Bitmap result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Revisa que se tenga imagen
+                if (result != null) {
+                    //Bitmap re ajustado
+                    Bitmap scaled = Bitmap.createScaledBitmap(result, userImage.getWidth(), userImage.getHeight(), true);
+                    //Asigna bitmap a la imagen
+                    userImage.setImageBitmap(scaled);
+                }
+            }
+        });
+    }
+
+    /**
      * @param serviceId Id del servicio ejecutado
      * @param service   Servicio que se ha llamado
      * @param result    Resultado de la ejecución
@@ -102,8 +170,6 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Muestra mensaje recibido
-                Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                 //Revisa de acuerdo a lo ejecutado
                 switch (serviceId) {
                     case 481: /*Envio de mensaje*/
@@ -124,6 +190,9 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
                             SessionData.getInstance().getMessages().offer(userTo);
                             //Refresca mensajes
                             refreshMessages();
+                        } else {
+                            //Muestra mensaje recibido
+                            Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }
@@ -199,6 +268,7 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
         //Obtiene texto a enviar
         text = mensaje.getText().toString().trim();
         if (!Constants.BLANKS.equals(text)) {
+            Log.d(Constants.DEBUG, "MENSAJE A ENVIAR: " + text);
             //Envia mensaje
             SessionData.getInstance().executeServiceRV(481, getResources().getString(R.string.chat_registerChatMessage),
                     this.createParametersMap("userIdFrom", userFrom, "userIdTo", userTo, "content", text));
@@ -221,6 +291,18 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
         conversation = SessionData.getInstance().getDatabaseHandler().getMessages(userFrom, userTo, Constants.MAX_MESSAGES);
         //Refresca mensajes
         refreshMessages();
+        //Obtiene usuario en sesion para refrescarlo
+        SessionData.getInstance().executeServiceObject(482,
+                getResources().getString(R.string.user_findUserById),
+                this.createParametersMap("userId", SessionData.getInstance().getUserId()),
+                new TypeToken<Usmusuar>() {
+                }.getType());
+        //Obtiene usuario del chat
+        SessionData.getInstance().executeServiceObject(483,
+                getResources().getString(R.string.user_findUserById),
+                this.createParametersMap("userId", userTo),
+                new TypeToken<Usmusuar>() {
+                }.getType());
     }
 
 
@@ -245,13 +327,13 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
                             row = (TwoLineListItem) convertView;
                         }
                         ChatMessage data = conversation.get(position);
-                        String title = "(" + data.getMessageDate() + " " + data.getMessageTime() + ") ";
+                        String title = "[" + data.getMessageDate() + " " + data.getMessageTime() + "] ";
                         if (Constants.ONE.equals(data.getMessageReceived())) {/*Recibido*/
                             row.getText1().setTextColor(Color.MAGENTA);
-                            title += data.getUserName();
+                            title += data.getUserName() + ": ";
                         } else {/*Enviado*/
                             row.getText1().setTextColor(Color.BLUE);
-                            title += SessionData.getInstance().getUsuarObject().getUsunusuaf();
+                            title += getResources().getString(R.string.yo) + ": ";
                         }
                         row.getText1().setText(title);
                         row.getText2().setText(data.getMessageContent());
@@ -263,6 +345,8 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
                 };
                 //Incluye nuevos peers
                 listaMensajes.setAdapter(adapter);
+                //Scroll al final
+                listaMensajes.setSelection(listaMensajes.getCount() - 1);
                 //Notifica
                 adapter.notifyDataSetChanged();
             }

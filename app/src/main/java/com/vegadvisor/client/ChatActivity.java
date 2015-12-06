@@ -63,6 +63,12 @@ public class ChatActivity extends VegAdvisorActivity implements AdapterView.OnIt
                 getContacts(SessionData.getInstance().getUserId());
         //Modify Peers List
         modifyPeersList();
+        //Obtiene usuario en sesion para refrescarlo
+        SessionData.getInstance().executeServiceObject(462,
+                getResources().getString(R.string.user_findUserById),
+                this.createParametersMap("userId", SessionData.getInstance().getUserId()),
+                new TypeToken<Usmusuar>() {
+                }.getType());
         //Boton de busqueda
         findViewById(R.id.b1).setOnClickListener(this);
     }
@@ -76,6 +82,36 @@ public class ChatActivity extends VegAdvisorActivity implements AdapterView.OnIt
     public void onClick(View v) {
         //Se le ha dado a buscar
         searchChatUsers();
+    }
+
+    /**
+     * Método para recibir y procesar la respuesta a un llamado al servidor
+     *
+     * @param serviceId Id del servicio ejecutado
+     * @param service   Servicio que se ha llamado
+     * @param result    Resultado de la ejecución
+     */
+    public void receiveServerCallResult(final int serviceId, final String service, final Object result) {
+        //Super
+        super.receiveServerCallResult(serviceId, service, result);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (result != null) {/*Llego usuario de resultado*/
+                    Usmusuar usuar;
+                    //Revisa de acuerdo a lo ejecutado
+                    switch (serviceId) {
+                        case 462: /*Buscar usuario en sesion*/
+                            //Usuario recibido
+                            usuar = (Usmusuar) result;
+                            //Asigna el usuario a los datos de sesion
+                            SessionData.getInstance().setUsuarObject(usuar);
+                            SessionData.getInstance().setUser(true);
+                            break;
+                    }
+                }
+            }
+        });
     }
 
     /**

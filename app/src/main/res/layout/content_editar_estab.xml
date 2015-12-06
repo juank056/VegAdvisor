@@ -30,6 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nombre_establecimiento"
+            android:inputType="textCapWords"
             android:singleLine="true"/>
 
         <Space
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:gravity="top"
             android:hint="@string/descripcion"
+            android:inputType="textCapSentences"
             android:lines="3"/>
 
         <Space
@@ -105,6 +107,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapSentences"
             android:text="@string/direccion"
             android:textColor="@color/wallet_link_text_light"/>
 
