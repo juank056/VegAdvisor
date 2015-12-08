@@ -1,10 +1,15 @@
 package com.vegadvisor.client;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -25,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -167,7 +173,45 @@ public class ChatService extends Service {
         //Mensaje recibido
         Log.d(Constants.DEBUG, "MENSAJE RECIBIDO DE : " + userIdFrom);
         //Revisa mensajes de chat
-        checkMessages();
+        List<Chdmensa> messages = checkMessages();
+        //Datos de notificación
+        String title = null, content = null;
+        //Numero de mensajes de diferentes personas
+        int people = 0;
+        //Lista de ids de usuario
+        List<String> users = new ArrayList<>();
+        //Revisa mensajes
+        if (messages != null && messages.size() > 0) {/*Hay mensajes*/
+            //Recorre lista
+            for (Chdmensa mensa : messages) {
+                //Revisa si ya estaba el usuario
+                if (!users.contains(mensa.getId().getUsucusuak())) {
+                    //Incrementa personas
+                    people++;
+                    //Ingresa persona
+                    users.add(mensa.getId().getUsucusuak());
+                }
+            }
+            if (messages.size() == 1) {/*Un solo mensaje de una persona*/
+                //Titulo
+                title = getResources().getString(R.string.nuevo_mensaje).
+                        replace(Constants.URL_PARAM01, messages.get(0).getSenderName());
+                //Contenido
+                content = messages.get(0).getMchmensaf();
+            } else if (people == 1) {/*Mas de un mensaje (1 sola persoan)*/
+                //Titulo
+                title = getResources().getString(R.string.nuevos_mensajes_one).
+                        replace(Constants.URL_PARAM02, messages.get(0).getSenderName()).
+                        replace(Constants.URL_PARAM01, Constants.BLANKS + messages.size());
+                content = messages.get(messages.size() - 1).getMchmensaf();
+            } else {/*Mas de un mensaje, mas de una persona*/
+                //Titulo
+                title = getResources().getString(R.string.nuevos_mensajes).
+                        replace(Constants.URL_PARAM02, Constants.BLANKS + people).
+                        replace(Constants.URL_PARAM01, Constants.BLANKS + messages.size());
+                content = title;
+            }
+        }
         //Revisa si se esta en la pantalla de Conversación
         if (SessionData.getInstance().getActivity() != null) {
             if (SessionData.getInstance().getActivity() instanceof ConversacionActivity) {
@@ -179,15 +223,72 @@ public class ChatService extends Service {
                     activity.setConversation(SessionData.getInstance().getDatabaseHandler().
                             getMessages(userId, userIdFrom, Constants.MAX_MESSAGES));
                     activity.refreshMessages();
+                    if (people > 1) {/*Hay otra conversación*/
+                        //Genera notificación
+                        buildNotification(userIdFrom, messages.get(0).getSenderName(), people, title, content);
+                    }
+                } else {/*Esta conversando con otra persona*/
+                    //Genera notificación
+                    buildNotification(userIdFrom, messages.get(0).getSenderName(), people, title, content);
                 }
+            } else {/*Esta en otra actividad*/
+                //Genera notificación
+                buildNotification(userIdFrom, messages.get(0).getSenderName(), people, title, content);
             }
+        } else {/*No hay actividad*/
+            //Genera notificación
+            buildNotification(userIdFrom, messages.get(0).getSenderName(), people, title, content);
         }
+    }
+
+    /**
+     * Construye notificacion en el sistema
+     *
+     * @param userIdFrom Usuario que ha enviado mensaje
+     * @param userName   Nombre del usuario de la conversacion
+     * @param people     Numero de personas que envian mensajes
+     * @param title      Titulo de la notificacion
+     * @param content    Contenido de la notificación
+     */
+    private void buildNotification(String userIdFrom, String userName, int people, String title, String content) {
+        //Actividad que resolvera el intent (iniciada en chat activity por defecto)
+        Class<?> resolverActivity = ChatActivity.class;
+        //Si el numero de personas es una entonces se inicia en conversacion
+        if (people == 1) {
+            resolverActivity = ConversacionActivity.class;
+        }
+        //Builder
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.icon_notity)
+                .setContentTitle(title)
+                .setContentText(content);
+        // Crea intent
+        Intent resultIntent = new Intent(this, resolverActivity);
+        //Datos extras para el intent
+        resultIntent.putExtra(Constants.USER_ID, userId);
+        resultIntent.putExtra(Constants.USER_CONVERSATION, userIdFrom);
+        resultIntent.putExtra(Constants.USER_NAME, userName);
+        // Stack builder
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(resolverActivity);
+        //Siguiente intent
+        stackBuilder.addNextIntent(resultIntent);
+        //Intent pending
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        //Obtiene servicio de notificaciones
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //Crea notificacion finalmente
+        mNotificationManager.notify(Constants.NOTIFICATION_ID, mBuilder.build());
     }
 
     /**
      * Revisa mensajes de chat en el servidor
      */
-    private void checkMessages() {
+    private List<Chdmensa> checkMessages() {
         //Mapa de parametros
         Map<String, String> params = new HashMap<>();
         //Ingresa parametros
@@ -204,6 +305,8 @@ public class ChatService extends Service {
                         mensa.getId().getUsucusuak(), mensa.getMchmensaf(), Constants.ONE, mensa.getSenderName());
             }
         }
+        //Retorna mensajes
+        return messages;
     }
 
     /**

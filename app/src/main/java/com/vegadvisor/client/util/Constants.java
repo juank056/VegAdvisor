@@ -322,4 +322,19 @@ public class Constants {
      * Numero de mensajes a obtener
      */
     public static final int MAX_MESSAGES = 50;
+
+    /**
+     * Id de notificacion
+     */
+    public static final int NOTIFICATION_ID = 347392;
+
+    /**
+     * User Id
+     */
+    public static final String USER_ID = "USER_ID";
+
+    /**
+     * User conversation
+     */
+    public static final String USER_CONVERSATION = "USER_CONVERSATION";
 }

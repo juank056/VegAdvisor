@@ -53,7 +53,18 @@ public class ChatActivity extends VegAdvisorActivity implements AdapterView.OnIt
         setContentView(R.layout.activity_chat);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Obtiene parametros de la actividad llamante
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        //Revisa que vengan parametros
+        if (extras != null) {
+            //Id del usuario
+            String userId = extras.getString(Constants.USER_ID);
+            if (userId != null && !Constants.BLANKS.equals(userId)) {
+                SessionData.getInstance().setUser(true);
+                SessionData.getInstance().setUserId(userId);
+            }
+        }
         //Obtiene campos de pantalla
         busqueda = (EditText) findViewById(R.id.busqueda);
         listaUsuarios = (ListView) findViewById(R.id.listaUsuarios);

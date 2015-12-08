@@ -100,4 +100,7 @@
     <string name="eliminar">Eliminar</string>
     <string name="confirma_eliminar">¿Está seguro que desea eliminar la conversación?</string>
     <string name="yo">Yo</string>
+    <string name="nuevo_mensaje"><![CDATA[Nuevo mensaje de &1]]></string>
+    <string name="nuevos_mensajes_one"><![CDATA[&1 mensajes nuevos de &2]]></string>
+    <string name="nuevos_mensajes"><![CDATA[&1 mensajes nuevos de &2 conversaciones]]></string>
 </resources>

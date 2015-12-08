@@ -1,6 +1,7 @@
 package com.vegadvisor.client;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -82,7 +83,25 @@ public class ConversacionActivity extends VegAdvisorActivity implements View.OnC
         setContentView(R.layout.activity_conversacion);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Obtiene parametros de la actividad llamante
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        //Revisa que vengan parametros
+        if (extras != null) {
+            //Id del usuario
+            String userId = extras.getString(Constants.USER_ID);
+            if (userId != null && !Constants.BLANKS.equals(userId)) {
+                SessionData.getInstance().setUser(true);
+                SessionData.getInstance().setUserId(userId);
+            }
+            //Usuario de conversacion
+            String userConv = extras.getString(Constants.USER_CONVERSATION);
+            if (userConv != null && !Constants.BLANKS.equals(userConv)) {
+                //Nombre del usuario
+                String userName = extras.getString(Constants.USER_NAME);
+                SessionData.getInstance().setChatPeer(new String[]{userConv, userName});
+            }
+        }
         //Obtiene campos de pantalla
         userName = (TextView) findViewById(R.id.userName);
         userImage = (ImageView) findViewById(R.id.userImage);
