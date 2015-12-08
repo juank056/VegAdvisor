@@ -1,5 +1,6 @@
 package com.vegadvisor.client;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,11 +8,12 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -104,8 +106,6 @@ public class ChatService extends Service {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         //Obtiene nombre de usuario
         userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
-        //Por ahora hace toast
-        Toast.makeText(getApplicationContext(), "INICIA SERVICIO CHAT: " + userId, Toast.LENGTH_SHORT).show();
         //Dirección Ip
         ipAddress = getResources().getString(R.string.chat_server_ip);
         //Puerto
@@ -170,8 +170,6 @@ public class ChatService extends Service {
      * @param userIdFrom Usuario que ha enviado el mensaje
      */
     private void notifyNewMessage(String userIdFrom) {
-        //Mensaje recibido
-        Log.d(Constants.DEBUG, "MENSAJE RECIBIDO DE : " + userIdFrom);
         //Revisa mensajes de chat
         List<Chdmensa> messages = checkMessages();
         //Datos de notificación
@@ -223,7 +221,7 @@ public class ChatService extends Service {
                     activity.setConversation(SessionData.getInstance().getDatabaseHandler().
                             getMessages(userId, userIdFrom, Constants.MAX_MESSAGES));
                     activity.refreshMessages();
-                    if (people > 1) {/*Hay otra conversación*/
+                    if (people > 1 || !activity.isActivityVisible()) {/*Hay otra conversación o no esta visible*/
                         //Genera notificación
                         buildNotification(userIdFrom, messages.get(0).getSenderName(), people, title, content);
                     }
@@ -261,7 +259,10 @@ public class ChatService extends Service {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.icon_notity)
                 .setContentTitle(title)
-                .setContentText(content);
+                .setContentText(content)
+                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), AudioManager.STREAM_NOTIFICATION)
+                .setVibrate(new long[]{1000, 1000, 1000, 1000})
+                .setLights(Color.GREEN, 1000, 1000);
         // Crea intent
         Intent resultIntent = new Intent(this, resolverActivity);
         //Datos extras para el intent
@@ -282,7 +283,11 @@ public class ChatService extends Service {
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         //Crea notificacion finalmente
-        mNotificationManager.notify(Constants.NOTIFICATION_ID, mBuilder.build());
+        //Construye notificaciont
+        Notification notification = mBuilder.build();
+        //Flag
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        mNotificationManager.notify(Constants.NOTIFICATION_ID, notification);
     }
 
     /**
@@ -417,7 +422,6 @@ public class ChatService extends Service {
                 try {
                     // Obtiene mensaje a enviar
                     String message = SessionData.getInstance().getMessages().take();
-                    Log.d(Constants.DEBUG, "NOTIFICANDO ENVIO A: " + message);
                     // Escribe longitud del mensaje
                     outputStream.writeInt(message.length());
                     // Escribe mensaje

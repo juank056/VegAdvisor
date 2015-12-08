@@ -93,14 +93,14 @@
     <string name="estadisticas">Estadísticas</string>
     <string name="editar">Editar</string>
     <string name="compartir">Compartir</string>
-    <string name="texto_compartir"><![CDATA[Hola, estoy en &1. ¡Nos vemos aquí!. Dirección: &2]]></string>
+    <string name="texto_compartir"><![CDATA[Hola, te invito a conocer &1. Dirección: &2. Enviado desde VegAdvisor App Mobile]]></string>
     <string name="detalle_opinion">Detalle Opinión</string>
     <string name="establecimiento">Establecimiento</string>
     <string name="mensaje">Mensaje</string>
     <string name="eliminar">Eliminar</string>
     <string name="confirma_eliminar">¿Está seguro que desea eliminar la conversación?</string>
     <string name="yo">Yo</string>
-    <string name="nuevo_mensaje"><![CDATA[Nuevo mensaje de &1]]></string>
-    <string name="nuevos_mensajes_one"><![CDATA[&1 mensajes nuevos de &2]]></string>
-    <string name="nuevos_mensajes"><![CDATA[&1 mensajes nuevos de &2 conversaciones]]></string>
+    <string name="nuevo_mensaje"><![CDATA[Mensaje de &1]]></string>
+    <string name="nuevos_mensajes_one"><![CDATA[&1 mensajes de &2]]></string>
+    <string name="nuevos_mensajes"><![CDATA[&1 mensajes de &2 conversaciones]]></string>
 </resources>

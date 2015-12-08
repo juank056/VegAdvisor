@@ -51,6 +51,11 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
     protected static final int SWIPE_THRESHOLD_VELOCITY = 100;
 
     /**
+     * Indicador de actividad visible
+     */
+    private boolean activityVisible;
+
+    /**
      * Sobre-escribe onCreate
      *
      * @param savedInstanceState Instancia
@@ -76,8 +81,16 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         super.onResume();
         //Asigna actividad a los datos de sesión
         SessionData.getInstance().setActivity(this);
+        //Actividad visible
+        this.activityVisible = true;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //Actividad visible false
+        this.activityVisible = false;
+    }
 
     protected void showConfirmDialog(final int dialogId, final String title,
                                      final String message, final String positive, final String negative) {
@@ -164,9 +177,11 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Revisa si estaba mostrando
-                if (isShowLoadingIcon())
-                    loadingDialog.show();
+                if (!VegAdvisorActivity.this.isFinishing()) {
+                    //Revisa si estaba mostrando
+                    if (isShowLoadingIcon())
+                        loadingDialog.show();
+                }
             }
         });
 
@@ -179,9 +194,11 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Revisa si estaba mostrando
-                if (isShowLoadingIcon())
-                    loadingDialog.hide();
+                if (!VegAdvisorActivity.this.isFinishing()) {
+                    //Revisa si estaba mostrando
+                    if (isShowLoadingIcon())
+                        loadingDialog.hide();
+                }
             }
         });
 
@@ -379,4 +396,14 @@ public abstract class VegAdvisorActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /**
+     * Retorna indicador de actividad visible
+     *
+     * @return Indicador de actividad visible
+     */
+    public boolean isActivityVisible() {
+        return activityVisible;
+    }
+
 }
