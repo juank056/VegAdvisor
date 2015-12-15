@@ -17,7 +17,7 @@ public class Fomhilfo implements java.io.Serializable, AbstractBO<Integer> {
 	private Integer hifchifnk;
 	private String usucusuak;
 	private Date hiffregff;
-	private Date hifhoratf;
+	private String hifhoratf;
 	private String hiftituaf;
 	private String hifdetaaf;
 	private Date hiffecuff;
@@ -29,7 +29,7 @@ public class Fomhilfo implements java.io.Serializable, AbstractBO<Integer> {
 	public Fomhilfo() {
 	}
 
-	public Fomhilfo(String usucusuak, Date hiffregff, Date hifhoratf,
+	public Fomhilfo(String usucusuak, Date hiffregff, String hifhoratf,
 			String hiftituaf, String hifdetaaf, Date hiffecuff) {
 		this.usucusuak = usucusuak;
 		this.hiffregff = hiffregff;
@@ -63,11 +63,11 @@ public class Fomhilfo implements java.io.Serializable, AbstractBO<Integer> {
 		this.hiffregff = hiffregff;
 	}
 
-	public Date getHifhoratf() {
+	public String getHifhoratf() {
 		return this.hifhoratf;
 	}
 
-	public void setHifhoratf(Date hifhoratf) {
+	public void setHifhoratf(String hifhoratf) {
 		this.hifhoratf = hifhoratf;
 	}
 

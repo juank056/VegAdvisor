@@ -33,21 +33,8 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
     // Campo respuesta
     private EditText respuestaContent;
 
-    // Botón imágenes
-    private ImageButton b2;
-
     // Hilo del foro
     private Fomhilfo hiloForo;
-
-    // Layout de imágenes
-    private LinearLayout imagenes;
-
-   // Lista de imágenes a enviar
-    private List<File> opinionImagesFiles;
-
-    //Upload de imágenes
-    private int totalUploadResponses;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +49,9 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
         respuestaHeader = (TextView)findViewById(R.id.foro_respuestaheader);
         //Respuesta
         respuestaContent = (EditText)findViewById(R.id.foro_respuesta);
-        //Imágenes
-        imagenes = (LinearLayout) findViewById(R.id.imagenes);
-        //Boton imágenes
-        b2 = (ImageButton)findViewById(R.id.b2);
         //Boton enviar respuesta y botón imagen ejecuta método onClick()
         findViewById(R.id.foro_btn_envRespuesta).setOnClickListener(this);
-        b2.setOnClickListener(this);
+
     }
 
     /**
@@ -107,33 +90,10 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
             case R.id.foro_btn_envRespuesta:
                 saveReplicaHilo();
                 break;
-            case R.id.b2: //Botón de añadir imágenes
-                //Lanza dialogo de selección de imagen
-                this.launchSelectImageDialog();
-                break;
         }
     }
 
-    /**
-     * Se engarga de procesar el resultado de cargar una imagen
-     *
-     * @param imageBitmap Bitmap de la imagen cargada
-     * @param imagePath   Ruta de la imagen cargada
-     */
-    @Override
-    public void processImageSelectedResponse(Bitmap imageBitmap, String imagePath) {
-        //Crea nueva image view
-        ImageView image = new ImageView(getApplicationContext());
-        Bitmap scaled = Bitmap.createScaledBitmap(imageBitmap, b2.getWidth(), b2.getHeight(), true);
-        //Asigna bitmap
-        image.setImageBitmap(scaled);
-        //Padding
-        image.setPadding(5, 5, 5, 5);
-        //Ingresa imagen al list view de imagenes
-        imagenes.addView(image, 0);
-        //Adiciona nuevo file para enviar al servidor
-        opinionImagesFiles.add(new File(imagePath));
-    }
+
 
     /**
      * Metodo para validar los datos de respuesta y registrarla en el sistema
@@ -148,13 +108,12 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
         //Hilo
         hiloForo = SessionData.getInstance().getForumThread();
         //Envía actualización al servidor
-       /* SessionData.getInstance().executeServiceRV(241,
-                getResources().getString(R.string.opinion_registerUsersOpinion),
+        SessionData.getInstance().executeServiceRV(441,
+                getResources().getString(R.string.forum_createForumThreadResponse),
                 this.createParametersMap(
-                        "establishmentId", Constants.BLANKS + estab.getEstcestnk(),
                         "userId", SessionData.getInstance().getUserId(),
-                        "stars", Constants.BLANKS + opinionStars,
-                        "opinion", detalle_opinion.getText().toString().trim()));  */
+                        "threadId", Constants.BLANKS + hiloForo.getHifchifnk(),
+                        "responseDetail", respuestaContent.getText().toString().trim()));
         //Finaliza Ok
         return true;
     }

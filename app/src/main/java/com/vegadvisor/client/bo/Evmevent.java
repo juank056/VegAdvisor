@@ -15,7 +15,7 @@ public class Evmevent implements java.io.Serializable, AbstractBO<EvmeventId> {
      */
     private static final long serialVersionUID = 1L;
     private EvmeventId id;
-    private Date evehoratf;
+    private String evehoratf;
     private String usucusuak;
     private int estcestnk;
     private String estloceaf;
@@ -58,14 +58,14 @@ public class Evmevent implements java.io.Serializable, AbstractBO<EvmeventId> {
     /**
      * @return the evehoratf
      */
-    public Date getEvehoratf() {
+    public String getEvehoratf() {
         return evehoratf;
     }
 
     /**
      * @param evehoratf the evehoratf to set
      */
-    public void setEvehoratf(Date evehoratf) {
+    public void setEvehoratf(String evehoratf) {
         this.evehoratf = evehoratf;
     }
 
