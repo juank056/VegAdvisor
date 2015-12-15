@@ -102,7 +102,7 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                         listForoScreen.add(HiloScreen);
                     }
 
-                    /* Cambio Git ..
+                    /* Cambio Git ...
 
                      */
                     //Para incluir elementos de la lista
