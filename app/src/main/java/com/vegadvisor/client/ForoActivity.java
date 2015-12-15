@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,15 +17,11 @@ import android.widget.ListView;
 import android.widget.TwoLineListItem;
 
 import com.google.gson.reflect.TypeToken;
-import com.vegadvisor.client.bo.Esdopies;
-import com.vegadvisor.client.bo.Esmestab;
 import com.vegadvisor.client.bo.Fomhilfo;
-import com.vegadvisor.client.bo.Usmusuar;
 import com.vegadvisor.client.util.Constants;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
@@ -42,9 +36,6 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
     //Lista objetos de foro
     private List<Fomhilfo> listHilos;
 
-    //Los 4 atributos del hilo que se van a mostrar en la pantalla: título, fecha, usuario y detalle
-    private Object[] HiloScreen = new Object[4];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +45,12 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Lista Foro del layout
-        listaForo = (ListView)findViewById(R.id.listaForo);
+        listaForo = (ListView) findViewById(R.id.listaForo);
         listaForo.setOnItemClickListener(this);
         //Botón crear nuevo hilo del foro
         findViewById(R.id.b1).setOnClickListener(this);
         findViewById(R.id.btn_crearHilo).setOnClickListener(this);
-
-        busqueda = (EditText)findViewById(R.id.busqueda);
-        //Trae hilos de foro de la base de datos
-        SessionData.getInstance().executeServiceList(381,
-                getResources().getString(R.string.forum_findForumThreads),
-                this.createParametersMap("clue", busqueda.getText().toString().trim()), new TypeToken<List<Fomhilfo>>() {
-                }.getType());
+        busqueda = (EditText) findViewById(R.id.busqueda);
     }
 
     @Override
@@ -73,7 +58,7 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
         //Obtiene hilo seleccionado
         Fomhilfo hilo = listHilos.get(position);
         //Si el hilo existe
-        if(hilo!=null){
+        if (hilo != null) {
             //Asigna los datos del objeto hilo a la sesión
             SessionData.getInstance().setForumThread(hilo);
             //Navega hacia la actividad detalle de dicho hilo
@@ -88,7 +73,7 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
     public void onClick(View v) {
         // Navega a actividad de creación de hilos del foro
         Intent intent;
-        switch(v.getId()) {
+        switch (v.getId()) {
             case R.id.btn_crearHilo:
                 intent = new Intent(ForoActivity.this, CrearHiloActivity.class);
                 startActivity(intent);
@@ -98,9 +83,10 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                         getResources().getString(R.string.forum_findForumThreads),
                         this.createParametersMap("clue", busqueda.getText().toString().trim()), new TypeToken<List<Fomhilfo>>() {
                         }.getType());
-               break;
+                break;
         }
     }
+
     @SuppressWarnings("unchecked")
     public void receiveServerCallResult(final int serviceId, final String service,
                                         final List<?> result) {
@@ -127,9 +113,9 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                                     row = (TwoLineListItem) convertView;
                                 }
                                 Fomhilfo hilo = listHilos.get(position);
-                                //Nombre de usuario y estrellas
+                                //Titulo del foro
                                 String title = hilo.getHiftituaf() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
-                                        hilo.getHiffregff() + Constants.BLANK_SPACE + hilo.getUserName()+getResources().getString(R.string.estrellas)
+                                        hilo.getHiffregff() + Constants.BLANK_SPACE + hilo.getUserName() + getResources().getString(R.string.estrellas)
                                         + Constants.RIGHT_PARENTHESIS;
                                 row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                                 row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
@@ -140,6 +126,10 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                                 return row;
                             }
                         };
+                        if (listaForo == null)
+                            Log.d(Constants.DEBUG, "LISTA  ES NULLA");
+                        if (adapter == null)
+                            Log.d(Constants.DEBUG, "ADAPTER ES NULL");
                         //Incluye nuevos registros
                         listaForo.setAdapter(adapter);
                         //Notifica
