@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -260,7 +261,7 @@ public class ChatService extends Service {
                 .setSmallIcon(R.drawable.icon_notity)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION), AudioManager.STREAM_NOTIFICATION)
+                .setSound(Uri.parse("android.resource://com.vegadvisor.client/" + R.raw.ringtone), AudioManager.STREAM_NOTIFICATION)
                 .setVibrate(new long[]{1000, 1000, 1000, 1000})
                 .setLights(Color.GREEN, 1000, 1000);
         // Crea intent
