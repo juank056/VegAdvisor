@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginLeft="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.ContactoActivity"
         tools:showIn="@layout/activity_contacto">
@@ -18,5 +19,64 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <!-- Título teléfonos -->
+        <TextView
+            android:id="@+id/phone_title"
+            android:text="@string/contact_phone_title"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#0066ff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <!-- Teléfono 1 -->
+        <TextView
+            android:id="@+id/phone1"
+            android:text="@string/contact_phone1"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Teléfono 2 -->
+        <TextView
+            android:id="@+id/phone2"
+            android:text="@string/contact_phone2"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
+        <!-- Título email -->
+        <TextView
+            android:id="@+id/email_title"
+            android:text="@string/contact_email_title"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="#0066ff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <!-- dirección email -->
+        <TextView
+            android:id="@+id/email_contact"
+            android:text="@string/contact_email_contact"
+            android:autoLink="email"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
     </LinearLayout>
 </ScrollView>

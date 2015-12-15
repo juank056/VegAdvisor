@@ -48,7 +48,7 @@ public class DetalleEstabActivity extends VegAdvisorActivity implements GoogleAp
     private GoogleApiClient mGoogleApiClient;
 
     /**
-     * Campos edit text de la pantalla
+     * Campos text view de la pantalla
      */
     private TextView nombreEstab, descripcion, direccion, telefono, apertura, cierre;
 

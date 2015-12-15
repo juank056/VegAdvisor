@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.CrearHiloActivity"
         tools:showIn="@layout/activity_crear_hilo">
@@ -18,5 +20,46 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <TextView
+            android:id="@+id/foro_newthread_title"
+            android:text="@string/foro_thread_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/foro_newthread_name"
+            android:hint="@string/foro_thread_title"
+            android:inputType="textCapWords"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/foro_description_title"
+            android:text="@string/foro_newthread_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/foro_newthread_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/descripcion"
+            android:inputType="text"
+            android:lines="3" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/foro_btn_sendnew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/enviar"/>
     </LinearLayout>
 </ScrollView>

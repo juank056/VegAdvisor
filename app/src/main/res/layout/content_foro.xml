@@ -10,6 +10,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.ForoActivity"
         tools:showIn="@layout/activity_foro">
@@ -17,5 +18,20 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crear_hilo"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <ListView
+            android:id="@+id/listaForo"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
     </LinearLayout>
 </ScrollView>

@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.RespuestaHiloActivity"
         tools:showIn="@layout/activity_respuesta_hilo">
@@ -18,5 +20,73 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/foro_hilo"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/foro_hilo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/establecimiento"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:id="@+id/foro_respuestaheader"
+            android:text="@string/respuesta_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/foro_respuesta"
+            android:hint="@string/foro_respuesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:lines="6"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/imagenes"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <LinearLayout
+            android:id="@+id/imagenes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/b2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="5dp"
+                android:src="@drawable/plus"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <Button
+            android:id="@+id/foro_btn_envRespuesta"
+            android:text="@string/enviar"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </ScrollView>

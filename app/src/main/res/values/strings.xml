@@ -103,4 +103,26 @@
     <string name="nuevo_mensaje"><![CDATA[Mensaje de &1]]></string>
     <string name="nuevos_mensajes_one"><![CDATA[&1 mensajes de &2]]></string>
     <string name="nuevos_mensajes"><![CDATA[&1 mensajes de &2 conversaciones]]></string>
+    <string name="contact_phone_title">Teléfonos de contacto:</string>
+    <string name="contact_phone1">Teléfono 1: +34 636 636 636</string>
+    <string name="contact_phone2">Teléfono 2: +34 659 659 659</string>
+    <string name="contact_email_contact">Email: vegadvisor@vegadvisor.com</string>
+    <string name="contact_email_title">¡Mándanos un email!</string>
+    <string name="nombre_evento">Nombre Evento:</string>
+    <string name="hint_evento">Pe: Feria Vegana</string>
+    <string name="tipo_evento">Tipo Evento</string>
+    <string name="fecha_evento">Fecha:</string>
+    <string name="hora_evento">Hora</string>
+    <string name="comienzo_evento">Comienzo</string>
+    <string name="finalizacion_evento">Finalización</string>
+    <string name="foro_thread_title">Título Nuevo Hilo</string>
+    <string name="foro_newthread_description">Descripción</string>
+    <string name="detalle_titulothread">Detalle título</string>
+    <string name="detalle_descriptionThread">Detalle descripción hilo</string>
+    <string name="respuesta_header">Respuesta:</string>
+    <string name="foro_respuesta">Respuesta...</string>
+    <string name="foro_hilo">Hilo</string>
+    <string name="detalle_respuesta">Detalle respuesta</string>
+    <string name="crear_hilo">+ Nuevo Hilo</string>
+    <string name="crear_evento">+ Evento</string>
 </resources>
