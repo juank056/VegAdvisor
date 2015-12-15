@@ -46,7 +46,7 @@ public class ContactoActivity extends VegAdvisorActivity implements View.OnClick
         Intent intent;
         //Comprobación de View clickada
         switch(v.getId()){
-            //Si clickó teléfono 1
+            //Si clicó teléfono 1
             case R.id.phone1:
                 //Intent para lanzar aplicación nativa de llamada
                 intent = new Intent(Intent.ACTION_CALL, Uri.parse(Constants.TEL + telefonoUno.getText().toString().trim()));
@@ -56,7 +56,7 @@ public class ContactoActivity extends VegAdvisorActivity implements View.OnClick
                     startActivity(intent);
                 }
                 break;
-            //Si clickó teléfono 2
+            //Si clicó teléfono 2
             case R.id.phone2:
                 //Intent para lanzar aplicación nativa de llamada
                 intent = new Intent(Intent.ACTION_CALL, Uri.parse(Constants.TEL + telefonoDos.getText().toString().trim()));
