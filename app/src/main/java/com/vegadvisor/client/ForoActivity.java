@@ -59,6 +59,8 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
         //Botón crear nuevo hilo del foro
         findViewById(R.id.b1).setOnClickListener(this);
         findViewById(R.id.btn_crearHilo).setOnClickListener(this);
+
+        busqueda = (EditText)findViewById(R.id.busqueda);
         //Trae hilos de foro de la base de datos
         SessionData.getInstance().executeServiceList(381,
                 getResources().getString(R.string.forum_findForumThreads),
