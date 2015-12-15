@@ -101,6 +101,10 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                         //Introduce el objeto en la lista
                         listForoScreen.add(HiloScreen);
                     }
+
+                    /* Cambio Git
+
+                     */
                     //Para incluir elementos de la lista
                    /*ArrayAdapter<String> adapter = new ArrayAdapter<String>(ForoActivity.this,
                             android.R.layout.simple_list_item_1, listForoScreen);
