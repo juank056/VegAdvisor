@@ -200,6 +200,7 @@ public class ChatActivity extends VegAdvisorActivity implements AdapterView.OnIt
     }
 
 
+
     /**
      * Busca usuarios de chat
      */
@@ -210,7 +211,6 @@ public class ChatActivity extends VegAdvisorActivity implements AdapterView.OnIt
                 this.createParametersMap("clue", busqueda.getText().toString().trim()), new TypeToken<List<Usmusuar>>() {
                 }.getType());
     }
-
     /**
      * Callback method to be invoked when an item in this AdapterView has
      * been clicked.

@@ -23,7 +23,7 @@ import java.util.Map;
 public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClickListener {
 
     /* Encabezados: Título del Nuevo Hilo y Descripción */
-    private TextView titleHeader,descriptionHeader;
+    private TextView titleHeader, descriptionHeader;
 
     /* Contenido: Título del Nuevo Hilo y Descripción */
     private EditText titleThread, description;
@@ -37,12 +37,12 @@ public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClic
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Recupera información de TextViews del layout
-        titleHeader = (TextView)findViewById(R.id.foro_newthread_title);
-        descriptionHeader = (TextView)findViewById(R.id.foro_description_title);
+        titleHeader = (TextView) findViewById(R.id.foro_newthread_title);
+        descriptionHeader = (TextView) findViewById(R.id.foro_description_title);
 
         // Recupera información de EditTexts del layout
-        titleThread = (EditText)findViewById(R.id.foro_newthread_name);
-        description = (EditText)findViewById(R.id.foro_newthread_description);
+        titleThread = (EditText) findViewById(R.id.foro_newthread_name);
+        description = (EditText) findViewById(R.id.foro_newthread_description);
 
         findViewById(R.id.foro_btn_sendnew).setOnClickListener(this);
 
@@ -56,15 +56,11 @@ public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClic
             //Asigna parametros
             //Obtiene usuario de la sesión
             parameters.put("userId", SessionData.getInstance().getUserId());
-            //parameters.put("Date", name.getText().toString().trim());
-            //parameters.put("Time", lastName.getText().toString().trim());
-            parameters.put("title", titleThread.getText().toString().trim());
-            parameters.put("description", description.getText().toString().trim());
+            parameters.put("threadTitle", titleThread.getText().toString().trim());
+            parameters.put("threadDetail", description.getText().toString().trim());
             //Llama servicio para registrar el nuevo hilo en el foro
-            SessionData.getInstance().executeServiceRV(1, getResources().getString(R.string.user_createUser), parameters);
+            SessionData.getInstance().executeServiceRV(401, getResources().getString(R.string.forum_createForumThread), parameters);
 
-            Intent intent = new Intent (CrearHiloActivity.this, ForoActivity.class);
-            startActivity(intent);
         }
     }
 
@@ -92,7 +88,7 @@ public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClic
      * @param service Servicio que se ha llamado
      * @param result  Resultado de la ejecución
      */
-    /*public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
+    public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         //Super
         super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
@@ -107,14 +103,8 @@ public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClic
                     Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                     //Revisa respuesta
                     if (Constants.ONE.equals(result.getValidationInd())) {//Registro OK
-                        //Existe un usuario en sesion
-                        SessionData.getInstance().setUser(true);
-                        //Asigna pais y ciudad del usuario
-                        SessionData.getInstance().setUserId(userId.getText().toString().trim());
                         //Crea intent para ir al foro
-                        Intent intent = new Intent (CrearHiloActivity.this, ForoActivity.class);
-                        //Flags para limpiar stack
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        Intent intent = new Intent(CrearHiloActivity.this, ForoActivity.class);
                         //Navega
                         startActivity(intent);
                         finish();
@@ -122,5 +112,5 @@ public class CrearHiloActivity extends VegAdvisorActivity implements View.OnClic
                 }
             }
         });
-    }*/
+    }
 }
