@@ -337,4 +337,9 @@ public class Constants {
      * User conversation
      */
     public static final String USER_CONVERSATION = "USER_CONVERSATION";
+
+    /**
+     * Tamaño del rango de busqueda de fechas
+     */
+    public static final int RANGE_SIZE = 10;
 }

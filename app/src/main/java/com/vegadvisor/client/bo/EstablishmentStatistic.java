@@ -7,7 +7,6 @@ package com.vegadvisor.client.bo;
 import com.vegadvisor.client.util.Constants;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,7 +30,7 @@ public class EstablishmentStatistic {
 	/**
 	 * Fecha del dia de consulta
 	 */
-	private Date day;
+	private String day;
 
 	/**
 	 * Numero de checkins del dia
@@ -89,7 +88,7 @@ public class EstablishmentStatistic {
 	/**
 	 * @return the day
 	 */
-	public Date getDay() {
+	public String getDay() {
 		return day;
 	}
 
@@ -97,7 +96,7 @@ public class EstablishmentStatistic {
 	 * @param day
 	 *            the day to set
 	 */
-	public void setDay(Date day) {
+	public void setDay(String day) {
 		this.day = day;
 	}
 

@@ -1,23 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.vegadvisor.client.EstadisticasEstabActivity"
+    tools:showIn="@layout/activity_estadisticas_estab">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rango_consulta"
+        android:textColor="@color/wallet_link_text_light"/>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/fecha_inicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:hint="@string/fecha_inicio"
+            android:inputType="date"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/fecha_fin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:hint="@string/fecha_fin"
+            android:inputType="date"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ver"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <RadioGroup
+            android:id="@+id/group"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/graph1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prom_checkin"/>
+
+            <RadioButton
+                android:id="@+id/graph2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/prom_estrellas"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.vegadvisor.client.EstadisticasEstabActivity"
-        tools:showIn="@layout/activity_estadisticas_estab">
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="60dp"/>
-
-
-    </LinearLayout>
-</ScrollView>
+        android:orientation="vertical"/>
+</LinearLayout>

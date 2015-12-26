@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--URLs ruta de servicios rest servidor de aplicaciones -->
-    <item name="server_path" type="string">http://10.10.3.11:8080/VegAdvisor_Server/rest</item>
+    <item name="server_path" type="string">http://10.10.3.147:8080/VegAdvisor_Server/rest</item>
     <item name="use_cloud_front" type="string">true</item>
     <item name="cloud_front_path" type="string">http://d3sr8z6zbsxrla.cloudfront.net/</item>
     <!-- Parametros de configuracion del chat -->
-    <item name="chat_server_ip" type="string">10.10.3.11</item>
+    <item name="chat_server_ip" type="string">10.10.3.147</item>
     <item name="chat_server_port" type="string">9090</item>
     <!--URLs para servicios de usuarios -->
     <item name="user_findUserById" type="string">/user/findUserById</item>
