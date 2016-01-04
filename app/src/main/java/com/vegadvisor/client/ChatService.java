@@ -105,8 +105,11 @@ public class ChatService extends Service {
         //Obtiene id del usuario de las perferencias
         //Obtiene shared Preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        //Obtiene nombre de usuario
-        userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
+        //Obtiene nombre de usuario de la sesion si la hay
+        if (SessionData.getInstance().getUserId() != null && !Constants.BLANKS.equals(SessionData.getInstance().getUserId()))
+            userId = SessionData.getInstance().getUserId();
+        else /*Toma nombre de preferencias*/
+            userId = sharedPref.getString(Constants.USERID_PREFERENCE, Constants.BLANKS);
         //Dirección Ip
         ipAddress = getResources().getString(R.string.chat_server_ip);
         //Puerto
