@@ -15,6 +15,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.EstablishmentStatistic;
 import com.vegadvisor.client.util.Constants;
@@ -175,7 +176,6 @@ public class EstadisticasEstabActivity extends VegAdvisorActivity implements Vie
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.d(Constants.DEBUG, "HA CAMBIADO LA CONFIGURACIÓN!!!!");
         //Regenera graficas
         reDrawGraphic();
     }
@@ -184,8 +184,6 @@ public class EstadisticasEstabActivity extends VegAdvisorActivity implements Vie
      * Se engarga de recalcular las graficas del establecimiento
      */
     private void recalculateGraphics() {
-        //
-        Log.d(Constants.DEBUG, "RECALCULANDO GRAFICAS");
         //Obtiene estadisticas del establecimiento para el rango dado
         Map<String, String> params = new HashMap<>();
         params.put("establishmentId", Constants.BLANKS + SessionData.getInstance().getUserEstab().getEstcestnk());
@@ -202,32 +200,47 @@ public class EstadisticasEstabActivity extends VegAdvisorActivity implements Vie
      * Vuelve a pintar las graficas
      */
     private boolean reDrawGraphic() {
-        Log.d(Constants.DEBUG, "RE-DIBUJANDO GRAFICAS");
         //Verifica que se tengan
         if (statistics == null) {/*No hay statistics*/
             //Finaliza
             return false;
         }
+        Log.d(Constants.DEBUG, "RE-DIBUJANDO GRAFICAS: " + statistics);
+        //Inicia ArrayList de entradas
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(4f, 0));
-        entries.add(new BarEntry(8f, 1));
-        entries.add(new BarEntry(6f, 2));
-        entries.add(new BarEntry(12f, 3));
-        entries.add(new BarEntry(18f, 4));
-        entries.add(new BarEntry(9f, 5));
+        //Inicia ArrayList de labels
         ArrayList<String> labels = new ArrayList<>();
-        labels.add("January");
-        labels.add("February");
-        labels.add("March");
-        labels.add("April");
-        labels.add("May");
-        labels.add("June");
-        BarDataSet dataset = new BarDataSet(entries, "# of Calls");
+        //Contador
+        int cont = 0;
+        //Recorre registros obtenidos
+        for (EstablishmentStatistic statistic : statistics) {
+            //Label del dia
+            labels.add(DateUtils.getDateString(new Date(Long.valueOf(statistic.getDay()))));
+            //Revisa de acuerdo a la grafica a dibujar
+            if (graph1.isChecked()) {/*Numero de Check-ins*/
+                //Pone checkins
+                entries.add(new BarEntry((float) statistic.getCheckins(), cont));
+            } else {/*Promedio de estrellas*/
+                //Calcula promedio del dia de estrellas
+                entries.add(new BarEntry(statistic.getAverageStars(), cont));
+            }
+            //Incrementa contador
+            cont++;
+        }
+        //Titulo del dataset
+        String title = graph1.isChecked() ? getResources().getString(R.string.prom_checkin) :
+                getResources().getString(R.string.prom_estrellas);
+        //Inicia dataset
+        BarDataSet dataset = new BarDataSet(entries, title);
+        dataset.setColors(ColorTemplate.JOYFUL_COLORS);
+        //Barchart
         BarChart chart = new BarChart(this);
+        //Datos
         BarData data = new BarData(labels, dataset);
+        //Los asigna
         chart.setData(data);
-        chart.setDescription("# of times Alice called Bob");
-        //setContentView(chart);
+        chart.setDescription(title);
+        //Ingresa la grafica en el container
         container.removeAllViews();
         container.addView(chart, 0);
         //Dimensiones del chart
