@@ -71,13 +71,14 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
 
     @Override
     public void onClick(View v) {
-        // Navega a actividad de creación de hilos del foro
         Intent intent;
         switch (v.getId()) {
+            // Navega a actividad de creación de hilos del foro
             case R.id.btn_crearHilo:
                 intent = new Intent(ForoActivity.this, CrearHiloActivity.class);
                 startActivity(intent);
                 break;
+            // Actividad de búsquedad de hilo
             case R.id.b1:
                 SessionData.getInstance().executeServiceList(381,
                         getResources().getString(R.string.forum_findForumThreads),
@@ -115,7 +116,7 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                                 Fomhilfo hilo = listHilos.get(position);
                                 //Titulo del foro
                                 String title = hilo.getHiftituaf() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
-                                        hilo.getHiffregff() + Constants.BLANK_SPACE + hilo.getUserName() + getResources().getString(R.string.estrellas)
+                                        hilo.getHiffregff() + Constants.BLANK_SPACE + hilo.getUserName()
                                         + Constants.RIGHT_PARENTHESIS;
                                 row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                                 row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);

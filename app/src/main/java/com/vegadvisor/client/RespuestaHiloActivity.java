@@ -46,7 +46,6 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
 
         //Encabezado campo hilo y campo respuesta
         hilo = (TextView)findViewById(R.id.foro_hilo);
-        respuestaHeader = (TextView)findViewById(R.id.foro_respuestaheader);
         //Respuesta
         respuestaContent = (EditText)findViewById(R.id.foro_respuesta);
         //Boton enviar respuesta y botón imagen ejecuta método onClick()
@@ -66,7 +65,6 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
         hilo.setText(hiloForo.getHifdetaaf());
     }
 
-    /* TODO
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
         //Super
@@ -74,11 +72,25 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                //Revisa respuesta obtenida
+                if (result == null) {
+                    //Muestra mensaje de error de conexión
+                    Toast.makeText(getApplicationContext(), R.string.error_conexion, Toast.LENGTH_SHORT).show();
+                } else {
+                    //Despliega mensaje recibido
+                    Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Revisa respuesta
+                    if (Constants.ONE.equals(result.getValidationInd())) {//Registro OK
+                        //Crea intent para ir al foro
+                        Intent intent = new Intent(RespuestaHiloActivity.this, DetalleHiloActivity.class);
+                        //Navega
+                        startActivity(intent);
+                        finish();
+                    }
+                }
             }
-        }
+        });
     }
-
-    */
 
     /**
      * Recoge evento click sobre un botón y lleva a cabo una acción en función de cual haya sido
@@ -92,8 +104,6 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
                 break;
         }
     }
-
-
 
     /**
      * Metodo para validar los datos de respuesta y registrarla en el sistema

@@ -125,10 +125,9 @@
     <string name="detalle_respuesta">Detalle respuesta</string>
     <string name="crear_hilo">+ Nuevo Hilo</string>
     <string name="crear_evento">+ Evento</string>
-    <string name="rango_consulta">Rango de Consulta</string>
-    <string name="fecha_inicio">Fecha Inicial</string>
-    <string name="fecha_fin">Fecha Fin</string>
-    <string name="ver">Ver</string>
-    <string name="prom_checkin">Promedio Check-In</string>
-    <string name="prom_estrellas">Promedio Estrellas</string>
+    <string name="comentar">Comentar</string>
+    <string name="comentario_evento">Escribe aquí tu comentario...</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="comentarios_otros_usuarios">Comentarios sobre el evento por otros usuarios</string>
+    <string name="guardar_cambios">Guardar cambios</string>
 </resources>

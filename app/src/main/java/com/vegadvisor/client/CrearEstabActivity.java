@@ -485,7 +485,7 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
     }
 
     /**
-     * Obtiene Lista de nombres de paises
+     * Obtiene Lista de nombres de c
      */
     private void getCspCiudaData() {
         //Revisa que haya un pais seleccionado
@@ -509,7 +509,7 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
     }
 
     /**
-     * Obtiene Lista de nombres de ciudades
+     * Obtiene Lista de nombres de países
      */
     private void getCsptpaisData() {
         //Obtiene clue de pais
@@ -581,7 +581,7 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                     getResources().getText(R.string.pais).toString(), Toast.LENGTH_SHORT).show();
             return false;
         }
-        //Ciuddad
+        //Ciudad
         if (selectedCiudad == null) {
             Toast.makeText(getApplicationContext(), getResources().getText(R.string.campoInvalido).toString() +
                     getResources().getText(R.string.ciudad).toString(), Toast.LENGTH_SHORT).show();
@@ -668,7 +668,8 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                 estabLocation = latLng;
                 new AlertDialog.Builder(CrearEstabActivity.this).setTitle(R.string.seleccionar_ubicacion)
                         .setPositiveButton(R.string.aceptar, CrearEstabActivity.this)
-                        .setNegativeButton(R.string.cancelar, null)
+                        .setNegativeButton(
+                                R.string.cancelar, null)
                         .show();
             }
         });

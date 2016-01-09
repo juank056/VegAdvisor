@@ -18,5 +18,63 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+        <TextView
+            android:id="@+id/foro_newthread_title"
+            android:text="@string/foro_thread_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/foro_newthread_name"
+            android:hint="@string/foro_thread_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:id="@+id/detalle_hilo_descripcion_title"
+            android:text="@string/foro_newthread_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/detalle_hilo_descripcion_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/descripcion"
+            android:inputType="text"
+            android:lines="3" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/comentarios"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <ListView
+            android:id="@+id/listaRespuesta"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"/>
+        
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/foro_btn_responder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/comentar"/>
     </LinearLayout>
 </ScrollView>

@@ -18,5 +18,225 @@
         <Space
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        <!-- Asistir a evento -->
+
+        <Button
+            android:text="Asistiré"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+
+            <Button
+                android:text="Editar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- Nombre evento -->
+
+        <!-- Tipo Evento -->
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tipo_evento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/tipo_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tipo_evento"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <!-- Fecha de evento -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fecha_evento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/fecha_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- Horario Evento -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hora_evento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <!-- Hora comienzo evento -->
+            <TextView
+                android:id="@+id/comienzo_evento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/comienzo_evento"
+                android:inputType="time"
+                android:singleLine="true"/>
+
+            <!-- Hora finalización evento -->
+            <TextView
+                android:id="@+id/finalizacion_evento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/finalizacion_evento"
+                android:inputType="time"
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <!-- Direccion Evento -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/direccion"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/direccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/direccion"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <!-- Descripción evento -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:id="@+id/descripcion_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/descripcion"
+            android:inputType="textCapSentences"
+            android:lines="3"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <!-- Mapa de google -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ubicacion"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <fragment
+            android:id="@+id/ubicacion"
+            class="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:text="@string/comentarios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <TextView
+            android:hint="@string/comentarios_otros_usuarios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
+        <!-- INTERACCIÓN EVENTO -->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/wallet_link_text_light"
+            android:text="@string/comentar"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="top"
+            android:hint="@string/comentario_evento"
+            android:lines="4"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/imagenes"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:id="@+id/imagenes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/b2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="5dp"
+                android:src="@drawable/plus"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Button
+            android:id="@+id/b1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/enviar"/>
+
+
     </LinearLayout>
 </ScrollView>
