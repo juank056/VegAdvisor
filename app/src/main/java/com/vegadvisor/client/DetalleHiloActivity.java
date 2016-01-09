@@ -1,19 +1,24 @@
 package com.vegadvisor.client;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TwoLineListItem;
 
 import com.vegadvisor.client.bo.Fodreshi;
 import com.vegadvisor.client.bo.Fomhilfo;
+import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.DateUtils;
+import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
 import java.util.List;
@@ -39,15 +44,54 @@ public class DetalleHiloActivity extends VegAdvisorActivity implements View.OnCl
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        listaRespuestas = (ListView)findViewById(R.id.listaRespuesta);
-
-        nombreHilo = (TextView)findViewById(R.id.foro_newthread_name);
-        descripcion = (TextView)findViewById(R.id.detalle_hilo_descripcion_content);
+        listaRespuestas = (ListView) findViewById(R.id.listaRespuesta);
+        nombreHilo = (TextView) findViewById(R.id.foro_newthread_name);
+        descripcion = (TextView) findViewById(R.id.detalle_hilo_descripcion_content);
         findViewById(R.id.foro_btn_responder).setOnClickListener(this);
-
+        //Asigna respuestas
+        createResponseList();
     }
 
+    /**
+     * Asigna lista de respuestas de hilo de foro
+     */
+    @SuppressWarnings("unchecked")
+    private void createResponseList() {
+        //Objeto Fomhilfo
+        Fomhilfo hilfo = SessionData.getInstance().getForumThread();
+        //Lista de hilos
+        respuestas_hilo_BD = hilfo.getResponses();
+        //Para incluir elementos de la lista
+        ArrayAdapter adapter = new ArrayAdapter(DetalleHiloActivity.this,
+                android.R.layout.simple_list_item_2, respuestas_hilo_BD) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TwoLineListItem row;
+                if (convertView == null) {
+                    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    row = (TwoLineListItem) inflater.inflate(android.R.layout.simple_list_item_2, null);
+                } else {
+                    row = (TwoLineListItem) convertView;
+                }
+                Fodreshi resp = respuestas_hilo_BD.get(position);
+                //Titulo del foro
+                String title = resp.getUserName() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
+                        DateUtils.getDateString(resp.getRhffregff()) + Constants.BLANK_SPACE + resp.getRhfhoratf()
+                        + Constants.RIGHT_PARENTHESIS;
+                row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                row.getText1().setText(title);
+                row.getText2().setText(resp.getRhfdetaaf());
+                row.getText1().setTextColor(Color.BLACK);
+                row.getText2().setTextColor(Color.DKGRAY);
+                return row;
+            }
+        };
+        //Incluye nuevos registros
+        listaRespuestas.setAdapter(adapter);
+        //Notifica
+        adapter.notifyDataSetChanged();
+    }
 
 
     @Override

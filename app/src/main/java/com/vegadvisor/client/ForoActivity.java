@@ -127,10 +127,6 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                                 return row;
                             }
                         };
-                        if (listaForo == null)
-                            Log.d(Constants.DEBUG, "LISTA  ES NULLA");
-                        if (adapter == null)
-                            Log.d(Constants.DEBUG, "ADAPTER ES NULL");
                         //Incluye nuevos registros
                         listaForo.setAdapter(adapter);
                         //Notifica

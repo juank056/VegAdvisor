@@ -76,6 +76,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/hora_evento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/hora_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/establecimiento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/establecimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/establecimiento"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/pais"
             android:textColor="@color/wallet_link_text_light"/>
 
@@ -101,6 +133,24 @@
             android:layout_height="wrap_content"
             android:hint="@string/ciudad"/>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/localizacion"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/localizacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/localizacion"
+            android:inputType="textCapSentences"
+            android:lines="3"/>
         <Space
             android:layout_width="match_parent"
             android:layout_height="5dp"/>

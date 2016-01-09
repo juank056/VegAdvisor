@@ -130,4 +130,12 @@
     <string name="comentarios">Comentarios</string>
     <string name="comentarios_otros_usuarios">Comentarios sobre el evento por otros usuarios</string>
     <string name="guardar_cambios">Guardar cambios</string>
+    <string name="rango_consulta">Rango Consulta</string>
+    <string name="fecha_inicio">Fecha Inicio</string>
+    <string name="fecha_fin">Fecha Fin</string>
+    <string name="ver">Ver</string>
+    <string name="prom_checkin">Promedio Check-in</string>
+    <string name="prom_estrellas">Promedio Estrellas</string>
+    <string name="buscar_hilo">Buscar Hilo</string>
+    <string name="localizacion">Localización</string>
 </resources>

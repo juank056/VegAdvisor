@@ -16,13 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vegadvisor.client.bo.Fodreshi;
+import com.vegadvisor.client.bo.FodreshiId;
 import com.vegadvisor.client.bo.Fomhilfo;
 import com.vegadvisor.client.bo.ReturnValidation;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.DateUtils;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 public class RespuestaHiloActivity extends VegAdvisorActivity implements View.OnClickListener {
@@ -45,9 +49,9 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Encabezado campo hilo y campo respuesta
-        hilo = (TextView)findViewById(R.id.foro_hilo);
+        hilo = (TextView) findViewById(R.id.foro_hilo);
         //Respuesta
-        respuestaContent = (EditText)findViewById(R.id.foro_respuesta);
+        respuestaContent = (EditText) findViewById(R.id.foro_respuesta);
         //Boton enviar respuesta y botón imagen ejecuta método onClick()
         findViewById(R.id.foro_btn_envRespuesta).setOnClickListener(this);
 
@@ -81,6 +85,16 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
                     Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                     //Revisa respuesta
                     if (Constants.ONE.equals(result.getValidationInd())) {//Registro OK
+                        //Fecha actual
+                        Date current = DateUtils.getCurrentUtilDate();
+                        //Registro de respuesta
+                        Fodreshi reshi = new Fodreshi(null, SessionData.getInstance().getUserId(), current,
+                                DateUtils.getTimeString(current), respuestaContent.getText().toString());
+                        //Nombre de usuario
+                        reshi.setUserName(SessionData.getInstance().getUsuarObject().getUsunusuaf()
+                                + Constants.BLANK_SPACE + SessionData.getInstance().getUsuarObject().getUsuapelaf());
+                        //Ingresa nuevo registro a la lista de respuestas
+                        hiloForo.getResponses().add(reshi);
                         //Crea intent para ir al foro
                         Intent intent = new Intent(RespuestaHiloActivity.this, DetalleHiloActivity.class);
                         //Navega
@@ -94,11 +108,12 @@ public class RespuestaHiloActivity extends VegAdvisorActivity implements View.On
 
     /**
      * Recoge evento click sobre un botón y lleva a cabo una acción en función de cual haya sido
+     *
      * @param v, botón clicado
      */
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.foro_btn_envRespuesta:
                 saveReplicaHilo();
                 break;

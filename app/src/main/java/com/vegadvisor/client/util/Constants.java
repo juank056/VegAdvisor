@@ -342,4 +342,9 @@ public class Constants {
      * Tamaño del rango de busqueda de fechas
      */
     public static final int RANGE_SIZE = 10;
+
+    /**
+     * Hora por defecto
+     */
+    public static final String DEF_TIME = "12:00:00";
 }

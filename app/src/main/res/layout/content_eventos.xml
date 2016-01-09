@@ -29,7 +29,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="5"
-                android:hint="@string/id_usuario"
+                android:hint="@string/nombre_evento"
                 android:singleLine="true"/>
 
             <ImageButton
