@@ -32,7 +32,8 @@
             android:id="@+id/tipo_evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/tipo_evento"/>
+            android:hint="@string/tipo_evento"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -51,7 +52,8 @@
             android:gravity="top"
             android:hint="@string/descripcion"
             android:inputType="textCapSentences"
-            android:lines="3"/>
+            android:lines="3"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -67,7 +69,8 @@
             android:id="@+id/fecha_evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"/>
+            android:inputType="date"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -83,7 +86,8 @@
             android:id="@+id/hora_evento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="time"/>
+            android:inputType="time"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -99,7 +103,8 @@
             android:id="@+id/establecimiento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/establecimiento"/>
+            android:hint="@string/establecimiento"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -115,7 +120,8 @@
             android:id="@+id/pais"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/pais"/>
+            android:hint="@string/pais"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -131,7 +137,8 @@
             android:id="@+id/ciudad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/ciudad"/>
+            android:hint="@string/ciudad"
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"
@@ -150,7 +157,7 @@
             android:gravity="top"
             android:hint="@string/localizacion"
             android:inputType="textCapSentences"
-            android:lines="3"/>
+            android:singleLine="true"/>
 
         <Space
             android:layout_width="match_parent"

@@ -53,7 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CrearEventoActivity extends VegAdvisorActivity implements DialogInterface.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+public class CrearEventoActivity extends VegAdvisorActivity implements DialogInterface.OnClickListener,
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     /**
      * Mapa
@@ -372,8 +373,7 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
      */
     @Override
     public void receiveServerCallResult(final int serviceId, final String service, final ReturnValidation result) {
-        Log.d(Constants.DEBUG, "Respuesta Recibida: " + serviceId + ". Service: " + service + " Res: " + result);
-        //Super
+         //Super
         super.receiveServerCallResult(serviceId, service, result);
         runOnUiThread(new Runnable() {
             @Override

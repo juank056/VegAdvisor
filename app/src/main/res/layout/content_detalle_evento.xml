@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.DetalleEventoActivity"
@@ -27,148 +27,155 @@
             <!-- Asistir a evento -->
 
             <Button
+                android:id="@+id/b1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Asistiré"/>
+                android:text="@string/asistire"/>
 
             <Button
+                android:id="@+id/b2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Editar"/>
+                android:text="@string/editar"/>
 
         </LinearLayout>
 
-        <!-- Nombre evento -->
-
-        <!-- Tipo Evento -->
-        <Space
+        <ViewFlipper
+            android:id="@+id/imagenes"
             android:layout_width="match_parent"
-            android:layout_height="20dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_evento"
-            android:textColor="@color/wallet_link_text_light"/>
-
-        <TextView
-            android:id="@+id/tipo_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tipo_evento"/>
+            android:layout_height="200dp"
+            />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="5dp"/>
 
-        <!-- Fecha de evento -->
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fecha_evento"
-            android:textColor="@color/wallet_link_text_light"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/fecha_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <!-- Horario Evento -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_evento"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hora_evento"
-            android:textColor="@color/wallet_link_text_light"/>
+                <TextView
+                    android:id="@+id/tipo_evento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tipo_evento"/>
 
-        <!-- Hora comienzo evento -->
-        <TextView
-            android:id="@+id/comienzo_evento"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:inputType="time"
-            android:singleLine="true"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
 
-        <!-- Direccion Evento -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/direccion"
-            android:textColor="@color/wallet_link_text_light"/>
+                <TextView
+                    android:id="@+id/descripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/descripcion"/>
 
-        <TextView
-            android:id="@+id/direccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/direccion"
-            android:singleLine="true"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/localizacion"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+                <TextView
+                    android:id="@+id/localizacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:text="@string/localizacion"/>
 
-        <!-- Descripción evento -->
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/descripcion"
-            android:textColor="@color/wallet_link_text_light"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fecha_evento"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <TextView
-            android:id="@+id/descripcion_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="@string/descripcion"
-            android:inputType="textCapSentences"
-            android:lines="3"/>
+                <TextView
+                    android:id="@+id/fecha_evento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fecha_evento"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
 
-        <!-- Mapa de google -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hora_evento"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ubicacion"
-            android:textColor="@color/wallet_link_text_light"/>
+                <TextView
+                    android:id="@+id/hora_evento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hora_evento"/>
 
-        <fragment
-            android:id="@+id/ubicacion"
-            class="com.google.android.gms.maps.MapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"/>
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"/>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participantes"
+                    android:textColor="@color/wallet_link_text_light"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/comentarios"
-            android:textColor="@color/wallet_link_text_light"/>
+                <TextView
+                    android:id="@+id/numParticip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participantes"/>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/comentarios_otros_usuarios"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ubicacion"
+                    android:textColor="@color/wallet_link_text_light"/>
+
+                <fragment
+                    android:id="@+id/ubicacion"
+                    class="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

@@ -139,4 +139,7 @@
     <string name="buscar_hilo">Buscar Hilo</string>
     <string name="localizacion">Localización</string>
     <string name="participantes">Participantes: </string>
+    <string name="evento_activo">Evento Activo</string>
+    <string name="asistire">Asistiré</string>
+    <string name="no_asistire">No Asistiré</string>
 </resources>

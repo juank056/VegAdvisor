@@ -9,7 +9,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context="com.vegadvisor.client.EditarEventoActivity"
@@ -19,103 +19,102 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
 
-        <TextView
+        <!-- Tipo Evento -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nombre_evento"
-            android:textColor="@color/wallet_link_text_light"/>
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/nombreEvento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_evento"
-            android:singleLine="true"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/fecha_evento"
+                android:textColor="@color/wallet_link_text_light"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tipo_evento"
+                android:textColor="@color/wallet_link_text_light"/>
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/fecha_evento"
-            android:textColor="@color/wallet_link_text_light"/>
-
-        <!-- METEEEER FECHAAAA -->
-
-        <EditText
-            android:id="@+id/fecha_evento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="date"/>
-
-        <!-- Horario Evento -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hora_evento"
-            android:textColor="@color/wallet_link_text_light"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Hora comienzo evento -->
-            <EditText
-                android:id="@+id/comienzo_evento"
+            <TextView
+                android:id="@+id/fecha_evento"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/comienzo_evento"
-                android:inputType="time"
-                android:singleLine="true"/>
+                android:hint="@string/fecha_evento"
+                />
 
-            <!-- Hora finalización evento -->
-            <EditText
-                android:id="@+id/finalizacion_evento"
+            <TextView
+                android:id="@+id/tipo_evento"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="@string/finalizacion_evento"
-                android:inputType="time"
+                android:hint="@string/tipo_evento"
                 android:singleLine="true"/>
         </LinearLayout>
 
-        <!-- Tipo Evento -->
-        <TextView
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tipo_evento"
-            android:textColor="@color/wallet_link_text_light"/>
+            android:layout_height="5dp"/>
 
-        <AutoCompleteTextView
-            android:id="@+id/tipo_evento"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/tipo_evento"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/pais"
+                android:textColor="@color/wallet_link_text_light"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/ciudad"
+                android:textColor="@color/wallet_link_text_light"/>
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="5dp"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/direccion"
-            android:textColor="@color/wallet_link_text_light"/>
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/direccion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/direccion"
-            android:singleLine="true"/>
+            <TextView
+                android:id="@+id/pais"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/pais"
+                />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp"/>
+            <TextView
+                android:id="@+id/ciudad"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/ciudad"
+                android:singleLine="true"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -130,7 +129,88 @@
             android:gravity="top"
             android:hint="@string/descripcion"
             android:inputType="textCapSentences"
-            android:lines="3"/>
+            android:lines="3"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hora_evento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/hora_evento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/establecimiento"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/establecimiento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/establecimiento"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/localizacion"
+            android:textColor="@color/wallet_link_text_light"/>
+
+        <EditText
+            android:id="@+id/localizacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:hint="@string/localizacion"
+            android:inputType="textCapSentences"
+            android:singleLine="true"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="@string/evento_activo"
+                android:textColor="@color/wallet_link_text_light"/>
+
+            <CheckBox
+                android:id="@+id/activo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <Space
             android:layout_width="match_parent"
@@ -168,6 +248,7 @@
                 android:id="@+id/b2"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:contentDescription="@string/seleccionar_imagen"
                 android:padding="5dp"
                 android:src="@drawable/plus"/>
 
