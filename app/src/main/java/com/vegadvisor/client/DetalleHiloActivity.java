@@ -70,6 +70,10 @@ public class DetalleHiloActivity extends VegAdvisorActivity implements View.OnCl
     private void createResponseList() {
         //Objeto Fomhilfo
         Fomhilfo hilfo = SessionData.getInstance().getForumThread();
+        //Nombre hilo
+        nombreHilo.setText(hilfo.getHiftituaf());
+        //Detalle
+        descripcion.setText(hilfo.getHifdetaaf());
         //Lista de hilos
         respuestas_hilo_BD = hilfo.getResponses();
         //Para incluir elementos de la lista

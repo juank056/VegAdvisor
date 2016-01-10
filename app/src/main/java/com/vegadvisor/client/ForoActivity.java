@@ -20,6 +20,7 @@ import android.widget.TwoLineListItem;
 import com.google.gson.reflect.TypeToken;
 import com.vegadvisor.client.bo.Fomhilfo;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.DateUtils;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
@@ -130,7 +131,7 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
                                 Fomhilfo hilo = listHilos.get(position);
                                 //Titulo del foro
                                 String title = hilo.getHiftituaf() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
-                                        hilo.getHiffregff() + Constants.BLANK_SPACE + hilo.getUserName()
+                                        DateUtils.getDateString(hilo.getHiffregff()) + Constants.BLANK_SPACE + hilo.getUserName()
                                         + Constants.RIGHT_PARENTHESIS;
                                 row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                                 row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
