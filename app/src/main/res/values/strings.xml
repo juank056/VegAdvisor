@@ -138,4 +138,5 @@
     <string name="prom_estrellas">Promedio Estrellas</string>
     <string name="buscar_hilo">Buscar Hilo</string>
     <string name="localizacion">Localización</string>
+    <string name="participantes">Participantes: </string>
 </resources>

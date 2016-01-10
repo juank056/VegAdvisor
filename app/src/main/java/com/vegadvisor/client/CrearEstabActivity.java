@@ -276,6 +276,7 @@ public class CrearEstabActivity extends VegAdvisorActivity implements DialogInte
                             //Finaliza Actividad
                             finish();
                         }
+                        break;
                 }
             }
         });

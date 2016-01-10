@@ -1,6 +1,5 @@
 package com.vegadvisor.client.bo;
 
-import java.util.Date;
 import java.util.List;
 
 // Generated 23-oct-2015 19:39:18 by Hibernate Tools 4.3.1
@@ -29,6 +28,10 @@ public class Evmevent implements java.io.Serializable, AbstractBO<EvmeventId> {
     private String userParticipating;
     // Imagenes del evento
     private List<Evdimaev> images;
+    // Nombre del establecimiento
+    private String establishmentName;
+    // Nombre de tipo de evento
+    private String eventTypeName;
 
     public Evmevent() {
     }
@@ -101,7 +104,7 @@ public class Evmevent implements java.io.Serializable, AbstractBO<EvmeventId> {
         this.evelatinf = evelatinf;
     }
 
-    public double getevelongnf() {
+    public double getEvelongnf() {
         return this.evelongnf;
     }
 
@@ -174,6 +177,35 @@ public class Evmevent implements java.io.Serializable, AbstractBO<EvmeventId> {
     public void setEveiactsf(String eveiactsf) {
         this.eveiactsf = eveiactsf;
     }
+
+    /**
+     * @return the establishmentName
+     */
+    public String getEstablishmentName() {
+        return establishmentName;
+    }
+
+    /**
+     * @param establishmentName the establishmentName to set
+     */
+    public void setEstablishmentName(String establishmentName) {
+        this.establishmentName = establishmentName;
+    }
+
+    /**
+     * @return the eventTypeName
+     */
+    public String getEventTypeName() {
+        return eventTypeName;
+    }
+
+    /**
+     * @param eventTypeName the eventTypeName to set
+     */
+    public void setEventTypeName(String eventTypeName) {
+        this.eventTypeName = eventTypeName;
+    }
+
 
     @Override
     public EvmeventId getPrimaryKey() {

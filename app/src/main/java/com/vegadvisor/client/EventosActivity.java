@@ -3,12 +3,9 @@ package com.vegadvisor.client;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +16,23 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TwoLineListItem;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.gson.reflect.TypeToken;
+import com.vegadvisor.client.bo.Esmestab;
 import com.vegadvisor.client.bo.Evmevent;
-import com.vegadvisor.client.bo.Fomhilfo;
 import com.vegadvisor.client.util.Constants;
+import com.vegadvisor.client.util.DateUtils;
 import com.vegadvisor.client.util.SessionData;
 import com.vegadvisor.client.util.VegAdvisorActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class EventosActivity extends VegAdvisorActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class EventosActivity extends VegAdvisorActivity implements View.OnClickListener, AdapterView.OnItemClickListener
+        , GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    // Texto de busqueda del hilo
+    // Texto de busqueda de evento
     private EditText busqueda;
 
     //Lista eventos
@@ -39,6 +40,16 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
 
     //Lista eventos base datos
     private List<Evmevent> listEvBD;
+
+    /**
+     * Google api client
+     */
+    private GoogleApiClient mGoogleApiClient;
+
+    /**
+     * Latitud y longitud
+     */
+    private double latitud, longitud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +60,15 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Selecciona en pantalla evento de la lista
-        listEventos=(ListView)findViewById(R.id.listaEvento);
+        listEventos = (ListView) findViewById(R.id.listaEvento);
         listEventos.setOnItemClickListener(this);
 
         //Botón crear nuevo evento y busqueda
         findViewById(R.id.b1).setOnClickListener(this);
         findViewById(R.id.btn_CrearEvento).setOnClickListener(this);
         busqueda = (EditText) findViewById(R.id.busqueda);
-
+        //Inicia google api client
+        buildGoogleApiClient();
     }
 
     @Override
@@ -72,7 +84,11 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
             case R.id.b1:
                 SessionData.getInstance().executeServiceList(301,
                         getResources().getString(R.string.event_findEvents),
-                        this.createParametersMap("clue", busqueda.getText().toString().trim()), new TypeToken<List<Evmevent>>() {
+                        this.createParametersMap("userId", SessionData.getInstance().getUserId(),
+                                "clue", busqueda.getText().toString().trim(),
+                                "ratio", Constants.DEF_SEARCH_RATIO,
+                                "latitud", Constants.BLANKS + latitud,
+                                "longitud", Constants.BLANKS + longitud), new TypeToken<List<Evmevent>>() {
                         }.getType());
                 break;
         }
@@ -94,6 +110,7 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
 
     }
 
+    @SuppressWarnings("unchecked")
     public void receiveServerCallResult(final int serviceId, final String service,
                                         final List<?> result) {
         //Super
@@ -109,7 +126,7 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
                         //Para incluir elementos de la lista
                         ArrayAdapter adapter = new ArrayAdapter(EventosActivity.this,
                                 android.R.layout.simple_list_item_2, listEvBD) {
-                             @Override
+                            @Override
                             public View getView(int position, View convertView, ViewGroup parent) {
                                 TwoLineListItem row;
                                 if (convertView == null) {
@@ -119,10 +136,12 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
                                     row = (TwoLineListItem) convertView;
                                 }
                                 Evmevent evento = listEvBD.get(position);
-                                //Titulo del foro: Tipo evento (Fecha? Hora Ciudad?)
-                                String title = evento.getTevctevnk() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
-                                        /*evento.get + */ Constants.BLANK_SPACE + evento.getEvehoratf() + /*evento.get
-                                        + */Constants.RIGHT_PARENTHESIS;
+                                //Titulo del evento: T
+                                String title = evento.getEventTypeName() + Constants.BLANK_SPACE + Constants.LEFT_PARENTHESIS +
+                                        DateUtils.getDateString(evento.getId().getEvefevefk()) +
+                                        Constants.BLANK_SPACE + evento.getEvehoratf() +
+                                        Constants.BLANK_SPACE + getResources().getString(R.string.participantes) + evento.getEvenparnf() +
+                                        Constants.RIGHT_PARENTHESIS;
                                 row.getText1().setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                                 row.getText2().setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
                                 row.getText1().setText(title);
@@ -131,11 +150,7 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
                                 row.getText2().setTextColor(Color.DKGRAY);
                                 return row;
                             }
-                         };
-                        if (listEventos == null)
-                            Log.d(Constants.DEBUG, "LISTA  ES NULLA");
-                        if (adapter == null)
-                            Log.d(Constants.DEBUG, "ADAPTER ES NULL");
+                        };
                         //Incluye nuevos registros
                         listEventos.setAdapter(adapter);
                         //Notifica
@@ -144,6 +159,48 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
                 }
             }
         });
+    }
+
+    /*******************************
+     * GPS
+     * ===============================
+     */
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        if (mGoogleApiClient != null) {
+            //Conecta
+            mGoogleApiClient.connect();
+        }
+    }
+
+    /**
+     * Cuando se conecta con el Api de google para mapas
+     *
+     * @param bundle Bundle
+     */
+    @Override
+    public void onConnected(Bundle bundle) {
+        //Obtiene localizacion
+        Location loc = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        //Asigna latitud y longitud
+        latitud = loc.getLatitude();
+        longitud = loc.getLongitude();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        /*Nada*/
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        /*Nada*/
     }
 
 }

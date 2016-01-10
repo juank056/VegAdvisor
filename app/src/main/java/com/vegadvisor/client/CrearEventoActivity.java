@@ -119,8 +119,10 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
     //Establecimiento seleccionado
     private Esmestab selectedEstab;
 
+    //Campos de texto de la pantalla
     private EditText fecha, descripcion, hora, localizacion;
 
+    //Campos de texto autocomplete
     private AutoCompleteTextView pais, ciudad, tipo_evento, establecimiento;
 
     /**
@@ -380,7 +382,7 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
                 Toast.makeText(getApplicationContext(), result.getMessage(), Toast.LENGTH_SHORT).show();
                 //Revisa de acuerdo a lo ejecutado
                 switch (serviceId) {
-                    case 327: /*Creacion de Evento*/
+                    case 337: /*Creacion de Evento*/
                         //Revisa si fue exitosa la actualización
                         if (Constants.ONE.equals(result.getValidationInd())) {/*Exitoso*/
                             //Revisa si no habían imagenes
@@ -394,7 +396,7 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
                             } else {/*Hay Imagenes*/
                                 //Envía imágenes al servidor
                                 for (File image : eventImagesFiles) {
-                                    SessionData.getInstance().executeServiceRV(328,
+                                    SessionData.getInstance().executeServiceRV(338,
                                             getResources().getString(R.string.image_uploadEventImage),
                                             CrearEventoActivity.this.createParametersMap(
                                                     "countryCode", result.getParams().get("paicpaiak"),
@@ -406,7 +408,7 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
                             }
                         }
                         break;
-                    case 328: /*Respuesta de upload de imagen*/
+                    case 338: /*Respuesta de upload de imagen*/
                         //Incrementa contador
                         totalUploadResponses++;
                         if (totalUploadResponses == eventImagesFiles.size()) {/*Todos*/
@@ -417,6 +419,7 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
                             //Finaliza Actividad
                             finish();
                         }
+                        break;
                 }
             }
         });
@@ -519,6 +522,9 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
     }
 
 
+    /**
+     * Asigna listeners de autocomplete a los campos de autocomplete
+     */
     private void setListenerToAutocompleteFields() {
         //Para Pais
         pais.addTextChangedListener(new TextWatcher() {
@@ -661,6 +667,11 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
         }
     }
 
+    /**
+     * Valida campos y envia formulario para registro en el servidor
+     *
+     * @return Indicador de ejecucion
+     */
     private boolean validateFieldsAndSend() {
         //Tipo Establecimiento
         if (selectedTieve == null) {
@@ -701,20 +712,20 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
         //Set loading icon true
         this.setShowLoadingIcon(true);
         //Envía actualización al servidor
-        SessionData.getInstance().executeServiceRV(327,
+        SessionData.getInstance().executeServiceRV(337,
                 getResources().getString(R.string.event_createEvent),
                 this.createParametersMap(
                         "userId", SessionData.getInstance().getUserId(),
                         "countryCode", selectedPais.getPaicpaiak(),
                         "cityCode", selectedCiudad.getId().getCiucciuak(),
                         "eventName", descripcion.getText().toString().trim(),
-                        "dateEvent", fecha.getText().toString().trim().replace("-", ""),
-                        "timeEvent", hora.getText().toString().trim().replace(":", ""),
+                        "dateEvent", fecha.getText().toString().trim().replace(Constants.MINUS, Constants.BLANKS),
+                        "timeEvent", hora.getText().toString().trim().replace(Constants.TWO_POINTS, Constants.BLANKS),
                         "establishmentId", selectedEstab != null ? Constants.BLANKS + selectedEstab.getEstcestnk() : Constants.ZERO,
                         "latitud", Constants.BLANKS + eventLocation.latitude,
                         "longitud", Constants.BLANKS + eventLocation.longitude,
                         "placeName", localizacion.getText().toString().trim(),
-                        "eventType", Constants.BLANKS + selectedTieve.getTevntevaf()));
+                        "eventType", Constants.BLANKS + selectedTieve.getTevctevnk()));
         //Finaliza
         return true;
     }
@@ -765,10 +776,8 @@ public class CrearEventoActivity extends VegAdvisorActivity implements DialogInt
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
-        if (mGoogleApiClient != null) {
-            //Conecta
-            mGoogleApiClient.connect();
-        }
+        //Conecta
+        mGoogleApiClient.connect();
     }
 
     /**
