@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TwoLineListItem;
@@ -36,6 +37,14 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
     //Lista objetos de foro
     private List<Fomhilfo> listHilos;
 
+    /**
+     * Boton crear hilo
+     */
+    private Button btn_crearHilo;
+
+    /**
+     * @param savedInstanceState Instancia
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +58,13 @@ public class ForoActivity extends VegAdvisorActivity implements AdapterView.OnIt
         listaForo.setOnItemClickListener(this);
         //Botón crear nuevo hilo del foro
         findViewById(R.id.b1).setOnClickListener(this);
-        findViewById(R.id.btn_crearHilo).setOnClickListener(this);
+        btn_crearHilo = (Button) findViewById(R.id.btn_crearHilo);
+        btn_crearHilo.setOnClickListener(this);
         busqueda = (EditText) findViewById(R.id.busqueda);
+        //Si no hay usuario esconde boton de adicionar hilo foro
+        if (!SessionData.getInstance().isUser()) {
+            btn_crearHilo.setVisibility(View.GONE);
+        }
     }
 
     @Override

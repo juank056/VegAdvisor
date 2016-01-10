@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TwoLineListItem;
@@ -51,6 +52,15 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
      */
     private double latitud, longitud;
 
+    /**
+     * Boton crear evento
+     */
+    private Button btn_CrearEvento;
+
+    /**
+     * @param savedInstanceState Instancia
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +75,15 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
 
         //Botón crear nuevo evento y busqueda
         findViewById(R.id.b1).setOnClickListener(this);
-        findViewById(R.id.btn_CrearEvento).setOnClickListener(this);
+        btn_CrearEvento = (Button) findViewById(R.id.btn_CrearEvento);
+        btn_CrearEvento.setOnClickListener(this);
         busqueda = (EditText) findViewById(R.id.busqueda);
         //Inicia google api client
         buildGoogleApiClient();
+        //Si no hay usuario esconde boton de adicionar evento
+        if (!SessionData.getInstance().isUser()) {
+            btn_CrearEvento.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -84,7 +99,8 @@ public class EventosActivity extends VegAdvisorActivity implements View.OnClickL
             case R.id.b1:
                 SessionData.getInstance().executeServiceList(301,
                         getResources().getString(R.string.event_findEvents),
-                        this.createParametersMap("userId", SessionData.getInstance().getUserId(),
+                        this.createParametersMap("userId", SessionData.getInstance().isUser() ?
+                                        SessionData.getInstance().getUserId() : Constants.BLANKS,
                                 "clue", busqueda.getText().toString().trim(),
                                 "ratio", Constants.DEF_SEARCH_RATIO,
                                 "latitud", Constants.BLANKS + latitud,

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TwoLineListItem;
@@ -37,6 +38,11 @@ public class DetalleHiloActivity extends VegAdvisorActivity implements View.OnCl
     //Objeto hilo de foro
     private Fomhilfo hilo;
 
+    /**
+     * Boton crear evento
+     */
+    private Button foro_btn_responder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +53,12 @@ public class DetalleHiloActivity extends VegAdvisorActivity implements View.OnCl
         listaRespuestas = (ListView) findViewById(R.id.listaRespuesta);
         nombreHilo = (TextView) findViewById(R.id.foro_newthread_name);
         descripcion = (TextView) findViewById(R.id.detalle_hilo_descripcion_content);
-        findViewById(R.id.foro_btn_responder).setOnClickListener(this);
+        foro_btn_responder = (Button) findViewById(R.id.foro_btn_responder);
+        foro_btn_responder.setOnClickListener(this);
+        //Si no hay usuario esconde boton de responder
+        if (!SessionData.getInstance().isUser()) {
+            foro_btn_responder.setVisibility(View.GONE);
+        }
         //Asigna respuestas
         createResponseList();
     }
